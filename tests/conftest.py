@@ -26,17 +26,17 @@ def sample_resume_text() -> str:
 def sample_readme_text() -> str:
     """Return a sample README text for testing."""
     return """
-    # Weather App
-    A weather forecasting application built with React and OpenWeatherMap API.
+# Weather App
+A weather forecasting application built with React and OpenWeatherMap API.
 
-    ## Features
-    - Current weather display
-    - 5-day forecast
-    - Location search
+## Features
+- Current weather display
+- 5-day forecast
+- Location search
 
-    ## Tech Stack
-    - React 18
-    - TypeScript
-    - Tailwind CSS
-    - OpenWeatherMap API
-    """
+## Tech Stack
+- React 18
+- TypeScript
+- Tailwind CSS
+- OpenWeatherMap API
+"""

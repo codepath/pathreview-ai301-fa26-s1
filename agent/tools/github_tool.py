@@ -81,6 +81,13 @@ class GitHubTool(BaseTool):
         response.raise_for_status()
 
         repo_json = response.json()
+        default_branch = repo_json.get("default_branch", "HEAD")
+        file_structure = self._fetch_file_structure(
+            username,
+            repo_name,
+            default_branch,
+            headers,
+        )
 
         # Extract metadata, handling null values
         metadata = {
@@ -94,6 +101,7 @@ class GitHubTool(BaseTool):
             "has_readme": self._has_readme(username, repo_name),
             "topics": repo_json.get("topics", []),
             "homepage": repo_json.get("homepage") or "",
+            "file_structure": file_structure,
         }
 
         logger.info(
@@ -106,6 +114,59 @@ class GitHubTool(BaseTool):
 
         return metadata
 
+    def _fetch_file_structure(
+        self,
+        username: str,
+        repo_name: str,
+        default_branch: str,
+        headers: dict,
+    ) -> list[str]:
+        """Fetch repository file paths from GitHub's recursive tree API.
+
+        Returns an empty list if the tree cannot be fetched so repository
+        metadata remains available even when the file listing is unavailable.
+        """
+        url = (
+            f"{self.base_url}/repos/{username}/{repo_name}"
+            f"/git/trees/{default_branch}?recursive=1"
+        )
+
+        try:
+            response = httpx.get(url, headers=headers, timeout=10.0)
+            response.raise_for_status()
+
+            tree_json = response.json()
+            if tree_json.get("truncated", False):
+                logger.warning(
+                    "github_tree_truncated",
+                    username=username,
+                    repo=repo_name,
+                )
+
+            return [
+                entry["path"]
+                for entry in tree_json.get("tree", [])
+                if entry.get("type") == "blob" and entry.get("path")
+            ]
+
+        except httpx.HTTPStatusError as e:
+            logger.warning(
+                "github_tree_request_failed",
+                status=e.response.status_code,
+                username=username,
+                repo=repo_name,
+            )
+            return []
+
+        except Exception as e:
+            logger.warning(
+                "github_tree_fetch_error",
+                username=username,
+                repo=repo_name,
+                error=str(e),
+            )
+            return []
+    
     def _has_readme(self, username: str, repo_name: str) -> bool:
         """Check if repository has a README file.
 

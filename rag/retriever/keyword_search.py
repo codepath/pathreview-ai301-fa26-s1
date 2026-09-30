@@ -21,6 +21,16 @@ class KeywordSearcher:
             chunks: List of chunk dicts with 'text' field
         """
         self.chunks = chunks
+
+        if not chunks:
+            # BM25Okapi divides by the corpus size while initializing, so an
+            # empty corpus raises ZeroDivisionError. Leave self.bm25 unset
+            # instead: search() already returns [] for that state, and this
+            # also clears any index built by a previous call.
+            self.bm25 = None
+            logger.info("keyword_index_empty", chunk_count=0)
+            return
+
         tokenized_corpus = [self._tokenize(chunk["text"]) for chunk in chunks]
         self.bm25 = BM25Okapi(tokenized_corpus)
         logger.info("keyword_index_built", chunk_count=len(chunks))

@@ -215,16 +215,18 @@ class TestSecurity:
         assert isinstance(hashed, str)
         assert verify_password(long_password, hashed) is True
 
-    @pytest.mark.xfail(
-        strict=True,
-        reason="issue #72 (manifest H-05): password verify raises UnknownHashError instead of returning False",
-    )
     def test_verify_with_wrong_hash_format(self):
         """Test verify_password with non-bcrypt hash."""
         wrong_hash = "not_a_valid_bcrypt_hash"
 
         # Should handle gracefully, return False
         result = verify_password("password", wrong_hash)
+
+        assert result is False
+
+    def test_verify_with_malformed_bcrypt_hash(self):
+        """Test verify_password with a bcrypt-prefixed but malformed hash."""
+        result = verify_password("password", "$2b$12$tooshort")
 
         assert result is False
 

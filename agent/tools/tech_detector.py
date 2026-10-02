@@ -159,4 +159,7 @@ class TechDetector(BaseTool):
             "/venv/",
         ]
 
-        return any(pattern in filepath for pattern in skip_patterns)
+        # Prefix a slash so a skipped folder at the start of the path
+        # (e.g. "node_modules/x.js") matches the same patterns as a nested one.
+        normalized = "/" + filepath
+        return any(pattern in normalized for pattern in skip_patterns)

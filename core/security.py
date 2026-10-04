@@ -1,4 +1,3 @@
-from passlib.exc import UnknownHashError
 """Security utilities for authentication and password handling."""
 
 from datetime import UTC, datetime, timedelta
@@ -6,6 +5,7 @@ from typing import Any, cast
 
 from jose import JWTError, jwt
 from passlib.context import CryptContext
+from passlib.exc import UnknownHashError
 
 from core.config import settings
 

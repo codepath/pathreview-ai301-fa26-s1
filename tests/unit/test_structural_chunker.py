@@ -25,9 +25,6 @@ class TestStructuralChunker:
         result = chunker.chunk("   \n\n  ", {})
         assert result == []
 
-    @pytest.mark.xfail(
-        strict=True, reason="issue #56: structural chunker drops documents with no headings"
-    )
     def test_document_with_no_headings(self, chunker):
         """Test document with no headings returns single chunk."""
         text = "This is plain text without any markdown headings. " * 20
@@ -36,6 +33,30 @@ class TestStructuralChunker:
         assert len(result) >= 1
         assert isinstance(result[0], Chunk)
         assert all(isinstance(c, Chunk) for c in result)
+
+    def test_document_with_no_headings_keeps_text(self, chunker):
+        """Test a heading-free document becomes one chunk holding all of its text."""
+        text = "This is a plain document with no headings at all. " * 20
+        result = chunker.chunk(text, {"source": "test"})
+
+        assert len(result) == 1
+        assert result[0].text == text.strip()
+        assert result[0].metadata["heading_path"] == ""
+        assert result[0].metadata["heading_level"] == 0
+        assert result[0].metadata["source"] == "test"
+
+    def test_large_document_with_no_headings_is_sub_chunked(self, chunker):
+        """Test a heading-free document over the section token limit is sub-chunked, not dropped."""
+        sentences = [f"Sentence number {i} has no heading above it." for i in range(150)]
+        text = " ".join(sentences)
+        assert len(chunker.encoder.encode(text)) > chunker.SECTION_TOKEN_LIMIT
+
+        result = chunker.chunk(text, {})
+
+        assert len(result) > 1
+        assert all(c.metadata["heading_path"] == "" for c in result)
+        joined = " ".join(c.text for c in result)
+        assert all(sentence in joined for sentence in sentences)
 
     def test_document_with_nested_headings(self, chunker):
         """Test document with nested headings preserves heading_path."""

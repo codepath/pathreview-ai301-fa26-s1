@@ -131,10 +131,10 @@ class ResumeParser(BaseParser):
         for section in SECTION_HEADERS:
             # Look for section header patterns
             patterns = [
-                rf"^{re.escape(section)}\s*$",
-                rf"^{re.escape(section)}\s*[:|-]",
-                rf"\n{re.escape(section)}\s*$",
-                rf"\n{re.escape(section)}\s*[:|-]",
+                rf"^\s*{re.escape(section)}\s*$",
+                rf"^\s*{re.escape(section)}\s*[:|-]",
+                rf"\n\s*{re.escape(section)}\s*$",
+                rf"\n\s*{re.escape(section)}\s*[:|-]",
             ]
 
             for pattern in patterns:

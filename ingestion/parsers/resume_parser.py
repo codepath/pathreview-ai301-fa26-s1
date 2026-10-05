@@ -98,7 +98,7 @@ class ResumeParser(BaseParser):
     def _strip_markdown(self, content: str) -> str:
         """Remove markdown syntax from content."""
         # Remove markdown headers
-        text = re.sub(r"^#+\s+", "", content, flags=re.MULTILINE)
+        text = re.sub(r"^\s*#+\s+", "", content, flags=re.MULTILINE)
 
         # Remove markdown links [text](url)
         text = re.sub(r"\[([^\]]+)\]\(([^\)]+)\)", r"\1", text)

@@ -81,9 +81,6 @@ class TestResumeParser:
             assert "Page 2 Content" in result.text
             assert "Page 3 Content" in result.text
 
-    @pytest.mark.xfail(
-        strict=True, reason="issue #54: resume section detection fails on leading whitespace"
-    )
     def test_parse_markdown_resume(self, parser):
         """Test parsing a Markdown resume."""
         markdown_resume = """
@@ -146,9 +143,6 @@ class TestResumeParser:
         assert any("education" in s for s in sections_lower)
         assert any("skills" in s for s in sections_lower)
 
-    @pytest.mark.xfail(
-        strict=True, reason="issue #54: resume section detection fails on leading whitespace"
-    )
     def test_strip_markdown_syntax(self, parser):
         """Test markdown syntax stripping."""
         markdown_text = """

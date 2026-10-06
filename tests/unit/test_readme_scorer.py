@@ -14,22 +14,20 @@ class TestReadmeScorer:
         """Create a ReadmeScorer instance."""
         return ReadmeScorer()
 
-    @pytest.mark.xfail(
-        strict=True,
-        reason="issue #63: README scorer fixture is too short for its own word-count assertion",
-    )
     def test_readme_with_all_quality_signals(self, scorer):
         """Test README with all quality signals returns high score."""
         readme = """
         # Project Name
-        A comprehensive project description.
+        A comprehensive project description. This project provides a complete toolkit for developers who need to process data quickly and reliably. It was built to simplify common workflows and reduce the amount of boilerplate code teams have to write by hand. The goal is to let users focus on their actual problem instead of wiring up infrastructure every time they start something new. Over the past several releases, the maintainers have focused heavily on stability, backwards compatibility, and making the onboarding experience as smooth as possible for first-time contributors and new users alike. The project is actively maintained, with a regular release cadence and a responsive maintainer team that reviews community contributions on an ongoing basis.
 
         ## Installation
+        Getting started is straightforward and only takes a minute. Make sure you have Python 3.9 or later installed before proceeding with the steps below. The installation process has been tested across Windows, macOS, and major Linux distributions, and the package maintains minimal external dependencies to keep installation fast and predictable across different environments and continuous integration pipelines.
         ```bash
         pip install package
         ```
 
         ## Usage
+        Once installed, using the package is simple. Import it into your script and call the run method to get started immediately with sensible defaults. The API was designed to be intuitive for newcomers while still exposing enough configuration options for advanced users who need finer control over behavior. Most common use cases require only a handful of lines of code, and the documentation includes extensive examples covering typical workflows, common error patterns, and troubleshooting guidance for new contributors.
         ```python
         import package
         package.run()
@@ -40,16 +38,22 @@ class TestReadmeScorer:
         - Feature 2
         - Feature 3
 
+        This project includes several additional conveniences beyond the core features listed above, including built-in logging, configurable retry behavior, sensible error messages, and automatic handling of common edge cases that developers would otherwise need to implement themselves. The feature set has grown steadily based on community feedback and real-world usage patterns reported by teams running the project in production environments. Contributors are encouraged to read the contribution guidelines before submitting a pull request, and issues are triaged on a weekly basis.
+
         ## Tech Stack
         - Python 3.9
         - FastAPI
         - PostgreSQL
+
+        This stack was chosen for its performance, strong community support, and ease of deployment in modern cloud environments and containerized infrastructure. The combination of FastAPI and PostgreSQL has proven reliable at scale, and the project's architecture takes advantage of asynchronous request handling to keep response times low even under heavier concurrent load. The project follows semantic versioning, so consumers can upgrade with confidence that breaking changes will only appear in major version bumps.
 
         ![Build Status](https://example.com/badge.svg)
         ![Coverage](https://example.com/coverage.svg)
 
         ## Live Demo
         [Try it here](https://demo.example.com)
+
+        Check out the live demo above to see the project in action before installing it locally on your own machine. The demo environment mirrors production closely, so you can get a realistic sense of performance and behavior before committing to a full local setup, and it is refreshed regularly to reflect the latest release. Community discussion happens primarily through GitHub issues and discussions, with occasional announcements posted for larger changes.
         """
 
         result = scorer.execute({"readme_content": readme})
@@ -223,7 +227,8 @@ class TestReadmeScorer:
 
     def test_overall_score_calculation(self, scorer):
         """Test that overall score aggregates components."""
-        readme = """
+        readme = (
+            """
         # Good README
 
         ## Installation
@@ -238,7 +243,9 @@ class TestReadmeScorer:
         ![Build](https://example.com/build.svg)
 
         This readme has lots of content here.
-        """ * 3  # Make it comprehensive
+        """
+            * 3
+        )  # Make it comprehensive
 
         result = scorer.execute({"readme_content": readme})
 

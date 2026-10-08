@@ -1,9 +1,9 @@
 import asyncio
-from fastapi import HTTPException
 from unittest.mock import AsyncMock, MagicMock, patch
 
 import pytest
 import redis
+from fastapi import HTTPException
 
 from api.routes.health import health_check
 
@@ -32,9 +32,8 @@ def test_unreachable_redis_is_unhealthy_via_connection_error_not_attribute_error
     client.ping.side_effect = redis.exceptions.ConnectionError("refused")
     with patch("redis.Redis.from_url", return_value=client), patch(
         "api.routes.health.log"
-    ) as log:
-        with pytest.raises(HTTPException) as exc_info:
-            _run_health()
+    ) as log, pytest.raises(HTTPException) as exc_info:
+        _run_health()
     assert exc_info.value.status_code == 503
     assert exc_info.value.detail["dependencies"]["redis"] == "unhealthy"
     error_calls = [c for c in log.error.call_args_list if c.args[0] == "redis_health_check_failed"]

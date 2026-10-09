@@ -215,10 +215,6 @@ class TestSecurity:
         assert isinstance(hashed, str)
         assert verify_password(long_password, hashed) is True
 
-    @pytest.mark.xfail(
-        strict=True,
-        reason="issue #72 (manifest H-05): password verify raises UnknownHashError instead of returning False",
-    )
     def test_verify_with_wrong_hash_format(self):
         """Test verify_password with non-bcrypt hash."""
         wrong_hash = "not_a_valid_bcrypt_hash"
@@ -227,6 +223,24 @@ class TestSecurity:
         result = verify_password("password", wrong_hash)
 
         assert result is False
+
+    @pytest.mark.parametrize(
+        "bad_hash",
+        [
+            "",  # passlib: UnknownHashError
+            "plaintext",  # passlib: UnknownHashError
+            "$2b$notarealhash",  # bcrypt backend: ValueError (missing fields)
+            "$2b$12$tooshort",  # bcrypt backend: ValueError (salt too small)
+        ],
+    )
+    def test_verify_with_malformed_hash_shapes(self, bad_hash):
+        """Test verify_password fails closed on every malformed stored-hash shape.
+
+        The two ``$2b$``-prefixed cases pass passlib's scheme identification and
+        raise a bare ``ValueError`` from the bcrypt backend, so they guard the
+        handler against being narrowed to ``UnknownHashError`` only (issue #72).
+        """
+        assert verify_password("password", bad_hash) is False
 
     def test_token_tampering_detection(self):
         """Test that tampered token is rejected."""

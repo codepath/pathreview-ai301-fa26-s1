@@ -176,14 +176,18 @@ class SkillExtractor:
             js_evidence.append("JavaScript file extension (.js)")
         if ".ts" in str(filename or "").lower():
             js_evidence.append("TypeScript file extension (.ts)")
-        if re.search(r"\b(import|require)\s+", text):
+        if re.search(r"\bimport\s+|\brequire\s*\(", text):
             js_evidence.append("CommonJS or ES6 imports")
         if "package.json" in text_lower:
             js_evidence.append("package.json found")
+        ts_syntax = re.search(r"\binterface\s+[A-Za-z_$][\w$]*\s*\{", text)
+        if ts_syntax:
+            js_evidence.append("TypeScript interface declaration")
 
         if js_evidence:
             confidence = min(0.95, 0.6 + len(js_evidence) * 0.1)
-            lang = "TypeScript" if ".ts" in str(filename or "").lower() else "JavaScript"
+            is_ts = ".ts" in str(filename or "").lower() or bool(ts_syntax)
+            lang = "TypeScript" if is_ts else "JavaScript"
             skills_dict[lang] = SkillDetection(
                 name=lang,
                 category="Language",
@@ -260,6 +264,16 @@ class SkillExtractor:
                         evidence=[f"Found '{db}' reference in content"],
                     )
 
+        # psycopg2 is the PostgreSQL driver; attribute it to the same skill entry
+        postgres_name = "postgresql".title()
+        if "psycopg2" in text_lower and postgres_name not in skills_dict:
+            skills_dict[postgres_name] = SkillDetection(
+                name=postgres_name,
+                category="Database",
+                confidence=self.DATABASES["postgresql"],
+                evidence=["Found 'psycopg2' (PostgreSQL driver) reference in content"],
+            )
+
     def _detect_tools(self, text: str, skills_dict: dict) -> None:
         """Detect tools and DevOps technologies."""
         text_lower = text.lower()
@@ -274,3 +288,23 @@ class SkillExtractor:
                         confidence=confidence,
                         evidence=[f"Found '{tool}' reference in content"],
                     )
+
+        # Structural Docker detection: require multiple co-occurring markers, not one keyword
+        docker_name = "docker".title()
+        if docker_name not in skills_dict:
+            docker_evidence = None
+            if re.search(r"^\s*FROM\s+\S+", text, re.MULTILINE) and re.search(
+                r"^\s*(RUN|EXPOSE)\s+\S+", text, re.MULTILINE
+            ):
+                docker_evidence = "Dockerfile structure (FROM with RUN/EXPOSE instructions)"
+            elif re.search(r"^\s*services:\s*$", text, re.MULTILINE) and re.search(
+                r"^\s+(build|ports):", text, re.MULTILINE
+            ):
+                docker_evidence = "Docker Compose structure (services with build/ports)"
+            if docker_evidence:
+                skills_dict[docker_name] = SkillDetection(
+                    name=docker_name,
+                    category="Tool",
+                    confidence=self.TOOLS["docker"],
+                    evidence=[docker_evidence],
+                )

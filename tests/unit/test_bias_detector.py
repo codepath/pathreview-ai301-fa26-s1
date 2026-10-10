@@ -9,10 +9,6 @@ from safety.bias_detector import BiasDetector
 class TestBiasDetector:
     """Test suite for BiasDetector."""
 
-    @pytest.mark.xfail(
-        strict=True,
-        reason="issue #58: bias detector patterns are too narrow to match common phrasings",
-    )
     def test_dismissive_bootcamp_language_detected(self):
         """Test dismissive bootcamp language is detected as biased."""
         text = "bootcamp graduates can't write production code"
@@ -66,6 +62,20 @@ class TestBiasDetector:
 
         assert is_biased is False
 
+    def test_expanded_patterns_do_not_flag_neutral_feedback(self):
+        """Ensure widened patterns do not flag neutral feedback."""
+        neutral_examples = [
+            "The candidate attended a coding bootcamp and demonstrated strong fundamentals.",
+            "The bootcamp project lacks documentation, but the developer has strong technical skills.",
+            "Young developers can handle complex systems with appropriate training.",
+            "She attended a coding bootcamp last year. The legacy module is missing proper training data.",
+        ]
+
+        for text in neutral_examples:
+            is_biased, reason = BiasDetector.detect_bias(text)
+            assert is_biased is False, f"False positive for: {text}"
+            assert reason == ""
+
     def test_educational_background_positive_not_flagged(self):
         """Test positive educational background mention not flagged."""
         text = "your bootcamp training has given you a solid foundation"
@@ -74,10 +84,6 @@ class TestBiasDetector:
 
         assert is_biased is False
 
-    @pytest.mark.xfail(
-        strict=True,
-        reason="issue #58: bias detector patterns are too narrow to match common phrasings",
-    )
     def test_demographic_assumption_age_detected(self):
         """Test demographic assumption about age detected."""
         text = "young developers can't handle complex systems"
@@ -195,10 +201,6 @@ class TestBiasDetector:
 
         assert is_biased is False
 
-    @pytest.mark.xfail(
-        strict=True,
-        reason="issue #58: bias detector patterns are too narrow to match common phrasings",
-    )
     def test_coding_bootcamp_variant(self):
         """Test 'coding bootcamp' variant is detected."""
         text = "coding bootcamp graduates can't write enterprise code"
@@ -230,10 +232,6 @@ class TestBiasDetector:
         assert is_biased_dev is True
         assert is_biased_prog is True
 
-    @pytest.mark.xfail(
-        strict=True,
-        reason="issue #58: bias detector patterns are too narrow to match common phrasings",
-    )
     def test_multiple_bias_indicators(self):
         """Test text with multiple bias indicators."""
         text = (

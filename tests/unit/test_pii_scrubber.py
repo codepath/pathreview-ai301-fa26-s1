@@ -31,10 +31,6 @@ class TestPIIScrubber:
         assert "alice@example.com" not in scrubbed
         assert "bob@company.org" not in scrubbed
 
-    @pytest.mark.xfail(
-        strict=True,
-        reason="issue #53: PII scrubber does not redact parenthesized US phone numbers",
-    )
     def test_us_phone_number_redaction(self, scrubber):
         """Test US phone number is redacted."""
         text = "Call me at (555) 123-4567"
@@ -43,10 +39,6 @@ class TestPIIScrubber:
         assert "[REDACTED]" in scrubbed
         assert "555" not in scrubbed or "1234567" not in scrubbed
 
-    @pytest.mark.xfail(
-        strict=True,
-        reason="issue #53: PII scrubber does not redact parenthesized US phone numbers",
-    )
     def test_us_phone_formats(self, scrubber):
         """Test various US phone number formats."""
         formats = [
@@ -127,10 +119,6 @@ class TestPIIScrubber:
         assert len(email_detections) > 0
         assert "alice@example.com" in email_detections[0]["value"]
 
-    @pytest.mark.xfail(
-        strict=True,
-        reason="issue #53: PII scrubber does not redact parenthesized US phone numbers",
-    )
     def test_detect_phone_pii(self, scrubber):
         """Test detect() finds phone number PII."""
         text = "Phone: (555) 123-4567"
@@ -188,10 +176,6 @@ class TestPIIScrubber:
             scrubbed = scrubber.scrub(text)
             assert email not in scrubbed or "[REDACTED]" in scrubbed
 
-    @pytest.mark.xfail(
-        strict=True,
-        reason="issue #53: PII scrubber does not redact parenthesized US phone numbers",
-    )
     def test_phone_at_start_of_text(self, scrubber):
         """Test phone number at start of text."""
         text = "(555) 123-4567 is my phone number."
@@ -272,3 +256,43 @@ class TestPIIScrubber:
 
         # Should be minimal or no detections
         # (version number shouldn't be flagged as SSN)
+
+    def test_parenthesized_phone_with_space_redacted(self, scrubber):
+        """Regression for #146: (555) 123-4567 is fully redacted, parens included."""
+        text = "Call me at (555) 123-4567 today."
+        scrubbed = scrubber.scrub(text)
+
+        assert "[REDACTED]" in scrubbed
+        assert "555" not in scrubbed
+        assert "123-4567" not in scrubbed
+        assert "(" not in scrubbed  # leading paren is redacted too
+
+    def test_space_separated_phone_formats_redacted(self, scrubber):
+        """All common space-containing US phone formats are redacted (#146)."""
+        formats = [
+            "(555) 123-4567",
+            "(555)123-4567",
+            "555 123 4567",
+            "+1 555 123 4567",
+        ]
+
+        for phone in formats:
+            scrubbed = scrubber.scrub(f"Contact: {phone}")
+            assert "[REDACTED]" in scrubbed, f"not redacted: {phone}"
+            assert "123" not in scrubbed, f"digits leaked: {phone}"
+
+    def test_detect_parenthesized_phone_returns_full_value(self, scrubber):
+        """detect() reports the parenthesized number as a single phone match (#146)."""
+        detected = scrubber.detect("Phone: (555) 123-4567")
+
+        phones = [d for d in detected if d["type"] == "phone_us"]
+        assert len(phones) == 1
+        assert phones[0]["value"] == "(555) 123-4567"
+
+    def test_long_digit_run_not_treated_as_phone(self, scrubber):
+        """A long numeric ID must not be partially matched as a phone number."""
+        text = "Order id 12345678901234"
+        scrubbed = scrubber.scrub(text)
+
+        assert "12345678901234" in scrubbed
+        assert "[REDACTED]" not in scrubbed

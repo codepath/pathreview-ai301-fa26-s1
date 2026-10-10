@@ -70,7 +70,7 @@ class TestFaithfulnessChecker:
     def test_empty_context_chunks_returns_zero(self, checker):
         """Test empty context chunks returns 0.0."""
         feedback = "Some feedback"
-        context_chunks = []
+        context_chunks: list[dict] = []
 
         score = checker.check(feedback, context_chunks)
 
@@ -79,7 +79,7 @@ class TestFaithfulnessChecker:
     def test_both_empty_returns_zero(self, checker):
         """Test both empty returns 0.0."""
         feedback = ""
-        context_chunks = []
+        context_chunks: list[dict] = []
 
         score = checker.check(feedback, context_chunks)
 
@@ -222,10 +222,6 @@ class TestFaithfulnessChecker:
         assert isinstance(supported, bool)
         # Need at least 2 meaningful tokens for support
 
-    @pytest.mark.xfail(
-        strict=True,
-        reason="issue #60: faithfulness checker crashes when a context chunk has text: None",
-    )
     def test_none_context_chunk_text(self, checker):
         """Test handling of None in context chunk text."""
         feedback = "Has Python skills"
@@ -236,6 +232,18 @@ class TestFaithfulnessChecker:
         # Should handle gracefully
         assert isinstance(score, float)
         assert 0.0 <= score <= 1.0
+
+    def test_none_text_chunk_does_not_drop_other_chunks(self, checker):
+        """Test a None-text chunk is treated as empty, not as dropping the context."""
+        feedback = "Has Python skills"
+        context_chunks = [
+            {"text": None},
+            {"text": "Python skills shown in projects"},
+        ]
+
+        score = checker.check(feedback, context_chunks)
+
+        assert score == 1.0
 
     def test_missing_text_key_in_chunk(self, checker):
         """Test handling of missing 'text' key in context chunk."""

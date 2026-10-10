@@ -4,7 +4,7 @@ from datetime import datetime
 from typing import TYPE_CHECKING
 from uuid import uuid4
 
-from sqlalchemy import DateTime, ForeignKey, Index, Integer, String
+from sqlalchemy import DateTime, ForeignKey, Integer, String
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -29,10 +29,11 @@ class IngestedSource(Base):
         index=True,
     )
     source_type: Mapped[str] = mapped_column(
-        String(50), nullable=False
+        String(50), nullable=False, index=True
     )  # "resume", "readme", "repo", "web"
     source_url: Mapped[str | None] = mapped_column(String(500), nullable=True)
     filename: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    source_id: Mapped[str | None] = mapped_column(String(255), nullable=True, index=True)
     content_hash: Mapped[str | None] = mapped_column(
         String(64), nullable=True, index=True
     )  # SHA256 hash for deduplication
@@ -43,12 +44,6 @@ class IngestedSource(Base):
 
     # Relationships
     profile: Mapped["Profile"] = relationship("Profile", back_populates="ingested_sources")
-
-    __table_args__ = (
-        Index("ix_ingested_sources_profile_id", "profile_id"),
-        Index("ix_ingested_sources_content_hash", "content_hash"),
-        Index("ix_ingested_sources_source_type", "source_type"),
-    )
 
     def __repr__(self) -> str:
         return f"<IngestedSource(id={self.id}, profile_id={self.profile_id}, source_type={self.source_type})>"

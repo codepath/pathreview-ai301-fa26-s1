@@ -3,6 +3,8 @@ from dataclasses import dataclass
 
 import structlog
 
+from core.models.ingested_source import IngestedSource
+
 from .chunking.strategy_selector import StrategySelector
 from .embeddings.batch_processor import BatchEmbeddingProcessor
 from .embeddings.provider import EmbeddingProvider
@@ -289,19 +291,24 @@ class IngestionPipeline:
         """
         Check if source has already been ingested.
 
-        Returns IngestResult if should skip, None if should proceed.
-        """
-        try:
-            # Query database for existing source
-            # This assumes a table/model named IngestedSource
-            existing = (
-                self.db_session.query("IngestedSource")  # Placeholder - actual query depends on ORM
-                .filter_by(source_id=source_id)
-                .first()
-            )
+        Args:
+            source_id: Source identifier to check
+            source_type: Type of source ("repo", "resume", etc.)
 
+        Returns:
+            IngestResult with skipped=True if already ingested, None otherwise
+        """
+        if not self.db_session:
+            return None
+
+        try:
+            existing = self.db_session.query(IngestedSource).filter_by(source_id=source_id).first()
             if existing:
-                logger.info("Source already ingested, skipping", source_id=source_id)
+                logger.info(
+                    "Source already ingested, skipping",
+                    source_id=source_id,
+                    source_type=source_type,
+                )
                 return IngestResult(
                     source_id=source_id,
                     chunk_count=0,
@@ -328,24 +335,33 @@ class IngestionPipeline:
         Record that a source has been ingested.
 
         Args:
-            source_id: Unique ID for the source
-            source_type: Type of source (resume, readme, repo)
-            profile_id: ID of profile owner
+            source_id: Source identifier
+            source_type: Type of source
+            profile_id: Profile ID
             chunk_count: Number of chunks created
         """
-        try:
-            # This is a placeholder for actual database recording
-            # In a real implementation, would create IngestedSource record
-            logger.info(
-                "Recording ingested source",
-                source_id=source_id,
-                source_type=source_type,
-                profile_id=profile_id,
-                chunk_count=chunk_count,
-            )
-        except Exception as e:
-            logger.error(
-                "Failed to record ingested source",
-                source_id=source_id,
-                error=str(e),
-            )
+        if self.db_session:
+            try:
+                record = IngestedSource(
+                    source_id=source_id,
+                    source_type=source_type,
+                    profile_id=profile_id,
+                    chunk_count=chunk_count,
+                )
+                self.db_session.add(record)
+                self.db_session.commit()
+                logger.info(
+                    "Recording ingested source",
+                    source_id=source_id,
+                    source_type=source_type,
+                    profile_id=profile_id,
+                    chunk_count=chunk_count,
+                )
+            except Exception as e:
+                self.db_session.rollback()
+                logger.error(
+                    "Failed to record ingested source",
+                    source_id=source_id,
+                    source_type=source_type,
+                    error=str(e),
+                )

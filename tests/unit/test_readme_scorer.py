@@ -14,36 +14,67 @@ class TestReadmeScorer:
         """Create a ReadmeScorer instance."""
         return ReadmeScorer()
 
-    @pytest.mark.xfail(
-        strict=True,
-        reason="issue #63: README scorer fixture is too short for its own word-count assertion",
-    )
     def test_readme_with_all_quality_signals(self, scorer):
         """Test README with all quality signals returns high score."""
         readme = """
         # Project Name
-        A comprehensive project description.
+        A comprehensive project description detailing an enterprise-grade pipeline designed for high-throughput asynchronous document processing and multi-stage evaluation. This service coordinates distributed workers, ingests diverse file formats, cleans unformatted raw input text, and routes structured output streams into external analytical stores. Built to handle heavy production concurrency, it guarantees fault tolerance and horizontal autoscaling across resilient microservice clusters deployed within modern cloud infrastructure.
 
         ## Installation
+        Ensure your local workstation has Python installed alongside virtual environment tooling. Execute the commands below to set up your isolated development environment, upgrade package installers, and fetch all required external dependencies safely without conflicting with system packages.
         ```bash
+        git clone https://github.com/example/package.git
+        cd package
+        python3 -m venv .venv
+        source .venv/bin/activate
+        pip install --upgrade pip
+        pip install -r requirements.txt
         pip install package
         ```
 
         ## Usage
+        Import the primary package module within your application entrypoint to initialize configuration objects and start ingestion pipelines.
         ```python
         import package
+        config = package.load_configuration("settings.yaml")
+        client = package.create_client(config=config, timeout=30)
         package.run()
+        ```
+        You can also invoke the command-line utility directly from your terminal shell to process local folders recursively with full debug logging enabled:
+        ```bash
+        package-cli process --source-dir ./data/incoming --output-format json --verbose
         ```
 
         ## Features
-        - Feature 1
-        - Feature 2
-        - Feature 3
+        - Automated real-time syntax inspection, validation pipelines, and configurable schema checking across inbound document streams
+        - Distributed event routing backed by persistent message queues with automatic dead-letter reprocessing
+        - High-concurrency worker pools with adaptive rate limiting and circuit breaking to prevent upstream service degradation
+        - Comprehensive observability metrics including Prometheus counters, latency histograms, and structured distributed tracing
+        - Pluggable storage adapters supporting object stores, relational engines, and partitioned cache layers
+        - Strict security compliance featuring encrypted credentials management and role-based operational permissions
+
+        ## Architecture
+        The internal architecture decouples ingestion interfaces from downstream scoring components. Incoming payloads hit an asynchronous HTTP ingress boundary, undergo initial schema verification, and are dispatched across internal worker pools. Worker nodes execute scoring algorithms, collect performance metrics, and publish standardized JSON summaries to persistent caching tiers. All inter-service communications utilize standardized serialization protocols to preserve metadata fidelity across boundaries.
+
+        ## Configuration
+        Runtime behavior is governed by environment variables or declarative YAML configuration files. Key parameters include worker concurrency limits, batch flush intervals, retry timeouts, and credential references. Detailed configuration references and sensible production defaults are fully documented within our extended operations manual, allowing operators to fine-tune memory limits, queue depth thresholds, and backoff schedules.
+
+        ## Troubleshooting
+        If worker queues experience latency spikes, verify database connectivity and check network socket quotas. Ensure your local virtual environment matches Python versions specified in project requirements. For additional debugging output, export the debug environment variable before launching the service daemon. Inspect active log streams for unhandled exceptions or connection timeouts during peak network congestion periods.
+
+        ## Contributing
+        We welcome community contributions, bug reports, and performance enhancements. Please read our contributing guide before opening a pull request. All submitted code must include unit tests, maintain code formatting standards, and pass existing test suites cleanly without regression.
+
+        ## License
+        This project is licensed under the Apache License 2.0. You are free to study, modify, distribute, and integrate this software within commercial products according to license terms.
 
         ## Tech Stack
         - Python 3.9
         - FastAPI
         - PostgreSQL
+        - Redis
+        - Docker
+        - Kubernetes
 
         ![Build Status](https://example.com/badge.svg)
         ![Coverage](https://example.com/coverage.svg)

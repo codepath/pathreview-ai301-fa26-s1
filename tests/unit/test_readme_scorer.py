@@ -14,10 +14,6 @@ class TestReadmeScorer:
         """Create a ReadmeScorer instance."""
         return ReadmeScorer()
 
-    @pytest.mark.xfail(
-        strict=True,
-        reason="issue #63: README scorer fixture is too short for its own word-count assertion",
-    )
     def test_readme_with_all_quality_signals(self, scorer):
         """Test README with all quality signals returns high score."""
         readme = """
@@ -50,6 +46,114 @@ class TestReadmeScorer:
 
         ## Live Demo
         [Try it here](https://demo.example.com)
+
+        ## Overview
+
+        This project provides a complete example application for developers who want
+        to build, configure, test, and deploy a reliable web service. The application
+        is designed around a straightforward architecture that keeps components easy
+        to understand and maintain. Developers can use the project as a starting point
+        for local development, experimentation, integration testing, or deployment to
+        a production environment. The documentation explains the major workflows so
+        that new contributors can understand the project without needing detailed
+        knowledge of the original implementation.
+
+        ## Configuration
+
+        The application can be configured for different environments using standard
+        environment variables. Developers should create a local configuration before
+        starting the service and provide values for database connectivity, application
+        settings, and any external services used by the project. Development values
+        should remain separate from production credentials. Sensitive information such
+        as passwords, tokens, and private keys should never be committed to source
+        control. Configuration should be reviewed whenever the application is moved
+        between local, testing, staging, and production environments.
+
+        ## Project Structure
+
+        The project separates application code, configuration, tests, and supporting
+        resources so that each responsibility remains easy to locate. Application
+        modules contain the main business logic and API behavior. Database components
+        manage persistence and queries. Test modules verify expected behavior and help
+        prevent regressions when functionality changes. Documentation and configuration
+        files provide the information required to run the project consistently across
+        different environments. Contributors should follow the existing organization
+        when adding new functionality so that the repository remains predictable.
+
+        ## Development
+
+        Start development by installing the required dependencies and confirming that
+        the application runs successfully in the local environment. Changes should be
+        kept focused on a specific feature, bug, or maintenance task. Developers are
+        encouraged to review existing modules and tests before making modifications so
+        that new code follows established patterns. When behavior changes, corresponding
+        tests should be added or updated to describe the expected result. Small and
+        focused changes are easier to review, test, and maintain than unrelated changes
+        combined into a single update.
+
+        ## Testing
+
+        Automated tests are an important part of the development workflow. Run the
+        relevant unit tests after modifying application behavior and verify that existing
+        functionality continues to work. Tests should describe observable behavior and
+        cover both successful operations and important edge cases. When fixing a bug,
+        contributors should reproduce the original problem before making the change and
+        then rerun the same test after the implementation. This provides clear evidence
+        that the change addresses the reported behavior without introducing unnecessary
+        modifications elsewhere in the project.
+
+        ## API
+
+        The service exposes application functionality through clearly defined endpoints.
+        Clients should provide valid request data and handle both successful responses
+        and expected error conditions. API behavior should remain consistent so that
+        integrations do not break unexpectedly. When an endpoint changes, developers
+        should update tests and documentation to reflect the new behavior. Requests
+        should be validated before processing, and responses should provide enough
+        information for clients to understand whether an operation succeeded or why it
+        could not be completed.
+
+        ## Deployment
+
+        Before deployment, run the automated test suite and confirm that required
+        configuration values are available in the target environment. Production
+        deployments should use appropriate credentials and should not rely on local
+        development settings. Teams should review logs after deployment to identify
+        unexpected errors and verify that important application workflows remain
+        available. If a deployment introduces a regression, the change should be
+        investigated using the same reproducible testing process used during local
+        development.
+
+        ## Troubleshooting
+
+        If the application does not start, first confirm that dependencies are installed
+        and required configuration values are present. Database connectivity and service
+        availability should also be checked when requests fail unexpectedly. Test output
+        and application logs can provide useful information about the source of a
+        problem. Reproducing an issue with a minimal set of steps makes debugging easier
+        and helps contributors determine whether the problem is caused by configuration,
+        application logic, external dependencies, or incorrect input.
+
+        ## Contributing
+
+        Contributions should be focused, tested, and documented. Before submitting a
+        change, review the diff to ensure that unrelated files were not modified. Run
+        the relevant tests and include enough information for another developer to
+        reproduce the behavior being changed. New functionality should follow existing
+        project conventions, while bug fixes should preserve unrelated behavior.
+        Contributors should explain important implementation decisions when they are not
+        obvious from the code and respond to review feedback with additional changes or
+        clarification when necessary.
+
+        ## Maintenance
+
+        Regular maintenance keeps the project dependable as dependencies and development
+        practices evolve. Dependencies should be reviewed periodically, tests should be
+        kept aligned with current behavior, and outdated documentation should be updated.
+        Refactoring should preserve externally visible behavior unless a deliberate
+        behavior change is part of the task. Keeping documentation, tests, and code in
+        agreement helps future contributors understand the intended behavior and reduces
+        the risk of regressions during later development.
         """
 
         result = scorer.execute({"readme_content": readme})

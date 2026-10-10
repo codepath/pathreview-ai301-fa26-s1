@@ -15,12 +15,18 @@ class KeywordSearcher:
         self.chunks = []
 
     def index(self, chunks: list[dict]) -> None:
-        """Build BM25 index from chunks.
+        """Build BM25 index from chunks. Returns early without building
+        the index if chunks list is empty.
 
         Args:
             chunks: List of chunk dicts with 'text' field
         """
         self.chunks = chunks
+
+        if not chunks:
+            logger.warning("keyword_search_empty_chunks")
+            return
+
         tokenized_corpus = [self._tokenize(chunk["text"]) for chunk in chunks]
         self.bm25 = BM25Okapi(tokenized_corpus)
         logger.info("keyword_index_built", chunk_count=len(chunks))

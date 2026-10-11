@@ -5,10 +5,14 @@ from dataclasses import dataclass
 import openai
 import structlog
 
+from safety.content_filter import ContentFilter
+
 from .output_parser import FeedbackSection, parse_review_output
 from .prompt_templates import get_template
 
 logger = structlog.get_logger()
+
+MAX_GENERATION_ATTEMPTS = 3
 
 
 @dataclass
@@ -59,29 +63,41 @@ class ReviewGenerator:
             context=context_text, github_username=github_username, project_count=project_count
         )
 
-        # Call LLM
-        response = self.client.chat.completions.create(
-            model=self.config.model,
-            messages=[
-                {"role": "system", "content": "You are an expert portfolio reviewer."},
-                {"role": "user", "content": prompt},
-            ],
-            temperature=self.config.temperature,
-            max_tokens=self.config.max_tokens,
-        )
+        for attempt in range(1, MAX_GENERATION_ATTEMPTS + 1):
+            # Call LLM
+            response = self.client.chat.completions.create(
+                model=self.config.model,
+                messages=[
+                    {"role": "system", "content": "You are an expert portfolio reviewer."},
+                    {"role": "user", "content": prompt},
+                ],
+                temperature=self.config.temperature,
+                max_tokens=self.config.max_tokens,
+            )
 
-        content = response.choices[0].message.content
+            content = response.choices[0].message.content
 
-        # Parse output
-        sections = parse_review_output(content)
+            # Parse output
+            sections = parse_review_output(content)
 
-        # Return first section or create default
-        if sections:
-            return sections[0]
+            if sections:
+                section = sections[0]
+            else:
+                logger.warning("no_sections_parsed", section_name=section_name)
+                section = FeedbackSection(
+                    section_name=section_name, content=content, confidence=0.6, suggestions=[]
+                )
 
-        logger.warning("no_sections_parsed", section_name=section_name)
-        return FeedbackSection(
-            section_name=section_name, content=content, confidence=0.6, suggestions=[]
+            if ContentFilter.is_constructive(self.client, self.config.model, section.content):
+                return section
+
+            logger.warning(
+                "tone_check_failed", section_name=section_name, attempt=attempt
+            )
+
+        raise RuntimeError(
+            f"Tone check failed for section '{section_name}' after "
+            f"{MAX_GENERATION_ATTEMPTS} generation attempts"
         )
 
     def generate_full_review(

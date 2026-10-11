@@ -41,6 +41,7 @@ dev = [
     "pytest>=7.4.0",
     "pytest-cov>=4.1.0",
     "pytest-asyncio>=0.23.0",
+    "aiosqlite>=0.20.0",
     "pytest-benchmark>=4.0.0",
     "pytest-httpserver>=1.0.8",
     "hypothesis>=6.92.0",
@@ -145,7 +146,8 @@ warn_return_any = false
 # NOTE: some of these ARE the intentionally-seeded course bugs, and mypy is
 # correctly catching them. Do not "fix" them outside their issue:
 #   api/routes/health.py  attr-defined -> issue #62 (settings.redis_host does
-#                         not exist on Settings) and related #61.
+#                         not exist on Settings).
+#   api/routes/health.py  call-overload/index -> Redis stubs/status dictionary typing.
 # Fixing a seeded bug should remove its entry here, the same way it removes the
 # test's xfail marker.
 

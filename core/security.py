@@ -32,9 +32,15 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
         hashed_password: Previously hashed password to compare against
 
     Returns:
-        True if password matches, False otherwise
+        True if password matches, False if it does not match or if the
+        stored hash is not a recognizable format
     """
-    return bool(pwd_context.verify(plain_password, hashed_password))
+    try:
+        return bool(pwd_context.verify(plain_password, hashed_password))
+    except ValueError:
+        # passlib raises UnknownHashError (a ValueError) for an unidentifiable
+        # hash and a plain ValueError for a malformed bcrypt one.
+        return False
 
 
 def create_access_token(data: dict[str, Any], expires_delta: timedelta | None = None) -> str:

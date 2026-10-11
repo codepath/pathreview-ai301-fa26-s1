@@ -40,10 +40,6 @@ class TestFaithfulnessChecker:
         assert isinstance(score, float)
         assert score < 0.5  # Should be low score
 
-    @pytest.mark.xfail(
-        strict=True,
-        reason="issue #59: faithfulness checker can never mark short claims as supported",
-    )
     def test_partial_support_returns_middle_score(self, checker):
         """Test partial support returns score between 0 and 1."""
         feedback = "The developer shows Python expertise and Kubernetes knowledge."
@@ -85,10 +81,6 @@ class TestFaithfulnessChecker:
 
         assert score == 0.0
 
-    @pytest.mark.xfail(
-        strict=True,
-        reason="issue #59: faithfulness checker can never mark short claims as supported",
-    )
     def test_multiple_context_chunks(self, checker):
         """Test multiple context chunks contribute to score."""
         feedback = "The developer has Python, JavaScript, and Docker experience."
@@ -142,6 +134,24 @@ class TestFaithfulnessChecker:
         assert isinstance(supported, bool)
         assert supported is False
 
+    def test_support_check_ignores_sentence_punctuation(self, checker):
+        """Test that sentence punctuation does not change support matching."""
+        feedback = "Uses Kubernetes."
+        context_chunks = [{"text": "Deployed services on Kubernetes."}]
+
+        score = checker.check(feedback, context_chunks)
+
+        assert score == 1.0
+
+    def test_generic_shared_word_does_not_imply_support(self, checker):
+        """Test that a generic shared word alone does not establish support."""
+        feedback = "Strong communication skills."
+        context_chunks = [{"text": "Python skills demonstrated."}]
+
+        score = checker.check(feedback, context_chunks)
+
+        assert score == 0.0
+
     def test_case_insensitive_support_check(self, checker):
         """Test that support check is case insensitive."""
         claim = "PYTHON PROGRAMMING SKILLS"
@@ -166,10 +176,6 @@ class TestFaithfulnessChecker:
         # First should be higher
         assert score1 > score2
 
-    @pytest.mark.xfail(
-        strict=True,
-        reason="issue #59: faithfulness checker can never mark short claims as supported",
-    )
     def test_multiple_claims_varying_support(self, checker):
         """Test scoring with multiple claims of varying support."""
         feedback = "Python expert. Knows Rust. Skilled with Docker."

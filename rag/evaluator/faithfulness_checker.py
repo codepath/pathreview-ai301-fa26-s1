@@ -59,12 +59,20 @@ class FaithfulnessChecker:
             text: Feedback text
 
         Returns:
-            List of claims (sentences)
+            List of claims (sentences or coordinated assertions)
         """
-        # Split by sentence (simple regex)
         sentences = re.split(r"[.!?]+", text)
-        claims = [s.strip() for s in sentences if s.strip() and len(s.strip()) > 10]
-        return claims[:10]  # Limit to 10 claims for scoring
+        claims: list[str] = []
+
+        for sentence in sentences:
+            sentence = sentence.strip()
+            if not sentence:
+                continue
+
+            parts = re.split(r"\s*(?:,\s*and\s+|,\s*|\s+and\s+)\s*", sentence)
+            claims.extend(part.strip() for part in parts if part.strip())
+
+        return claims[:10]
 
     @staticmethod
     def _is_supported(claim: str, context: str) -> bool:
@@ -77,13 +85,6 @@ class FaithfulnessChecker:
         Returns:
             True if claim is supported
         """
-        # Tokenize and check for keyword overlap
-        claim_tokens = set(claim.lower().split())
-        context_tokens = set(context.lower().split())
-
-        # Require at least some meaningful overlap
-        overlap = claim_tokens & context_tokens
-        # Filter out common stop words
         stop_words = {
             "a",
             "an",
@@ -102,7 +103,26 @@ class FaithfulnessChecker:
             "to",
             "for",
             "that",
+            "developer",
+            "has",
+            "shows",
+            "skills",
+            "with",
         }
-        meaningful_overlap = overlap - stop_words
 
-        return len(meaningful_overlap) >= 2
+        claim_tokens = {
+            token
+            for token in re.findall(r"[a-z0-9+#]+(?:[.-][a-z0-9+#]+)*", claim.lower())
+            if token not in stop_words
+        }
+        context_tokens = {
+            token
+            for token in re.findall(r"[a-z0-9+#]+(?:[.-][a-z0-9+#]+)*", context.lower())
+            if token not in stop_words
+        }
+
+        if not claim_tokens:
+            return False
+
+        meaningful_overlap = claim_tokens & context_tokens
+        return bool(meaningful_overlap)

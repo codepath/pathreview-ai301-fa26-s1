@@ -2,8 +2,9 @@ from datetime import datetime
 
 import structlog
 from fastapi import APIRouter, Depends, HTTPException, status
-
+from typing import Final
 from core.database import get_db
+import sqlalchemy
 
 log = structlog.get_logger()
 
@@ -29,7 +30,9 @@ async def health_check(db=Depends(get_db)):
 
     try:
         # Check PostgreSQL
-        await db.execute("SELECT 1")
+        TEXT: Final = sqlalchemy.text("SELECT 1")
+        
+        await db.execute(TEXT)
         health_status["dependencies"]["postgres"] = "healthy"
         log.debug("postgres_health_check_passed")
     except Exception as exc:

@@ -222,10 +222,6 @@ class TestFaithfulnessChecker:
         assert isinstance(supported, bool)
         # Need at least 2 meaningful tokens for support
 
-    @pytest.mark.xfail(
-        strict=True,
-        reason="issue #60: faithfulness checker crashes when a context chunk has text: None",
-    )
     def test_none_context_chunk_text(self, checker):
         """Test handling of None in context chunk text."""
         feedback = "Has Python skills"
@@ -233,9 +229,33 @@ class TestFaithfulnessChecker:
 
         score = checker.check(feedback, context_chunks)
 
-        # Should handle gracefully
+        # None text is treated as empty context, so the claim is unsupported
         assert isinstance(score, float)
-        assert 0.0 <= score <= 1.0
+        assert score == 0.0
+
+    def test_none_chunk_alongside_valid_chunk(self, checker):
+        """Test that a None-text chunk does not change the score from valid chunks."""
+        feedback = "The developer has strong Python skills."
+        valid_chunk = {"text": "Strong Python skills shown in projects."}
+
+        valid_only = checker.check(feedback, [valid_chunk])
+        with_none = checker.check(feedback, [valid_chunk, {"text": None}])
+
+        assert valid_only == 1.0
+        assert with_none == valid_only
+
+    def test_none_missing_key_and_empty_text_chunks(self, checker):
+        """Test that None, a missing text key, and empty text all count as empty context."""
+        feedback = "The developer has strong Python skills."
+        context_chunks = [
+            {"text": None},
+            {"content": "Strong Python skills shown in projects."},
+            {"text": ""},
+        ]
+
+        score = checker.check(feedback, context_chunks)
+
+        assert score == 0.0
 
     def test_missing_text_key_in_chunk(self, checker):
         """Test handling of missing 'text' key in context chunk."""

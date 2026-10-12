@@ -20,6 +20,14 @@ class KeywordSearcher:
         Args:
             chunks: List of chunk dicts with 'text' field
         """
+        if not chunks:
+            # BM25Okapi divides by the corpus size, so an empty corpus can't be indexed.
+            # Clear any previous index; search() already returns [] when bm25 is None.
+            self.chunks = []
+            self.bm25 = None
+            logger.info("keyword_index_built", chunk_count=0)
+            return
+
         self.chunks = chunks
         tokenized_corpus = [self._tokenize(chunk["text"]) for chunk in chunks]
         self.bm25 = BM25Okapi(tokenized_corpus)

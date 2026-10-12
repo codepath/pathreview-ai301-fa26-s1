@@ -89,12 +89,15 @@ class StructuralChunker(BaseChunker):
             heading_match = re.match(r"^(#{1,6})\s+(.+)$", line)
 
             if heading_match:
-                # Save previous section if exists
+                # Save previous section if it has content. A heading-less
+                # preamble (empty heading_stack) is saved as a path-less
+                # section rather than dropped (issue #56).
                 if current_section_lines:
-                    if heading_stack:
+                    content = "\n".join(current_section_lines).strip()
+                    if content:
                         sections.append(
                             {
-                                "content": "\n".join(current_section_lines).strip(),
+                                "content": content,
                                 "path": [h[1] for h in heading_stack],
                                 "level": heading_stack[-1][0] if heading_stack else 0,
                             }
@@ -116,18 +119,22 @@ class StructuralChunker(BaseChunker):
                 current_level = heading_level  # noqa: F841
 
             else:
-                # Regular content line
-                if heading_stack or current_section_lines:  # Only collect if we have a heading
-                    current_section_lines.append(line)
+                # Regular content line. Collect it even before any heading has
+                # been seen, so heading-less documents (and preamble before the
+                # first heading) still accumulate content. See issue #56.
+                current_section_lines.append(line)
 
-        # Save final section
-        if current_section_lines and heading_stack:
-            sections.append(
-                {
-                    "content": "\n".join(current_section_lines).strip(),
-                    "path": [h[1] for h in heading_stack],
-                    "level": heading_stack[-1][0] if heading_stack else 0,
-                }
-            )
+        # Save final section (including a heading-less document's only
+        # section, which has an empty heading path; issue #56).
+        if current_section_lines:
+            content = "\n".join(current_section_lines).strip()
+            if content:
+                sections.append(
+                    {
+                        "content": content,
+                        "path": [h[1] for h in heading_stack],
+                        "level": heading_stack[-1][0] if heading_stack else 0,
+                    }
+                )
 
         return sections

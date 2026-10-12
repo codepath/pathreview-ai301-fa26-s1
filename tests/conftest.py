@@ -1,6 +1,27 @@
 """Shared test fixtures for PathReview."""
 
 import pytest
+import structlog
+
+
+@pytest.fixture(autouse=True)
+def structlog_to_stdlib():
+    """Route structlog events into stdlib logging so pytest's caplog sees them.
+
+    Without configuration, structlog's default logger prints straight to
+    stdout and bypasses the stdlib logging system that caplog hooks into
+    (issue #66). Each event is rendered to a plain string so no key-value
+    pair is passed as ``extra``, where a key like ``name`` would clash with
+    a built-in LogRecord attribute.
+    """
+    structlog.configure(
+        processors=[structlog.dev.ConsoleRenderer(colors=False)],
+        logger_factory=structlog.stdlib.LoggerFactory(),
+        wrapper_class=structlog.stdlib.BoundLogger,
+        cache_logger_on_first_use=False,
+    )
+    yield
+    structlog.reset_defaults()
 
 
 @pytest.fixture

@@ -27,14 +27,26 @@ def hash_password(password: str) -> str:
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     """Verify a plain password against a hashed password.
 
+    Verification fails closed: if the stored hash is not something passlib can
+    identify or parse, this returns False rather than propagating passlib's
+    error to the caller.
+
     Args:
         plain_password: Plain text password to verify
         hashed_password: Previously hashed password to compare against
 
     Returns:
-        True if password matches, False otherwise
+        True if password matches, False otherwise (including when
+        hashed_password is malformed or unrecognized)
     """
-    return bool(pwd_context.verify(plain_password, hashed_password))
+    try:
+        return bool(pwd_context.verify(plain_password, hashed_password))
+    except ValueError:
+        # passlib raises UnknownHashError (a ValueError) when it cannot
+        # identify the stored hash, and a bare ValueError from the bcrypt
+        # handler when a bcrypt-prefixed hash will not parse. Neither is a
+        # successful verification, so fail closed.
+        return False
 
 
 def create_access_token(data: dict[str, Any], expires_delta: timedelta | None = None) -> str:

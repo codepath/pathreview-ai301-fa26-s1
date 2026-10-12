@@ -14,39 +14,109 @@ class TestReadmeScorer:
         """Create a ReadmeScorer instance."""
         return ReadmeScorer()
 
-    @pytest.mark.xfail(
-        strict=True,
-        reason="issue #63: README scorer fixture is too short for its own word-count assertion",
-    )
     def test_readme_with_all_quality_signals(self, scorer):
         """Test README with all quality signals returns high score."""
         readme = """
-        # Project Name
-        A comprehensive project description.
+        # TaskFlow
 
-        ## Installation
-        ```bash
-        pip install package
-        ```
-
-        ## Usage
-        ```python
-        import package
-        package.run()
-        ```
-
-        ## Features
-        - Feature 1
-        - Feature 2
-        - Feature 3
-
-        ## Tech Stack
-        - Python 3.9
-        - FastAPI
-        - PostgreSQL
+        TaskFlow is a lightweight task management service for small teams. It lets
+        you create projects, break them into tasks, assign owners, and track progress
+        from a single web dashboard or through a clean REST API. The goal is to give
+        teams a simple tool that stays out of the way, with sensible defaults and no
+        complicated setup required before you can start planning real work together.
 
         ![Build Status](https://example.com/badge.svg)
         ![Coverage](https://example.com/coverage.svg)
+
+        ## Installation
+
+        TaskFlow requires Python 3.9 or newer and a running PostgreSQL database. We
+        recommend installing it inside a virtual environment so that its dependencies
+        do not conflict with other projects on your machine.
+
+        ```bash
+        git clone https://github.com/example/taskflow.git
+        cd taskflow
+        python -m venv .venv
+        source .venv/bin/activate
+        pip install -r requirements.txt
+        ```
+
+        Next, copy the example environment file and fill in your database connection
+        string and a secret key. The application reads these values at startup, and it
+        will refuse to start if any required setting is missing, so you get a clear
+        error message instead of a confusing failure later on.
+
+        ```bash
+        cp .env.example .env
+        alembic upgrade head
+        ```
+
+        ## Usage
+
+        Start the development server with the command below, then open your browser
+        to the local address printed in the terminal. The interactive API docs are
+        served automatically, so you can explore every endpoint and try requests
+        without writing any client code first.
+
+        ```bash
+        uvicorn taskflow.main:app --reload
+        ```
+
+        You can also use TaskFlow as a library from your own Python scripts. The
+        client handles authentication, retries, and pagination for you, which keeps
+        your automation code short and easy to read.
+
+        ```python
+        from taskflow import Client
+
+        client = Client(api_key="your-key")
+        project = client.projects.create(name="Website Redesign")
+        client.tasks.create(project_id=project.id, title="Draft wireframes")
+        ```
+
+        ## Features
+
+        - Create projects and organize tasks into ordered lists and milestones
+        - Assign tasks to teammates and set due dates with automatic reminders
+        - Filter and search tasks by owner, status, label, or due date
+        - Track progress with simple charts that update in real time
+        - Export project data to CSV or JSON for reporting and backups
+        - Role based access control so that only the right people can edit work
+        - Webhooks that notify other services whenever a task changes state
+
+        ## Tech Stack
+
+        - Python 3.9
+        - FastAPI for the web framework and automatic API documentation
+        - PostgreSQL for persistent storage, with SQLAlchemy as the ORM
+        - Alembic for database migrations
+        - Pytest for unit and integration testing
+        - Docker for local development and production deployment
+
+        ## Running Tests
+
+        The test suite uses pytest. Unit tests run without any external services,
+        while integration tests expect a disposable PostgreSQL database. Run the full
+        suite before opening a pull request so that reviewers can focus on your design
+        rather than on broken builds.
+
+        ```bash
+        pytest tests/ -v
+        ```
+
+        ## Contributing
+
+        Contributions are welcome. Please open an issue to discuss larger changes
+        before you start, so that we can agree on the approach and avoid duplicated
+        effort. Keep pull requests focused on one change, write tests for any new
+        behavior, and follow the existing code style. We review contributions every
+        week and will leave feedback as quickly as we can.
+
+        ## License
+
+        TaskFlow is released under the MIT License. See the LICENSE file for the full
+        text and details about your rights to use, modify, and share the code.
 
         ## Live Demo
         [Try it here](https://demo.example.com)

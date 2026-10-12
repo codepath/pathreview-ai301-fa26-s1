@@ -12,17 +12,31 @@ class BiasDetector:
 
     # Genuinely dismissive phrases about educational background
     DISMISSIVE_PATTERNS = [
-        r"(?:bootcamp|self-taught|online\s+course)\s+(?:education|training)\s+is\s+(?:insufficient|inadequate|lacks)",
-        r"(?:bootcamp|self-taught)\s+(?:graduates?|developers?)\s+(?:lack|missing)\s+(?:rigor|fundamentals|proper\s+training)",
-        r"(?:bootcamp|coding\s+bootcamp)\s+(?:doesn't|does\s+not)\s+prepare\s+(?:you|developers?)",
-        r"(?:self-taught|bootcamp)\s+is\s+(?:not|never)\s+(?:equal|comparable)\s+to\s+(?:university|traditional|formal)",
+        r"(?:bootcamp|self-taught|online\s+course)\s+(?:education|training)\s+"
+        r"(?:is\s+(?:insufficient|inadequate)|lacks)",
+        r"(?:bootcamp|self-taught)\s+(?:graduates?|developers?|programmers?)\s+"
+        r"(?:lack|missing|can[’']t|cannot)",
+        r"(?:bootcamp|coding\s+bootcamp)\s+(?:doesn[’']t|does\s+not)\s+"
+        r"prepare\s+(?:you|developers?)",
+        r"(?:self-taught|bootcamp)\s+(?:(?:graduates?|developers?|programmers?)\s+)?(?:is|are)\s+"
+        r"(?:not|never)\s+(?:equal|comparable)\s+to\s+(?:university|traditional|formal)",
+        r"(?:bootcamp|self-taught|online\s+course)\s+\w+\s+means\s+"
+        r"(?:inadequate|insufficient|poor|weak)",
+        # Same sentence only: [^.] stops at a period, and the 60-char cap keeps it local
+        r"bootcamp\b[^.]{0,60}?\black(?:s|ing)?\s+(?:the\s+)?"
+        r"(?:rigor|fundamentals|proper\s+training)",
     ]
 
     # Demographic assumptions (about age, background, identity)
     DEMOGRAPHIC_PATTERNS = [
-        r"(?:young|old|aged)\s+(?:person|developer|programmer)\s+(?:can't|cannot|won't|will\s+not)",
-        r"(?:person\s+from|coming\s+from)\s+(?:poor|rich|working[\s-]?class)",
-        r"(?:immigrant|international|foreign)\s+developers?.*(?:can't|cannot|won't|struggle)",
+        r"(?:young|old|aged)\s+(?:persons?|people|developers?|programmers?)\s+"
+        r"(?:can[’']t|cannot|won[’']t|will\s+not)",
+        r"(?:(?:person|people|developers?|programmers?)\s+from|coming\s+from)\s+"
+        r"(?:poor|rich|working[\s-]?class)",
+        r"(?:immigrant|international|foreign)\s+developers?.*"
+        r"(?:can[’']t|cannot|won[’']t|struggle)",
+        r"(?:given|because\s+of|due\s+to)\s+(?:their|his|her)\s+age\b[^.]{0,40}?\b"
+        r"(?:can[’']t|cannot|won[’']t|will\s+not|unable)",
     ]
 
     @staticmethod

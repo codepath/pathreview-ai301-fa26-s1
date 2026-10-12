@@ -131,13 +131,18 @@ class TestKeywordSearcher:
         assert result["source"] == "readme"
         assert result["custom"] == "value"
 
-    @pytest.mark.xfail(
-        strict=True,
-        reason="issue #68 (manifest H-01): BM25 keyword search raises ZeroDivisionError on an empty index",
-    )
     def test_empty_index(self, searcher):
         """Test searching on empty index."""
         searcher.index([])
+        results = searcher.search("python", top_k=10)
+
+        assert results == []
+
+    def test_reindex_with_empty_corpus_clears_previous_index(self, searcher):
+        """Test re-indexing with an empty corpus clears previous BM25 state."""
+        searcher.index([{"id": 1, "text": "python programming"}])
+        searcher.index([])
+
         results = searcher.search("python", top_k=10)
 
         assert results == []

@@ -22,7 +22,8 @@ class KeywordSearcher:
         """
         self.chunks = chunks
         tokenized_corpus = [self._tokenize(chunk["text"]) for chunk in chunks]
-        self.bm25 = BM25Okapi(tokenized_corpus)
+        # BM25Okapi divides by corpus size, so an empty corpus leaves no index
+        self.bm25 = BM25Okapi(tokenized_corpus) if tokenized_corpus else None
         logger.info("keyword_index_built", chunk_count=len(chunks))
 
     def search(self, query: str, top_k: int = 10) -> list[dict]:

@@ -17,10 +17,23 @@ async def create_review(
     db,
     profile_id: UUID,
     user_id: UUID,
-) -> Review:
+) -> Review | None:
+    """Create a new review with status="pending" for a profile the user owns.
+
+    Args:
+        db: Async database session.
+        profile_id: ID of the profile to review.
+        user_id: ID of the authenticated user. The profile must belong to this user.
+
+    Returns:
+        The new Review, or None if the profile does not exist or does not
+        belong to the user.
     """
-    Create a new review with status="pending".
-    """
+    stmt = select(Profile).where(and_(Profile.id == profile_id, Profile.user_id == user_id))
+    result = await db.execute(stmt)
+    if result.scalars().first() is None:
+        return None
+
     review = Review(
         profile_id=profile_id,
         status="pending",

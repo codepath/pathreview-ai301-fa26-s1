@@ -7,6 +7,7 @@ from api.schemas.profile import ProfileCreate, ProfileUpdate
 from core.models.ingested_source import IngestedSource
 from core.models.profile import Profile
 from core.models.review import Review
+from rag.retriever.vector_store import VectorStore
 
 log = structlog.get_logger()
 
@@ -75,9 +76,12 @@ async def delete_profile(
     db,
     profile_id: UUID,
     user_id: UUID,
+    vector_store: VectorStore | None = None,
 ) -> bool:
     """
     Delete a profile and cascade delete reviews and ingested sources.
+    Also deletes the profile's vector store collection after the database
+    commit; a failure there is logged and does not undo the deletion.
     Returns True if deleted, False if not found.
     """
     profile = await get_profile(db, profile_id, user_id)
@@ -104,9 +108,17 @@ async def delete_profile(
         await db.commit()
 
         log.info("profile_deleted_cascade", profile_id=str(profile_id))
-        return True
 
     except Exception as exc:
         log.error("profile_cascade_delete_failed", profile_id=str(profile_id), error=str(exc))
         await db.rollback()
         raise
+
+    # The profile is already deleted, so a vector cleanup failure must not
+    # fail the request. An orphaned collection is the behavior before this fix.
+    try:
+        (vector_store or VectorStore()).delete_collection(f"profile_{profile_id}")
+    except Exception as exc:
+        log.error("profile_vector_cleanup_failed", profile_id=str(profile_id), error=str(exc))
+
+    return True

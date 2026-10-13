@@ -1,0 +1,1546 @@
+$ cp .env.example .env
+$ /usr/local/bin/python3.11 -m venv .venv
+$ .venv/bin/python -m pip install --upgrade pip setuptools wheel
+Requirement already satisfied: pip in ./.venv/lib/python3.11/site-packages (23.2.1)
+Collecting pip
+  Obtaining dependency information for pip from https://files.pythonhosted.org/packages/f3/6e/1736e5b4ae2b778ef2f81c47d797de9f891d4d8acb047a24ca37a60294dd/pip-26.2.1-py3-none-any.whl.metadata
+  Using cached pip-26.2.1-py3-none-any.whl.metadata (4.6 kB)
+Requirement already satisfied: setuptools in ./.venv/lib/python3.11/site-packages (65.5.0)
+Collecting setuptools
+  Obtaining dependency information for setuptools from https://files.pythonhosted.org/packages/95/9c/c510029fc6ef33a6275cd2c5d3cecd6613dfd6aa401d57c54f1c18852ccf/setuptools-84.0.0-py3-none-any.whl.metadata
+  Using cached setuptools-84.0.0-py3-none-any.whl.metadata (6.6 kB)
+Collecting wheel
+  Obtaining dependency information for wheel from https://files.pythonhosted.org/packages/2e/29/69cfbb602cd91690c55d38ba9fe53e6a7e76a6fa647bf38f19c138d25449/wheel-0.48.0-py3-none-any.whl.metadata
+  Using cached wheel-0.48.0-py3-none-any.whl.metadata (2.3 kB)
+Collecting packaging>=24.0 (from wheel)
+  Obtaining dependency information for packaging>=24.0 from https://files.pythonhosted.org/packages/63/34/ba1c580383c9eada3711951fef0795c80b829a078d72188184bcab9dd527/packaging-26.3-py3-none-any.whl.metadata
+  Using cached packaging-26.3-py3-none-any.whl.metadata (3.5 kB)
+Using cached pip-26.2.1-py3-none-any.whl (1.8 MB)
+Using cached setuptools-84.0.0-py3-none-any.whl (818 kB)
+Using cached wheel-0.48.0-py3-none-any.whl (33 kB)
+Using cached packaging-26.3-py3-none-any.whl (129 kB)
+Installing collected packages: setuptools, pip, packaging, wheel
+  Attempting uninstall: setuptools
+    Found existing installation: setuptools 65.5.0
+    Uninstalling setuptools-65.5.0:
+      Successfully uninstalled setuptools-65.5.0
+  Attempting uninstall: pip
+    Found existing installation: pip 23.2.1
+    Uninstalling pip-23.2.1:
+      Successfully uninstalled pip-23.2.1
+Successfully installed packaging-26.3 pip-26.2.1 setuptools-84.0.0 wheel-0.48.0
+$ .venv/bin/pip install -e ".[dev]"
+Obtaining file:///Users/js/School/codepath/ai301/pathreview-ai301-fa26-s1
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Checking if build backend supports build_editable: started
+  Checking if build backend supports build_editable: finished with status 'done'
+  Getting requirements to build editable: started
+  Getting requirements to build editable: finished with status 'done'
+  Preparing editable metadata (pyproject.toml): started
+  Preparing editable metadata (pyproject.toml): finished with status 'done'
+Collecting fastapi>=0.109.0 (from pathreview==0.1.0)
+  Downloading fastapi-0.142.2-py3-none-any.whl.metadata (27 kB)
+Collecting uvicorn>=0.25.0 (from uvicorn[standard]>=0.25.0->pathreview==0.1.0)
+  Using cached uvicorn-0.54.0-py3-none-any.whl.metadata (6.6 kB)
+Collecting sqlalchemy>=2.0.0 (from pathreview==0.1.0)
+  Downloading sqlalchemy-2.1.3-cp311-cp311-macosx_11_0_arm64.whl.metadata (9.7 kB)
+Collecting alembic>=1.13.0 (from pathreview==0.1.0)
+  Using cached alembic-1.20.0-py3-none-any.whl.metadata (7.3 kB)
+Collecting psycopg2-binary>=2.9.9 (from pathreview==0.1.0)
+  Using cached psycopg2_binary-2.9.13-cp311-cp311-macosx_11_0_arm64.whl.metadata (4.9 kB)
+Collecting asyncpg>=0.29.0 (from pathreview==0.1.0)
+  Using cached asyncpg-0.31.0-cp311-cp311-macosx_11_0_arm64.whl.metadata (4.4 kB)
+Collecting greenlet>=3.0.0 (from pathreview==0.1.0)
+  Using cached greenlet-3.5.6-cp311-cp311-macosx_11_0_universal2.whl.metadata (3.8 kB)
+Collecting pydantic>=2.5.0 (from pydantic[email]>=2.5.0->pathreview==0.1.0)
+  Using cached pydantic-2.13.5-py3-none-any.whl.metadata (110 kB)
+Collecting pydantic-settings>=2.1.0 (from pathreview==0.1.0)
+  Using cached pydantic_settings-2.15.0-py3-none-any.whl.metadata (3.9 kB)
+Collecting python-multipart>=0.0.6 (from pathreview==0.1.0)
+  Using cached python_multipart-0.0.32-py3-none-any.whl.metadata (2.1 kB)
+Collecting python-jose>=3.3.0 (from python-jose[cryptography]>=3.3.0->pathreview==0.1.0)
+  Using cached python_jose-3.5.0-py2.py3-none-any.whl.metadata (5.5 kB)
+Collecting passlib>=1.7.4 (from passlib[bcrypt]>=1.7.4->pathreview==0.1.0)
+  Using cached passlib-1.7.4-py2.py3-none-any.whl.metadata (1.7 kB)
+Collecting bcrypt<5.0.0,>=4.0.1 (from pathreview==0.1.0)
+  Using cached bcrypt-4.3.0-cp39-abi3-macosx_10_12_universal2.whl.metadata (10 kB)
+Collecting openai>=1.10.0 (from pathreview==0.1.0)
+  Downloading openai-3.24.0-py3-none-any.whl.metadata (44 kB)
+Collecting chromadb>=0.4.22 (from pathreview==0.1.0)
+  Using cached chromadb-1.5.9-cp39-abi3-macosx_11_0_arm64.whl.metadata (5.0 kB)
+Collecting redis>=5.0.0 (from pathreview==0.1.0)
+  Using cached redis-8.1.0-py3-none-any.whl.metadata (16 kB)
+Collecting httpx>=0.26.0 (from pathreview==0.1.0)
+  Using cached httpx-0.28.1-py3-none-any.whl.metadata (7.1 kB)
+Collecting pypdf>=3.17.0 (from pathreview==0.1.0)
+  Using cached pypdf-6.19.0-py3-none-any.whl.metadata (7.5 kB)
+Collecting tiktoken>=0.5.2 (from pathreview==0.1.0)
+  Using cached tiktoken-0.14.0-cp311-cp311-macosx_11_0_arm64.whl.metadata (6.7 kB)
+Collecting tenacity>=8.2.0 (from pathreview==0.1.0)
+  Using cached tenacity-9.1.4-py3-none-any.whl.metadata (1.2 kB)
+Collecting structlog>=24.1.0 (from pathreview==0.1.0)
+  Using cached structlog-26.1.0-py3-none-any.whl.metadata (9.7 kB)
+Collecting rank-bm25>=0.2.2 (from pathreview==0.1.0)
+  Using cached rank_bm25-0.2.2-py3-none-any.whl.metadata (3.2 kB)
+Collecting numpy>=1.26.0 (from pathreview==0.1.0)
+  Using cached numpy-2.4.6-cp311-cp311-macosx_11_0_arm64.whl.metadata (6.6 kB)
+Collecting pytest>=7.4.0 (from pathreview==0.1.0)
+  Using cached pytest-9.1.1-py3-none-any.whl.metadata (7.6 kB)
+Collecting pytest-cov>=4.1.0 (from pathreview==0.1.0)
+  Using cached pytest_cov-7.1.0-py3-none-any.whl.metadata (32 kB)
+Collecting pytest-asyncio>=0.23.0 (from pathreview==0.1.0)
+  Using cached pytest_asyncio-1.4.0-py3-none-any.whl.metadata (4.1 kB)
+Collecting pytest-benchmark>=4.0.0 (from pathreview==0.1.0)
+  Using cached pytest_benchmark-5.3.0-py3-none-any.whl.metadata (31 kB)
+Collecting pytest-httpserver>=1.0.8 (from pathreview==0.1.0)
+  Downloading pytest_httpserver-1.2.0-py3-none-any.whl.metadata (6.2 kB)
+Collecting hypothesis>=6.92.0 (from pathreview==0.1.0)
+  Downloading hypothesis-6.168.5-cp311-cp311-macosx_11_0_arm64.whl.metadata (5.7 kB)
+Collecting ruff>=0.2.0 (from pathreview==0.1.0)
+  Downloading ruff-0.16.10-py3-none-macosx_11_0_arm64.whl.metadata (20 kB)
+Collecting black>=24.1.0 (from pathreview==0.1.0)
+  Downloading black-26.10.0-cp311-cp311-macosx_11_0_arm64.whl.metadata (105 kB)
+Collecting mypy>=1.8.0 (from pathreview==0.1.0)
+  Downloading mypy-2.4.0-cp311-cp311-macosx_11_0_arm64.whl.metadata (2.4 kB)
+Collecting pre-commit>=3.6.0 (from pathreview==0.1.0)
+  Using cached pre_commit-4.6.2-py2.py3-none-any.whl.metadata (1.2 kB)
+Collecting mutmut>=2.4.4 (from pathreview==0.1.0)
+  Using cached mutmut-3.8.0-py3-none-any.whl.metadata (23 kB)
+Collecting types-redis>=4.6.0 (from pathreview==0.1.0)
+  Using cached types_redis-4.6.0.20241004-py3-none-any.whl.metadata (2.0 kB)
+Collecting Mako (from alembic>=1.13.0->pathreview==0.1.0)
+  Using cached mako-1.4.3-py3-none-any.whl.metadata (2.9 kB)
+Collecting typing-extensions>=4.12 (from alembic>=1.13.0->pathreview==0.1.0)
+  Using cached typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)
+Collecting click>=8.0.0 (from black>=24.1.0->pathreview==0.1.0)
+  Using cached click-8.5.0-py3-none-any.whl.metadata (2.6 kB)
+Collecting mypy-extensions>=0.4.3 (from black>=24.1.0->pathreview==0.1.0)
+  Using cached mypy_extensions-1.1.0-py3-none-any.whl.metadata (1.1 kB)
+Requirement already satisfied: packaging>=22.0 in ./.venv/lib/python3.11/site-packages (from black>=24.1.0->pathreview==0.1.0) (26.3)
+Collecting pathspec>=1.0.0 (from black>=24.1.0->pathreview==0.1.0)
+  Using cached pathspec-1.1.1-py3-none-any.whl.metadata (14 kB)
+Collecting platformdirs>=2 (from black>=24.1.0->pathreview==0.1.0)
+  Downloading platformdirs-4.12.3-py3-none-any.whl.metadata (5.5 kB)
+Collecting pytokens~=0.4.0 (from black>=24.1.0->pathreview==0.1.0)
+  Using cached pytokens-0.4.1-cp311-cp311-macosx_11_0_arm64.whl.metadata (3.8 kB)
+Collecting build>=1.0.3 (from chromadb>=0.4.22->pathreview==0.1.0)
+  Using cached build-1.6.1-py3-none-any.whl.metadata (5.6 kB)
+Collecting pybase64>=1.4.1 (from chromadb>=0.4.22->pathreview==0.1.0)
+  Downloading pybase64-1.5.1-cp311-cp311-macosx_11_0_arm64.whl.metadata (11 kB)
+Collecting onnxruntime>=1.14.1 (from chromadb>=0.4.22->pathreview==0.1.0)
+  Using cached onnxruntime-1.23.2-cp311-cp311-macosx_13_0_arm64.whl.metadata (5.1 kB)
+Collecting opentelemetry-api>=1.2.0 (from chromadb>=0.4.22->pathreview==0.1.0)
+  Using cached opentelemetry_api-1.45.0-py3-none-any.whl.metadata (1.4 kB)
+Collecting opentelemetry-exporter-otlp-proto-grpc>=1.2.0 (from chromadb>=0.4.22->pathreview==0.1.0)
+  Using cached opentelemetry_exporter_otlp_proto_grpc-1.45.0-py3-none-any.whl.metadata (2.6 kB)
+Collecting opentelemetry-sdk>=1.2.0 (from chromadb>=0.4.22->pathreview==0.1.0)
+  Using cached opentelemetry_sdk-1.45.0-py3-none-any.whl.metadata (1.6 kB)
+Collecting tokenizers>=0.13.2 (from chromadb>=0.4.22->pathreview==0.1.0)
+  Using cached tokenizers-0.23.2-cp310-abi3-macosx_11_0_arm64.whl.metadata (9.8 kB)
+Collecting pypika>=0.48.9 (from chromadb>=0.4.22->pathreview==0.1.0)
+  Using cached pypika-0.51.1-py2.py3-none-any.whl.metadata (51 kB)
+Collecting tqdm>=4.65.0 (from chromadb>=0.4.22->pathreview==0.1.0)
+  Using cached tqdm-4.70.1-py3-none-any.whl.metadata (57 kB)
+Collecting overrides>=7.3.1 (from chromadb>=0.4.22->pathreview==0.1.0)
+  Using cached overrides-7.7.0-py3-none-any.whl.metadata (5.8 kB)
+Collecting importlib-resources (from chromadb>=0.4.22->pathreview==0.1.0)
+  Using cached importlib_resources-7.1.0-py3-none-any.whl.metadata (4.0 kB)
+Collecting grpcio>=1.58.0 (from chromadb>=0.4.22->pathreview==0.1.0)
+  Using cached grpcio-1.84.0-cp311-cp311-macosx_11_0_universal2.whl.metadata (3.8 kB)
+Collecting typer>=0.9.0 (from chromadb>=0.4.22->pathreview==0.1.0)
+  Using cached typer-0.27.2-py3-none-any.whl.metadata (16 kB)
+Collecting kubernetes>=28.1.0 (from chromadb>=0.4.22->pathreview==0.1.0)
+  Using cached kubernetes-36.0.3-py2.py3-none-any.whl.metadata (1.8 kB)
+Collecting pyyaml>=6.0.0 (from chromadb>=0.4.22->pathreview==0.1.0)
+  Using cached pyyaml-6.0.3-cp311-cp311-macosx_11_0_arm64.whl.metadata (2.4 kB)
+Collecting mmh3>=4.0.1 (from chromadb>=0.4.22->pathreview==0.1.0)
+  Downloading mmh3-5.3.1-cp311-cp311-macosx_11_0_arm64.whl.metadata (13 kB)
+Collecting orjson>=3.9.12 (from chromadb>=0.4.22->pathreview==0.1.0)
+  Using cached orjson-3.12.0-cp311-cp311-macosx_10_15_x86_64.macosx_11_0_arm64.macosx_10_15_universal2.whl.metadata (41 kB)
+Collecting rich>=10.11.0 (from chromadb>=0.4.22->pathreview==0.1.0)
+  Using cached rich-15.0.0-py3-none-any.whl.metadata (18 kB)
+Collecting jsonschema>=4.19.0 (from chromadb>=0.4.22->pathreview==0.1.0)
+  Using cached jsonschema-4.26.0-py3-none-any.whl.metadata (7.6 kB)
+Collecting pyproject_hooks (from build>=1.0.3->chromadb>=0.4.22->pathreview==0.1.0)
+  Using cached pyproject_hooks-1.3.3-py3-none-any.whl.metadata (1.3 kB)
+Collecting starlette>=0.46.0 (from fastapi>=0.109.0->pathreview==0.1.0)
+  Using cached starlette-1.7.0-py3-none-any.whl.metadata (6.6 kB)
+Collecting typing-inspection>=0.4.2 (from fastapi>=0.109.0->pathreview==0.1.0)
+  Using cached typing_inspection-0.4.4-py3-none-any.whl.metadata (2.6 kB)
+Collecting annotated-doc>=0.0.2 (from fastapi>=0.109.0->pathreview==0.1.0)
+  Using cached annotated_doc-0.0.5-py3-none-any.whl.metadata (6.5 kB)
+Collecting anyio (from httpx>=0.26.0->pathreview==0.1.0)
+  Using cached anyio-4.15.1-py3-none-any.whl.metadata (4.7 kB)
+Collecting certifi (from httpx>=0.26.0->pathreview==0.1.0)
+  Using cached certifi-2026.7.22-py3-none-any.whl.metadata (2.5 kB)
+Collecting httpcore==1.* (from httpx>=0.26.0->pathreview==0.1.0)
+  Using cached httpcore-1.0.9-py3-none-any.whl.metadata (21 kB)
+Collecting idna (from httpx>=0.26.0->pathreview==0.1.0)
+  Using cached idna-3.20-py3-none-any.whl.metadata (7.2 kB)
+Collecting h11>=0.16 (from httpcore==1.*->httpx>=0.26.0->pathreview==0.1.0)
+  Using cached h11-0.16.0-py3-none-any.whl.metadata (8.3 kB)
+Collecting sortedcontainers<3.0.0,>=2.1.0 (from hypothesis>=6.92.0->pathreview==0.1.0)
+  Using cached sortedcontainers-2.4.0-py2.py3-none-any.whl.metadata (10 kB)
+Collecting attrs>=22.2.0 (from jsonschema>=4.19.0->chromadb>=0.4.22->pathreview==0.1.0)
+  Using cached attrs-26.1.0-py3-none-any.whl.metadata (8.8 kB)
+Collecting jsonschema-specifications>=2023.03.6 (from jsonschema>=4.19.0->chromadb>=0.4.22->pathreview==0.1.0)
+  Using cached jsonschema_specifications-2025.9.1-py3-none-any.whl.metadata (2.9 kB)
+Collecting referencing>=0.28.4 (from jsonschema>=4.19.0->chromadb>=0.4.22->pathreview==0.1.0)
+  Using cached referencing-0.37.0-py3-none-any.whl.metadata (2.8 kB)
+Collecting rpds-py>=0.25.0 (from jsonschema>=4.19.0->chromadb>=0.4.22->pathreview==0.1.0)
+  Downloading rpds_py-2026.9.1-cp311-cp311-macosx_11_0_arm64.whl.metadata (4.1 kB)
+Collecting six>=1.9.0 (from kubernetes>=28.1.0->chromadb>=0.4.22->pathreview==0.1.0)
+  Using cached six-1.17.0-py2.py3-none-any.whl.metadata (1.7 kB)
+Collecting python-dateutil>=2.5.3 (from kubernetes>=28.1.0->chromadb>=0.4.22->pathreview==0.1.0)
+  Using cached python_dateutil-2.9.0.post0-py2.py3-none-any.whl.metadata (8.4 kB)
+Collecting websocket-client!=0.40.0,!=0.41.*,!=0.42.*,>=0.32.0 (from kubernetes>=28.1.0->chromadb>=0.4.22->pathreview==0.1.0)
+  Using cached websocket_client-1.9.2-py3-none-any.whl.metadata (8.3 kB)
+Collecting requests (from kubernetes>=28.1.0->chromadb>=0.4.22->pathreview==0.1.0)
+  Using cached requests-2.34.2-py3-none-any.whl.metadata (4.8 kB)
+Collecting requests-oauthlib (from kubernetes>=28.1.0->chromadb>=0.4.22->pathreview==0.1.0)
+  Using cached requests_oauthlib-2.0.0-py2.py3-none-any.whl.metadata (11 kB)
+Collecting urllib3!=2.6.0,>=1.24.2 (from kubernetes>=28.1.0->chromadb>=0.4.22->pathreview==0.1.0)
+  Using cached urllib3-2.8.0-py3-none-any.whl.metadata (7.4 kB)
+Collecting durationpy>=0.7 (from kubernetes>=28.1.0->chromadb>=0.4.22->pathreview==0.1.0)
+  Using cached durationpy-0.11-py3-none-any.whl.metadata (474 bytes)
+Collecting aiohttp<4.0.0,>=3.13.5 (from kubernetes>=28.1.0->chromadb>=0.4.22->pathreview==0.1.0)
+  Downloading aiohttp-3.14.4-cp311-cp311-macosx_11_0_arm64.whl.metadata (8.3 kB)
+Collecting aiohappyeyeballs>=2.5.0 (from aiohttp<4.0.0,>=3.13.5->kubernetes>=28.1.0->chromadb>=0.4.22->pathreview==0.1.0)
+  Using cached aiohappyeyeballs-2.7.1-py3-none-any.whl.metadata (5.9 kB)
+Collecting aiosignal>=1.4.0 (from aiohttp<4.0.0,>=3.13.5->kubernetes>=28.1.0->chromadb>=0.4.22->pathreview==0.1.0)
+  Using cached aiosignal-1.4.0-py3-none-any.whl.metadata (3.7 kB)
+Collecting frozenlist>=1.1.1 (from aiohttp<4.0.0,>=3.13.5->kubernetes>=28.1.0->chromadb>=0.4.22->pathreview==0.1.0)
+  Using cached frozenlist-1.8.0-cp311-cp311-macosx_11_0_arm64.whl.metadata (20 kB)
+Collecting multidict<7.0,>=4.5 (from aiohttp<4.0.0,>=3.13.5->kubernetes>=28.1.0->chromadb>=0.4.22->pathreview==0.1.0)
+  Using cached multidict-6.9.1-cp311-cp311-macosx_11_0_arm64.whl.metadata (5.3 kB)
+Collecting propcache>=0.2.0 (from aiohttp<4.0.0,>=3.13.5->kubernetes>=28.1.0->chromadb>=0.4.22->pathreview==0.1.0)
+  Using cached propcache-0.5.4-cp311-cp311-macosx_11_0_arm64.whl.metadata (25 kB)
+Collecting yarl<2.0,>=1.25.1 (from aiohttp<4.0.0,>=3.13.5->kubernetes>=28.1.0->chromadb>=0.4.22->pathreview==0.1.0)
+  Using cached yarl-1.25.1-cp311-cp311-macosx_11_0_arm64.whl.metadata (111 kB)
+Collecting coverage>=7.3.0 (from mutmut>=2.4.4->pathreview==0.1.0)
+  Using cached coverage-7.16.2-cp311-cp311-macosx_11_0_arm64.whl.metadata (8.2 kB)
+Collecting libcst>=1.9.0 (from mutmut>=2.4.4->pathreview==0.1.0)
+  Using cached libcst-1.9.0-cp311-cp311-macosx_11_0_arm64.whl.metadata (15 kB)
+Collecting setproctitle>=1.3.7 (from mutmut>=2.4.4->pathreview==0.1.0)
+  Downloading setproctitle-1.3.8-cp311-cp311-macosx_11_0_arm64.whl.metadata (10 kB)
+Collecting textual>=1.0.0 (from mutmut>=2.4.4->pathreview==0.1.0)
+  Using cached textual-8.2.8-py3-none-any.whl.metadata (9.1 kB)
+Collecting librt>=0.16.0 (from mypy>=1.8.0->pathreview==0.1.0)
+  Using cached librt-0.16.0-cp311-cp311-macosx_11_0_arm64.whl.metadata (1.3 kB)
+Collecting ast-serialize<1.0.0,>=0.11.2 (from mypy>=1.8.0->pathreview==0.1.0)
+  Downloading ast_serialize-0.12.1-cp39-abi3-macosx_11_0_arm64.whl.metadata (1.4 kB)
+Collecting coloredlogs (from onnxruntime>=1.14.1->chromadb>=0.4.22->pathreview==0.1.0)
+  Using cached coloredlogs-15.0.1-py2.py3-none-any.whl.metadata (12 kB)
+Collecting flatbuffers (from onnxruntime>=1.14.1->chromadb>=0.4.22->pathreview==0.1.0)
+  Using cached flatbuffers-25.12.19-py2.py3-none-any.whl.metadata (1.0 kB)
+Collecting protobuf (from onnxruntime>=1.14.1->chromadb>=0.4.22->pathreview==0.1.0)
+  Using cached protobuf-7.36.2-cp310-abi3-macosx_10_9_universal2.whl.metadata (595 bytes)
+Collecting sympy (from onnxruntime>=1.14.1->chromadb>=0.4.22->pathreview==0.1.0)
+  Using cached sympy-1.14.0-py3-none-any.whl.metadata (12 kB)
+Collecting httpx2<3,>=2.12.0 (from openai>=1.10.0->pathreview==0.1.0)
+  Using cached httpx2-2.13.1-py3-none-any.whl.metadata (9.8 kB)
+Collecting jiter<1,>=0.16.0 (from openai>=1.10.0->pathreview==0.1.0)
+  Using cached jiter-0.17.0-cp311-cp311-macosx_11_0_arm64.whl.metadata (5.2 kB)
+Collecting sniffio (from openai>=1.10.0->pathreview==0.1.0)
+  Using cached sniffio-1.3.1-py3-none-any.whl.metadata (3.9 kB)
+Collecting httpcore2==2.13.1 (from httpx2<3,>=2.12.0->openai>=1.10.0->pathreview==0.1.0)
+  Using cached httpcore2-2.13.1-py3-none-any.whl.metadata (26 kB)
+Collecting truststore>=0.10 (from httpx2<3,>=2.12.0->openai>=1.10.0->pathreview==0.1.0)
+  Using cached truststore-0.10.4-py3-none-any.whl.metadata (4.4 kB)
+Collecting annotated-types>=0.6.0 (from pydantic>=2.5.0->pydantic[email]>=2.5.0->pathreview==0.1.0)
+  Using cached annotated_types-0.8.0-py3-none-any.whl.metadata (15 kB)
+Collecting pydantic-core==2.46.5 (from pydantic>=2.5.0->pydantic[email]>=2.5.0->pathreview==0.1.0)
+  Using cached pydantic_core-2.46.5-cp311-cp311-macosx_11_0_arm64.whl.metadata (6.6 kB)
+Collecting googleapis-common-protos~=1.57 (from opentelemetry-exporter-otlp-proto-grpc>=1.2.0->chromadb>=0.4.22->pathreview==0.1.0)
+  Using cached googleapis_common_protos-1.75.5-py3-none-any.whl.metadata (8.5 kB)
+Collecting opentelemetry-exporter-otlp-common==0.66b0 (from opentelemetry-exporter-otlp-proto-grpc>=1.2.0->chromadb>=0.4.22->pathreview==0.1.0)
+  Using cached opentelemetry_exporter_otlp_common-0.66b0-py3-none-any.whl.metadata (1.9 kB)
+Collecting opentelemetry-exporter-otlp-proto-common==1.45.0 (from opentelemetry-exporter-otlp-proto-grpc>=1.2.0->chromadb>=0.4.22->pathreview==0.1.0)
+  Using cached opentelemetry_exporter_otlp_proto_common-1.45.0-py3-none-any.whl.metadata (1.8 kB)
+Collecting opentelemetry-proto==1.45.0 (from opentelemetry-exporter-otlp-proto-grpc>=1.2.0->chromadb>=0.4.22->pathreview==0.1.0)
+  Using cached opentelemetry_proto-1.45.0-py3-none-any.whl.metadata (2.3 kB)
+Collecting opentelemetry-semantic-conventions==0.66b0 (from opentelemetry-sdk>=1.2.0->chromadb>=0.4.22->pathreview==0.1.0)
+  Using cached opentelemetry_semantic_conventions-0.66b0-py3-none-any.whl.metadata (2.4 kB)
+Collecting cfgv>=2.0.0 (from pre-commit>=3.6.0->pathreview==0.1.0)
+  Using cached cfgv-3.5.0-py2.py3-none-any.whl.metadata (8.9 kB)
+Collecting identify>=1.0.0 (from pre-commit>=3.6.0->pathreview==0.1.0)
+  Using cached identify-2.6.20-py2.py3-none-any.whl.metadata (4.4 kB)
+Collecting nodeenv>=0.11.1 (from pre-commit>=3.6.0->pathreview==0.1.0)
+  Using cached nodeenv-1.11.0-py2.py3-none-any.whl.metadata (40 kB)
+Collecting virtualenv>=20.10.0 (from pre-commit>=3.6.0->pathreview==0.1.0)
+  Downloading virtualenv-21.14.5-py3-none-any.whl.metadata (4.1 kB)
+Collecting python-dotenv>=0.21.0 (from pydantic-settings>=2.1.0->pathreview==0.1.0)
+  Downloading python_dotenv-1.2.4-py3-none-any.whl.metadata (29 kB)
+Collecting email-validator>=2.0.0 (from pydantic[email]>=2.5.0->pathreview==0.1.0)
+  Using cached email_validator-2.3.0-py3-none-any.whl.metadata (26 kB)
+Collecting dnspython>=2.0.0 (from email-validator>=2.0.0->pydantic[email]>=2.5.0->pathreview==0.1.0)
+  Using cached dnspython-2.8.0-py3-none-any.whl.metadata (5.7 kB)
+Collecting iniconfig>=1.0.1 (from pytest>=7.4.0->pathreview==0.1.0)
+  Using cached iniconfig-2.3.0-py3-none-any.whl.metadata (2.5 kB)
+Collecting pluggy<2,>=1.5 (from pytest>=7.4.0->pathreview==0.1.0)
+  Using cached pluggy-1.6.0-py3-none-any.whl.metadata (4.8 kB)
+Collecting pygments>=2.7.2 (from pytest>=7.4.0->pathreview==0.1.0)
+  Using cached pygments-2.21.0-py3-none-any.whl.metadata (2.5 kB)
+Collecting py-cpuinfo2>=10.1 (from pytest-benchmark>=4.0.0->pathreview==0.1.0)
+  Using cached py_cpuinfo2-10.1.1-py3-none-any.whl.metadata (7.5 kB)
+Collecting Werkzeug>=3.0.0 (from pytest-httpserver>=1.0.8->pathreview==0.1.0)
+  Using cached werkzeug-3.1.9-py3-none-any.whl.metadata (4.1 kB)
+Collecting ecdsa!=0.15 (from python-jose>=3.3.0->python-jose[cryptography]>=3.3.0->pathreview==0.1.0)
+  Using cached ecdsa-0.19.2-py2.py3-none-any.whl.metadata (29 kB)
+Collecting rsa!=4.1.1,!=4.4,<5.0,>=4.0 (from python-jose>=3.3.0->python-jose[cryptography]>=3.3.0->pathreview==0.1.0)
+  Using cached rsa-4.9.1-py3-none-any.whl.metadata (5.6 kB)
+Collecting pyasn1>=0.5.0 (from python-jose>=3.3.0->python-jose[cryptography]>=3.3.0->pathreview==0.1.0)
+  Using cached pyasn1-0.6.4-py3-none-any.whl.metadata (8.4 kB)
+Collecting cryptography>=3.4.0 (from python-jose[cryptography]>=3.3.0->pathreview==0.1.0)
+  Downloading cryptography-50.0.2-cp311-abi3-macosx_11_0_arm64.whl.metadata (4.4 kB)
+Collecting cffi>=2.0.0 (from cryptography>=3.4.0->python-jose[cryptography]>=3.3.0->pathreview==0.1.0)
+  Using cached cffi-2.1.1-cp311-cp311-macosx_11_0_arm64.whl.metadata (2.5 kB)
+Collecting pycparser (from cffi>=2.0.0->cryptography>=3.4.0->python-jose[cryptography]>=3.3.0->pathreview==0.1.0)
+  Using cached pycparser-3.0-py3-none-any.whl.metadata (8.2 kB)
+Collecting markdown-it-py>=2.2.0 (from rich>=10.11.0->chromadb>=0.4.22->pathreview==0.1.0)
+  Using cached markdown_it_py-4.2.0-py3-none-any.whl.metadata (7.4 kB)
+Collecting mdurl~=0.1 (from markdown-it-py>=2.2.0->rich>=10.11.0->chromadb>=0.4.22->pathreview==0.1.0)
+  Using cached mdurl-0.1.2-py3-none-any.whl.metadata (1.6 kB)
+Collecting mdit-py-plugins (from textual>=1.0.0->mutmut>=2.4.4->pathreview==0.1.0)
+  Using cached mdit_py_plugins-0.6.1-py3-none-any.whl.metadata (2.9 kB)
+Collecting linkify-it-py<3,>=1 (from markdown-it-py[linkify]>=2.1.0->textual>=1.0.0->mutmut>=2.4.4->pathreview==0.1.0)
+  Using cached linkify_it_py-2.2.0-py3-none-any.whl.metadata (8.6 kB)
+Collecting regex (from tiktoken>=0.5.2->pathreview==0.1.0)
+  Using cached regex-2026.9.29-cp311-cp311-macosx_11_0_arm64.whl.metadata (40 kB)
+Collecting huggingface-hub<2.0,>=0.16.4 (from tokenizers>=0.13.2->chromadb>=0.4.22->pathreview==0.1.0)
+  Using cached huggingface_hub-1.33.0-py3-none-any.whl.metadata (16 kB)
+Collecting filelock>=3.10.0 (from huggingface-hub<2.0,>=0.16.4->tokenizers>=0.13.2->chromadb>=0.4.22->pathreview==0.1.0)
+  Downloading filelock-4.0.12-py3-none-any.whl.metadata (2.0 kB)
+Collecting fsspec>=2023.5.0 (from huggingface-hub<2.0,>=0.16.4->tokenizers>=0.13.2->chromadb>=0.4.22->pathreview==0.1.0)
+  Using cached fsspec-2026.9.0-py3-none-any.whl.metadata (10 kB)
+Collecting hf-xet<2.0.0,>=1.6.0 (from huggingface-hub<2.0,>=0.16.4->tokenizers>=0.13.2->chromadb>=0.4.22->pathreview==0.1.0)
+  Using cached hf_xet-1.6.0-cp38-abi3-macosx_11_0_arm64.whl.metadata (4.9 kB)
+Collecting shellingham>=1.3.0 (from typer>=0.9.0->chromadb>=0.4.22->pathreview==0.1.0)
+  Using cached shellingham-1.5.4-py2.py3-none-any.whl.metadata (3.5 kB)
+Collecting types-pyOpenSSL (from types-redis>=4.6.0->pathreview==0.1.0)
+  Using cached types_pyOpenSSL-24.1.0.20240722-py3-none-any.whl.metadata (2.1 kB)
+Collecting httptools>=0.8.0 (from uvicorn[standard]>=0.25.0->pathreview==0.1.0)
+  Using cached httptools-0.8.0-cp311-cp311-macosx_11_0_arm64.whl.metadata (3.5 kB)
+Collecting uvloop>=0.15.1 (from uvicorn[standard]>=0.25.0->pathreview==0.1.0)
+  Downloading uvloop-0.23.0-cp311-cp311-macosx_10_9_universal2.whl.metadata (5.1 kB)
+Collecting watchfiles>=0.20 (from uvicorn[standard]>=0.25.0->pathreview==0.1.0)
+  Using cached watchfiles-1.3.0-cp310-abi3-macosx_11_0_arm64.whl.metadata (4.9 kB)
+Collecting websockets>=13.0 (from uvicorn[standard]>=0.25.0->pathreview==0.1.0)
+  Downloading websockets-17.2-cp311-cp311-macosx_11_0_arm64.whl.metadata (6.3 kB)
+Collecting distlib<1,>=0.3.7 (from virtualenv>=20.10.0->pre-commit>=3.6.0->pathreview==0.1.0)
+  Using cached distlib-0.4.3-py2.py3-none-any.whl.metadata (5.3 kB)
+Collecting python-discovery>=1.6 (from virtualenv>=20.10.0->pre-commit>=3.6.0->pathreview==0.1.0)
+  Using cached python_discovery-1.6.1-py3-none-any.whl.metadata (5.1 kB)
+Collecting markupsafe>=2.1.1 (from Werkzeug>=3.0.0->pytest-httpserver>=1.0.8->pathreview==0.1.0)
+  Downloading markupsafe-3.0.4-cp311-cp311-macosx_11_0_arm64.whl.metadata (2.7 kB)
+Collecting humanfriendly>=9.1 (from coloredlogs->onnxruntime>=1.14.1->chromadb>=0.4.22->pathreview==0.1.0)
+  Using cached humanfriendly-10.0-py2.py3-none-any.whl.metadata (9.2 kB)
+Collecting charset_normalizer<4,>=2 (from requests->kubernetes>=28.1.0->chromadb>=0.4.22->pathreview==0.1.0)
+  Downloading charset_normalizer-3.5.2-cp311-cp311-macosx_10_9_universal2.whl.metadata (46 kB)
+Collecting oauthlib>=3.0.0 (from requests-oauthlib->kubernetes>=28.1.0->chromadb>=0.4.22->pathreview==0.1.0)
+  Using cached oauthlib-4.0.0-py3-none-any.whl.metadata (8.6 kB)
+Collecting mpmath<1.4,>=1.1.0 (from sympy->onnxruntime>=1.14.1->chromadb>=0.4.22->pathreview==0.1.0)
+  Using cached mpmath-1.3.0-py3-none-any.whl.metadata (8.6 kB)
+Collecting types-cffi (from types-pyOpenSSL->types-redis>=4.6.0->pathreview==0.1.0)
+  Using cached types_cffi-2.1.0.20260827-py3-none-any.whl.metadata (1.8 kB)
+Collecting types-setuptools (from types-cffi->types-pyOpenSSL->types-redis>=4.6.0->pathreview==0.1.0)
+  Using cached types_setuptools-84.0.0.20260812-py3-none-any.whl.metadata (2.0 kB)
+Using cached bcrypt-4.3.0-cp39-abi3-macosx_10_12_universal2.whl (498 kB)
+Using cached alembic-1.20.0-py3-none-any.whl (268 kB)
+Using cached asyncpg-0.31.0-cp311-cp311-macosx_11_0_arm64.whl (638 kB)
+Downloading black-26.10.0-cp311-cp311-macosx_11_0_arm64.whl (1.9 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.9/1.9 MB 33.6 MB/s  0:00:00
+Using cached pytokens-0.4.1-cp311-cp311-macosx_11_0_arm64.whl (160 kB)
+Using cached chromadb-1.5.9-cp39-abi3-macosx_11_0_arm64.whl (21.7 MB)
+Using cached build-1.6.1-py3-none-any.whl (31 kB)
+Using cached click-8.5.0-py3-none-any.whl (125 kB)
+Downloading fastapi-0.142.2-py3-none-any.whl (144 kB)
+Using cached annotated_doc-0.0.5-py3-none-any.whl (5.3 kB)
+Using cached greenlet-3.5.6-cp311-cp311-macosx_11_0_universal2.whl (294 kB)
+Using cached grpcio-1.84.0-cp311-cp311-macosx_11_0_universal2.whl (12.4 MB)
+Using cached typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+Using cached httpx-0.28.1-py3-none-any.whl (73 kB)
+Using cached httpcore-1.0.9-py3-none-any.whl (78 kB)
+Using cached h11-0.16.0-py3-none-any.whl (37 kB)
+Downloading hypothesis-6.168.5-cp311-cp311-macosx_11_0_arm64.whl (788 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 788.0/788.0 kB 22.8 MB/s  0:00:00
+Using cached sortedcontainers-2.4.0-py2.py3-none-any.whl (29 kB)
+Using cached jsonschema-4.26.0-py3-none-any.whl (90 kB)
+Using cached attrs-26.1.0-py3-none-any.whl (67 kB)
+Using cached jsonschema_specifications-2025.9.1-py3-none-any.whl (18 kB)
+Using cached kubernetes-36.0.3-py2.py3-none-any.whl (4.6 MB)
+Downloading aiohttp-3.14.4-cp311-cp311-macosx_11_0_arm64.whl (552 kB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 552.9/552.9 kB 17.9 MB/s  0:00:00
+Using cached multidict-6.9.1-cp311-cp311-macosx_11_0_arm64.whl (57 kB)
+Using cached yarl-1.25.1-cp311-cp311-macosx_11_0_arm64.whl (104 kB)
+Using cached aiohappyeyeballs-2.7.1-py3-none-any.whl (15 kB)
+Using cached aiosignal-1.4.0-py3-none-any.whl (7.5 kB)
+Using cached certifi-2026.7.22-py3-none-any.whl (136 kB)
+Using cached durationpy-0.11-py3-none-any.whl (4.1 kB)
+Using cached frozenlist-1.8.0-cp311-cp311-macosx_11_0_arm64.whl (50 kB)
+Using cached idna-3.20-py3-none-any.whl (69 kB)
+Downloading mmh3-5.3.1-cp311-cp311-macosx_11_0_arm64.whl (39 kB)
+Using cached mutmut-3.8.0-py3-none-any.whl (81 kB)
+Using cached coverage-7.16.2-cp311-cp311-macosx_11_0_arm64.whl (224 kB)
+Using cached libcst-1.9.0-cp311-cp311-macosx_11_0_arm64.whl (2.1 MB)
+Downloading mypy-2.4.0-cp311-cp311-macosx_11_0_arm64.whl (14.3 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 14.3/14.3 MB 35.0 MB/s  0:00:00
+Downloading ast_serialize-0.12.1-cp39-abi3-macosx_11_0_arm64.whl (1.2 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.2/1.2 MB 26.5 MB/s  0:00:00
+Using cached librt-0.16.0-cp311-cp311-macosx_11_0_arm64.whl (153 kB)
+Using cached mypy_extensions-1.1.0-py3-none-any.whl (5.0 kB)
+Using cached numpy-2.4.6-cp311-cp311-macosx_11_0_arm64.whl (15.0 MB)
+Using cached onnxruntime-1.23.2-cp311-cp311-macosx_13_0_arm64.whl (17.2 MB)
+Downloading openai-3.24.0-py3-none-any.whl (2.1 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.1/2.1 MB 22.1 MB/s  0:00:00
+Using cached anyio-4.15.1-py3-none-any.whl (132 kB)
+Using cached httpx2-2.13.1-py3-none-any.whl (95 kB)
+Using cached httpcore2-2.13.1-py3-none-any.whl (83 kB)
+Using cached jiter-0.17.0-cp311-cp311-macosx_11_0_arm64.whl (324 kB)
+Using cached pydantic-2.13.5-py3-none-any.whl (472 kB)
+Using cached pydantic_core-2.46.5-cp311-cp311-macosx_11_0_arm64.whl (1.9 MB)
+Using cached annotated_types-0.8.0-py3-none-any.whl (13 kB)
+Using cached opentelemetry_api-1.45.0-py3-none-any.whl (60 kB)
+Using cached opentelemetry_exporter_otlp_proto_grpc-1.45.0-py3-none-any.whl (19 kB)
+Using cached opentelemetry_exporter_otlp_common-0.66b0-py3-none-any.whl (12 kB)
+Using cached opentelemetry_exporter_otlp_proto_common-1.45.0-py3-none-any.whl (15 kB)
+Using cached opentelemetry_proto-1.45.0-py3-none-any.whl (72 kB)
+Using cached googleapis_common_protos-1.75.5-py3-none-any.whl (307 kB)
+Using cached opentelemetry_sdk-1.45.0-py3-none-any.whl (140 kB)
+Using cached opentelemetry_semantic_conventions-0.66b0-py3-none-any.whl (206 kB)
+Using cached protobuf-7.36.2-cp310-abi3-macosx_10_9_universal2.whl (456 kB)
+Using cached orjson-3.12.0-cp311-cp311-macosx_10_15_x86_64.macosx_11_0_arm64.macosx_10_15_universal2.whl (223 kB)
+Using cached overrides-7.7.0-py3-none-any.whl (17 kB)
+Using cached passlib-1.7.4-py2.py3-none-any.whl (525 kB)
+Using cached pathspec-1.1.1-py3-none-any.whl (57 kB)
+Downloading platformdirs-4.12.3-py3-none-any.whl (32 kB)
+Using cached pre_commit-4.6.2-py2.py3-none-any.whl (226 kB)
+Using cached cfgv-3.5.0-py2.py3-none-any.whl (7.4 kB)
+Using cached identify-2.6.20-py2.py3-none-any.whl (99 kB)
+Using cached nodeenv-1.11.0-py2.py3-none-any.whl (34 kB)
+Using cached propcache-0.5.4-cp311-cp311-macosx_11_0_arm64.whl (52 kB)
+Using cached psycopg2_binary-2.9.13-cp311-cp311-macosx_11_0_arm64.whl (3.8 MB)
+Downloading pybase64-1.5.1-cp311-cp311-macosx_11_0_arm64.whl (40 kB)
+Using cached pydantic_settings-2.15.0-py3-none-any.whl (69 kB)
+Using cached email_validator-2.3.0-py3-none-any.whl (35 kB)
+Using cached dnspython-2.8.0-py3-none-any.whl (331 kB)
+Using cached pypdf-6.19.0-py3-none-any.whl (395 kB)
+Using cached pypika-0.51.1-py2.py3-none-any.whl (60 kB)
+Using cached pytest-9.1.1-py3-none-any.whl (386 kB)
+Using cached pluggy-1.6.0-py3-none-any.whl (20 kB)
+Using cached iniconfig-2.3.0-py3-none-any.whl (7.5 kB)
+Using cached pygments-2.21.0-py3-none-any.whl (1.3 MB)
+Using cached pytest_asyncio-1.4.0-py3-none-any.whl (16 kB)
+Using cached pytest_benchmark-5.3.0-py3-none-any.whl (48 kB)
+Using cached py_cpuinfo2-10.1.1-py3-none-any.whl (23 kB)
+Using cached pytest_cov-7.1.0-py3-none-any.whl (22 kB)
+Downloading pytest_httpserver-1.2.0-py3-none-any.whl (23 kB)
+Using cached python_dateutil-2.9.0.post0-py2.py3-none-any.whl (229 kB)
+Downloading python_dotenv-1.2.4-py3-none-any.whl (23 kB)
+Using cached python_jose-3.5.0-py2.py3-none-any.whl (34 kB)
+Using cached rsa-4.9.1-py3-none-any.whl (34 kB)
+Using cached ecdsa-0.19.2-py2.py3-none-any.whl (150 kB)
+Using cached pyasn1-0.6.4-py3-none-any.whl (84 kB)
+Downloading cryptography-50.0.2-cp311-abi3-macosx_11_0_arm64.whl (3.9 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.9/3.9 MB 39.3 MB/s  0:00:00
+Using cached cffi-2.1.1-cp311-cp311-macosx_11_0_arm64.whl (184 kB)
+Using cached python_multipart-0.0.32-py3-none-any.whl (30 kB)
+Using cached pyyaml-6.0.3-cp311-cp311-macosx_11_0_arm64.whl (175 kB)
+Using cached rank_bm25-0.2.2-py3-none-any.whl (8.6 kB)
+Using cached redis-8.1.0-py3-none-any.whl (560 kB)
+Using cached referencing-0.37.0-py3-none-any.whl (26 kB)
+Using cached rich-15.0.0-py3-none-any.whl (310 kB)
+Using cached markdown_it_py-4.2.0-py3-none-any.whl (91 kB)
+Using cached mdurl-0.1.2-py3-none-any.whl (10.0 kB)
+Downloading rpds_py-2026.9.1-cp311-cp311-macosx_11_0_arm64.whl (346 kB)
+Downloading ruff-0.16.10-py3-none-macosx_11_0_arm64.whl (9.8 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 9.8/9.8 MB 32.9 MB/s  0:00:00
+Downloading setproctitle-1.3.8-cp311-cp311-macosx_11_0_arm64.whl (13 kB)
+Using cached six-1.17.0-py2.py3-none-any.whl (11 kB)
+Downloading sqlalchemy-2.1.3-cp311-cp311-macosx_11_0_arm64.whl (2.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.5/2.5 MB 38.4 MB/s  0:00:00
+Using cached starlette-1.7.0-py3-none-any.whl (78 kB)
+Using cached structlog-26.1.0-py3-none-any.whl (73 kB)
+Using cached tenacity-9.1.4-py3-none-any.whl (28 kB)
+Using cached textual-8.2.8-py3-none-any.whl (731 kB)
+Using cached linkify_it_py-2.2.0-py3-none-any.whl (21 kB)
+Using cached tiktoken-0.14.0-cp311-cp311-macosx_11_0_arm64.whl (1.0 MB)
+Using cached tokenizers-0.23.2-cp310-abi3-macosx_11_0_arm64.whl (3.1 MB)
+Using cached huggingface_hub-1.33.0-py3-none-any.whl (846 kB)
+Using cached hf_xet-1.6.0-cp38-abi3-macosx_11_0_arm64.whl (3.9 MB)
+Downloading filelock-4.0.12-py3-none-any.whl (111 kB)
+Using cached fsspec-2026.9.0-py3-none-any.whl (221 kB)
+Using cached tqdm-4.70.1-py3-none-any.whl (80 kB)
+Using cached truststore-0.10.4-py3-none-any.whl (18 kB)
+Using cached typer-0.27.2-py3-none-any.whl (123 kB)
+Using cached shellingham-1.5.4-py2.py3-none-any.whl (9.8 kB)
+Using cached types_redis-4.6.0.20241004-py3-none-any.whl (58 kB)
+Using cached typing_inspection-0.4.4-py3-none-any.whl (14 kB)
+Using cached urllib3-2.8.0-py3-none-any.whl (135 kB)
+Using cached uvicorn-0.54.0-py3-none-any.whl (87 kB)
+Using cached httptools-0.8.0-cp311-cp311-macosx_11_0_arm64.whl (113 kB)
+Downloading uvloop-0.23.0-cp311-cp311-macosx_10_9_universal2.whl (1.4 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.4/1.4 MB 30.6 MB/s  0:00:00
+Downloading virtualenv-21.14.5-py3-none-any.whl (5.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.5/5.5 MB 39.5 MB/s  0:00:00
+Using cached distlib-0.4.3-py2.py3-none-any.whl (470 kB)
+Using cached python_discovery-1.6.1-py3-none-any.whl (38 kB)
+Using cached watchfiles-1.3.0-cp310-abi3-macosx_11_0_arm64.whl (397 kB)
+Using cached websocket_client-1.9.2-py3-none-any.whl (95 kB)
+Downloading websockets-17.2-cp311-cp311-macosx_11_0_arm64.whl (215 kB)
+Using cached werkzeug-3.1.9-py3-none-any.whl (228 kB)
+Downloading markupsafe-3.0.4-cp311-cp311-macosx_11_0_arm64.whl (12 kB)
+Using cached coloredlogs-15.0.1-py2.py3-none-any.whl (46 kB)
+Using cached humanfriendly-10.0-py2.py3-none-any.whl (86 kB)
+Using cached flatbuffers-25.12.19-py2.py3-none-any.whl (26 kB)
+Using cached importlib_resources-7.1.0-py3-none-any.whl (37 kB)
+Using cached mako-1.4.3-py3-none-any.whl (80 kB)
+Using cached mdit_py_plugins-0.6.1-py3-none-any.whl (66 kB)
+Using cached pycparser-3.0-py3-none-any.whl (48 kB)
+Using cached pyproject_hooks-1.3.3-py3-none-any.whl (10 kB)
+Using cached regex-2026.9.29-cp311-cp311-macosx_11_0_arm64.whl (292 kB)
+Using cached requests-2.34.2-py3-none-any.whl (73 kB)
+Downloading charset_normalizer-3.5.2-cp311-cp311-macosx_10_9_universal2.whl (370 kB)
+Using cached requests_oauthlib-2.0.0-py2.py3-none-any.whl (24 kB)
+Using cached oauthlib-4.0.0-py3-none-any.whl (159 kB)
+Using cached sniffio-1.3.1-py3-none-any.whl (10 kB)
+Using cached sympy-1.14.0-py3-none-any.whl (6.3 MB)
+Using cached mpmath-1.3.0-py3-none-any.whl (536 kB)
+Using cached types_pyOpenSSL-24.1.0.20240722-py3-none-any.whl (7.5 kB)
+Using cached types_cffi-2.1.0.20260827-py3-none-any.whl (20 kB)
+Using cached types_setuptools-84.0.0.20260812-py3-none-any.whl (70 kB)
+Building wheels for collected packages: pathreview
+  Building editable for pathreview (pyproject.toml): started
+  Building editable for pathreview (pyproject.toml): finished with status 'done'
+  Created wheel for pathreview: filename=pathreview-0.1.0-0.editable-py3-none-any.whl size=4730 sha256=59b338bd405fb34dec7a4b3a073d4060027291a1f7bf9d2ee82eac33681a0bfa
+  Stored in directory: /private/var/folders/29/4_tntcpd37s902pg7nrd904c0000gn/T/pip-ephem-wheel-cache-3n84n1ni/wheels/4e/27/d2/f79a060d5c7f290c4d181f191184fd0fddbd2708a6bf106830
+Successfully built pathreview
+Installing collected packages: sortedcontainers, pypika, passlib, mpmath, flatbuffers, durationpy, distlib, websockets, websocket-client, uvloop, urllib3, typing-extensions, types-setuptools, truststore, tqdm, tenacity, sympy, structlog, sniffio, six, shellingham, setproctitle, ruff, rpds-py, regex, redis, pyyaml, pytokens, python-multipart, python-dotenv, pyproject_hooks, pypdf, pygments, pycparser, pybase64, pyasn1, py-cpuinfo2, psycopg2-binary, protobuf, propcache, pluggy, platformdirs, pathspec, overrides, orjson, oauthlib, numpy, nodeenv, mypy-extensions, multidict, mmh3, mdurl, markupsafe, linkify-it-py, librt, jiter, iniconfig, importlib-resources, idna, identify, hypothesis, humanfriendly, httptools, hf-xet, h11, greenlet, fsspec, frozenlist, filelock, dnspython, coverage, click, charset_normalizer, cfgv, certifi, bcrypt, attrs, asyncpg, ast-serialize, annotated-types, annotated-doc, aiohappyeyeballs, yarl, Werkzeug, uvicorn, typing-inspection, types-cffi, sqlalchemy, rsa, requests, referencing, rank-bm25, python-discovery, python-dateutil, pytest, pydantic-core, opentelemetry-proto, opentelemetry-api, mypy, markdown-it-py, Mako, libcst, httpcore2, httpcore, grpcio, googleapis-common-protos, email-validator, ecdsa, coloredlogs, cffi, build, black, anyio, aiosignal, watchfiles, virtualenv, tiktoken, starlette, rich, requests-oauthlib, python-jose, pytest-httpserver, pytest-cov, pytest-benchmark, pytest-asyncio, pydantic, opentelemetry-semantic-conventions, opentelemetry-exporter-otlp-proto-common, onnxruntime, mdit-py-plugins, jsonschema-specifications, httpx2, httpx, cryptography, alembic, aiohttp, types-pyOpenSSL, typer, textual, pydantic-settings, pre-commit, opentelemetry-sdk, openai, kubernetes, jsonschema, huggingface-hub, fastapi, types-redis, tokenizers, opentelemetry-exporter-otlp-common, mutmut, opentelemetry-exporter-otlp-proto-grpc, chromadb, pathreview
+
+Successfully installed Mako-1.4.3 Werkzeug-3.1.9 aiohappyeyeballs-2.7.1 aiohttp-3.14.4 aiosignal-1.4.0 alembic-1.20.0 annotated-doc-0.0.5 annotated-types-0.8.0 anyio-4.15.1 ast-serialize-0.12.1 asyncpg-0.31.0 attrs-26.1.0 bcrypt-4.3.0 black-26.10.0 build-1.6.1 certifi-2026.7.22 cffi-2.1.1 cfgv-3.5.0 charset_normalizer-3.5.2 chromadb-1.5.9 click-8.5.0 coloredlogs-15.0.1 coverage-7.16.2 cryptography-50.0.2 distlib-0.4.3 dnspython-2.8.0 durationpy-0.11 ecdsa-0.19.2 email-validator-2.3.0 fastapi-0.142.2 filelock-4.0.12 flatbuffers-25.12.19 frozenlist-1.8.0 fsspec-2026.9.0 googleapis-common-protos-1.75.5 greenlet-3.5.6 grpcio-1.84.0 h11-0.16.0 hf-xet-1.6.0 httpcore-1.0.9 httpcore2-2.13.1 httptools-0.8.0 httpx-0.28.1 httpx2-2.13.1 huggingface-hub-1.33.0 humanfriendly-10.0 hypothesis-6.168.5 identify-2.6.20 idna-3.20 importlib-resources-7.1.0 iniconfig-2.3.0 jiter-0.17.0 jsonschema-4.26.0 jsonschema-specifications-2025.9.1 kubernetes-36.0.3 libcst-1.9.0 librt-0.16.0 linkify-it-py-2.2.0 markdown-it-py-4.2.0 markupsafe-3.0.4 mdit-py-plugins-0.6.1 mdurl-0.1.2 mmh3-5.3.1 mpmath-1.3.0 multidict-6.9.1 mutmut-3.8.0 mypy-2.4.0 mypy-extensions-1.1.0 nodeenv-1.11.0 numpy-2.4.6 oauthlib-4.0.0 onnxruntime-1.23.2 openai-3.24.0 opentelemetry-api-1.45.0 opentelemetry-exporter-otlp-common-0.66b0 opentelemetry-exporter-otlp-proto-common-1.45.0 opentelemetry-exporter-otlp-proto-grpc-1.45.0 opentelemetry-proto-1.45.0 opentelemetry-sdk-1.45.0 opentelemetry-semantic-conventions-0.66b0 orjson-3.12.0 overrides-7.7.0 passlib-1.7.4 pathreview-0.1.0 pathspec-1.1.1 platformdirs-4.12.3 pluggy-1.6.0 pre-commit-4.6.2 propcache-0.5.4 protobuf-7.36.2 psycopg2-binary-2.9.13 py-cpuinfo2-10.1.1 pyasn1-0.6.4 pybase64-1.5.1 pycparser-3.0 pydantic-2.13.5 pydantic-core-2.46.5 pydantic-settings-2.15.0 pygments-2.21.0 pypdf-6.19.0 pypika-0.51.1 pyproject_hooks-1.3.3 pytest-9.1.1 pytest-asyncio-1.4.0 pytest-benchmark-5.3.0 pytest-cov-7.1.0 pytest-httpserver-1.2.0 python-dateutil-2.9.0.post0 python-discovery-1.6.1 python-dotenv-1.2.4 python-jose-3.5.0 python-multipart-0.0.32 pytokens-0.4.1 pyyaml-6.0.3 rank-bm25-0.2.2 redis-8.1.0 referencing-0.37.0 regex-2026.9.29 requests-2.34.2 requests-oauthlib-2.0.0 rich-15.0.0 rpds-py-2026.9.1 rsa-4.9.1 ruff-0.16.10 setproctitle-1.3.8 shellingham-1.5.4 six-1.17.0 sniffio-1.3.1 sortedcontainers-2.4.0 sqlalchemy-2.1.3 starlette-1.7.0 structlog-26.1.0 sympy-1.14.0 tenacity-9.1.4 textual-8.2.8 tiktoken-0.14.0 tokenizers-0.23.2 tqdm-4.70.1 truststore-0.10.4 typer-0.27.2 types-cffi-2.1.0.20260827 types-pyOpenSSL-24.1.0.20240722 types-redis-4.6.0.20241004 types-setuptools-84.0.0.20260812 typing-extensions-4.16.0 typing-inspection-0.4.4 urllib3-2.8.0 uvicorn-0.54.0 uvloop-0.23.0 virtualenv-21.14.5 watchfiles-1.3.0 websocket-client-1.9.2 websockets-17.2 yarl-1.25.1
+
+$ .venv/bin/pytest tests/unit/test_batch_processor.py::TestBatchEmbeddingProcessor::test_empty_chunks_list_returns_empty -q --runxfail
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_______ TestBatchEmbeddingProcessor.test_empty_chunks_list_returns_empty _______
+
+self = <tests.unit.test_batch_processor.TestBatchEmbeddingProcessor object at 0x108846750>
+processor = <ingestion.embeddings.batch_processor.BatchEmbeddingProcessor object at 0x1091f3c10>
+caplog = <_pytest.logging.LogCaptureFixture object at 0x1091f3e90>
+
+    @pytest.mark.xfail(
+        strict=True, reason="issue #66: structlog output is not captured by pytest caplog"
+    )
+    def test_empty_chunks_list_returns_empty(self, processor, caplog):
+        """Test that empty chunks list logs warning and returns empty list."""
+        result = processor.process([])
+    
+        assert result == []
+        # Should log a warning
+>       assert "Empty chunks list" in caplog.text or any(
+            "empty" in record.message.lower() for record in caplog.records
+        )
+E       AssertionError: assert ('Empty chunks list' in '' or False)
+E        +  where '' = <_pytest.logging.LogCaptureFixture object at 0x1091f3e90>.text
+E        +  and   False = any(<generator object TestBatchEmbeddingProcessor.test_empty_chunks_list_returns_empty.<locals>.<genexpr> at 0x1091ea6c0>)
+
+tests/unit/test_batch_processor.py:48: AssertionError
+----------------------------- Captured stdout call -----------------------------
+2026-10-05 21:57:48 [warning  ] Empty chunks list provided to BatchEmbeddingProcessor
+=========================== short test summary info ============================
+FAILED tests/unit/test_batch_processor.py::TestBatchEmbeddingProcessor::test_empty_chunks_list_returns_empty
+1 failed in 3.55s
+[exit status: 1]
+
+$ make test-unit
+.venv/bin/pytest tests/unit -v -m unit
+============================= test session starts ==============================
+platform darwin -- Python 3.11.6, pytest-9.1.1, pluggy-1.6.0 -- /Users/js/School/codepath/ai301/pathreview-ai301-fa26-s1/.venv/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'default'
+benchmark: 5.3.0 (defaults: timer=time.perf_counter disable_gc=False min_rounds=5 min_time=0.000005 max_time=1.0 calibration_precision=10 warmup=False warmup_iterations=100000)
+rootdir: /Users/js/School/codepath/ai301/pathreview-ai301-fa26-s1
+configfile: pyproject.toml
+plugins: pytest_httpserver-1.2.0, hypothesis-6.168.5, cov-7.1.0, asyncio-1.4.0, platformdirs-4.12.3, benchmark-5.3.0, anyio-4.15.1
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 428 items
+
+tests/unit/test_batch_processor.py::TestBatchEmbeddingProcessor::test_empty_chunks_list_returns_empty XFAIL [  0%]
+tests/unit/test_batch_processor.py::TestBatchEmbeddingProcessor::test_normal_chunks_list_processes PASSED [  0%]
+tests/unit/test_batch_processor.py::TestBatchEmbeddingProcessor::test_batches_chunks_correctly PASSED [  0%]
+tests/unit/test_batch_processor.py::TestBatchEmbeddingProcessor::test_returns_chunk_and_embedding_id_tuples PASSED [  0%]
+tests/unit/test_batch_processor.py::TestBatchEmbeddingProcessor::test_embedding_provider_called_with_texts PASSED [  1%]
+tests/unit/test_batch_processor.py::TestBatchEmbeddingProcessor::test_chunk_metadata_preserved PASSED [  1%]
+tests/unit/test_batch_processor.py::TestBatchEmbeddingProcessor::test_batch_size_limit PASSED [  1%]
+tests/unit/test_batch_processor.py::TestBatchEmbeddingProcessor::test_many_chunks PASSED [  1%]
+tests/unit/test_batch_processor.py::TestBatchEmbeddingProcessor::test_embedding_provider_exception_propagates PASSED [  2%]
+tests/unit/test_batch_processor.py::TestBatchEmbeddingProcessor::test_store_embedding_called_for_each_chunk PASSED [  2%]
+tests/unit/test_batch_processor.py::TestBatchEmbeddingProcessor::test_chunk_text_extraction PASSED [  2%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_dismissive_bootcamp_language_detected XFAIL [  2%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_bootcamp_lacks_rigor_detected XFAIL [  3%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_bootcamp_inadequate_training_detected PASSED [  3%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_self_taught_comparison_detected PASSED [  3%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_positive_bootcamp_mention_not_flagged PASSED [  3%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_neutral_bootcamp_mention_not_flagged PASSED [  3%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_educational_background_positive_not_flagged PASSED [  4%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_demographic_assumption_age_detected XFAIL [  4%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_demographic_assumption_old_detected PASSED [  4%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_demographic_assumption_background_detected PASSED [  4%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_immigrant_developer_assumption_detected PASSED [  5%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_international_developer_assumption_detected PASSED [  5%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_clean_feedback_not_flagged PASSED [  5%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_technical_feedback_not_flagged PASSED [  5%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_development_suggestion_not_flagged PASSED [  6%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_case_insensitive_detection PASSED [  6%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_return_value_structure PASSED [  6%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_unbiased_returns_empty_reason PASSED [  6%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_biased_returns_reason PASSED [  7%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_empty_text PASSED [  7%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_whitespace_only PASSED [  7%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_coding_bootcamp_variant XFAIL [  7%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_online_course_bias_detected PASSED [  7%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_developer_vs_programmer_distinction XFAIL [  8%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_multiple_bias_indicators XFAIL [  8%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_negative_educational_claim XFAIL [  8%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_working_class_assumption PASSED [  8%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_rich_poor_assumption XFAIL [  9%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_foreign_developer_struggle_assumption PASSED [  9%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_skill_assessment_not_biased PASSED [  9%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_comparative_without_bias PASSED [  9%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_assumption_vs_observation XFAIL [ 10%]
+tests/unit/test_faithfulness_checker.py::TestFaithfulnessChecker::test_feedback_fully_supported_by_context PASSED [ 10%]
+tests/unit/test_faithfulness_checker.py::TestFaithfulnessChecker::test_feedback_with_no_support_in_context PASSED [ 10%]
+tests/unit/test_faithfulness_checker.py::TestFaithfulnessChecker::test_partial_support_returns_middle_score XFAIL [ 10%]
+tests/unit/test_faithfulness_checker.py::TestFaithfulnessChecker::test_empty_feedback_returns_zero PASSED [ 10%]
+tests/unit/test_faithfulness_checker.py::TestFaithfulnessChecker::test_empty_context_chunks_returns_zero PASSED [ 11%]
+tests/unit/test_faithfulness_checker.py::TestFaithfulnessChecker::test_both_empty_returns_zero PASSED [ 11%]
+tests/unit/test_faithfulness_checker.py::TestFaithfulnessChecker::test_multiple_context_chunks XFAIL [ 11%]
+tests/unit/test_faithfulness_checker.py::TestFaithfulnessChecker::test_extract_claims PASSED [ 11%]
+tests/unit/test_faithfulness_checker.py::TestFaithfulnessChecker::test_extract_claims_with_punctuation PASSED [ 12%]
+tests/unit/test_faithfulness_checker.py::TestFaithfulnessChecker::test_is_supported_with_keyword_overlap PASSED [ 12%]
+tests/unit/test_faithfulness_checker.py::TestFaithfulnessChecker::test_is_supported_without_keywords PASSED [ 12%]
+tests/unit/test_faithfulness_checker.py::TestFaithfulnessChecker::test_case_insensitive_support_check PASSED [ 12%]
+tests/unit/test_faithfulness_checker.py::TestFaithfulnessChecker::test_score_never_returns_hardcoded_value PASSED [ 13%]
+tests/unit/test_faithfulness_checker.py::TestFaithfulnessChecker::test_multiple_claims_varying_support XFAIL [ 13%]
+tests/unit/test_faithfulness_checker.py::TestFaithfulnessChecker::test_very_long_feedback PASSED [ 13%]
+tests/unit/test_faithfulness_checker.py::TestFaithfulnessChecker::test_very_long_context PASSED [ 13%]
+tests/unit/test_faithfulness_checker.py::TestFaithfulnessChecker::test_common_words_filtered_in_overlap PASSED [ 14%]
+tests/unit/test_faithfulness_checker.py::TestFaithfulnessChecker::test_minimum_overlap_required PASSED [ 14%]
+tests/unit/test_faithfulness_checker.py::TestFaithfulnessChecker::test_none_context_chunk_text XFAIL [ 14%]
+tests/unit/test_faithfulness_checker.py::TestFaithfulnessChecker::test_missing_text_key_in_chunk PASSED [ 14%]
+tests/unit/test_faithfulness_checker.py::TestFaithfulnessChecker::test_score_consistency PASSED [ 14%]
+tests/unit/test_faithfulness_checker.py::TestFaithfulnessChecker::test_specialized_technical_terms PASSED [ 15%]
+tests/unit/test_keyword_search.py::TestKeywordSearcher::test_results_sorted_by_score_descending PASSED [ 15%]
+tests/unit/test_keyword_search.py::TestKeywordSearcher::test_query_matching_no_documents PASSED [ 15%]
+tests/unit/test_keyword_search.py::TestKeywordSearcher::test_query_matching_multiple_documents PASSED [ 15%]
+tests/unit/test_keyword_search.py::TestKeywordSearcher::test_case_insensitive_matching PASSED [ 16%]
+tests/unit/test_keyword_search.py::TestKeywordSearcher::test_top_k_limit PASSED [ 16%]
+tests/unit/test_keyword_search.py::TestKeywordSearcher::test_top_k_larger_than_results PASSED [ 16%]
+tests/unit/test_keyword_search.py::TestKeywordSearcher::test_results_have_bm25_score PASSED [ 16%]
+tests/unit/test_keyword_search.py::TestKeywordSearcher::test_results_preserve_chunk_fields PASSED [ 17%]
+tests/unit/test_keyword_search.py::TestKeywordSearcher::test_empty_index XFAIL [ 17%]
+tests/unit/test_keyword_search.py::TestKeywordSearcher::test_index_not_called_returns_empty PASSED [ 17%]
+tests/unit/test_keyword_search.py::TestKeywordSearcher::test_multi_word_query PASSED [ 17%]
+tests/unit/test_keyword_search.py::TestKeywordSearcher::test_tokenization PASSED [ 17%]
+tests/unit/test_keyword_search.py::TestKeywordSearcher::test_tokenization_case_handling PASSED [ 18%]
+tests/unit/test_keyword_search.py::TestKeywordSearcher::test_large_corpus PASSED [ 18%]
+tests/unit/test_keyword_search.py::TestKeywordSearcher::test_special_characters_in_query PASSED [ 18%]
+tests/unit/test_keyword_search.py::TestKeywordSearcher::test_exact_phrase_matching PASSED [ 18%]
+tests/unit/test_keyword_search.py::TestKeywordSearcher::test_single_word_chunks PASSED [ 19%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_mock_provider_returns_list_of_floats PASSED [ 19%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_openai_provider_would_return_floats PASSED [ 19%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_mock_provider_deterministic PASSED [ 19%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_mock_provider_embedding_dimension PASSED [ 20%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_providers_same_dimension PASSED [ 20%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_mock_provider_multiple_texts PASSED [ 20%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_mock_provider_empty_list PASSED [ 20%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_mock_provider_single_text PASSED [ 21%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_mock_provider_empty_string PASSED [ 21%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_mock_provider_different_inputs_different_outputs PASSED [ 21%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_mock_provider_embeddings_normalized PASSED [ 21%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_provider_interface_implements_embed PASSED [ 21%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_mock_provider_returns_floats_not_integers PASSED [ 22%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_multiple_providers_same_interface PASSED [ 22%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_mock_provider_consistency_across_calls PASSED [ 22%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_provider_embed_signature PASSED [ 22%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_mock_provider_with_very_long_text PASSED [ 23%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_mock_provider_with_special_characters PASSED [ 23%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_mock_provider_with_unicode PASSED [ 23%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_mock_provider_with_newlines PASSED [ 23%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_mock_provider_with_tabs PASSED [ 24%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_different_text_lengths_same_output_dimension PASSED [ 24%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_mock_provider_batch_processing PASSED [ 24%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_embedding_vector_values_in_valid_range PASSED [ 24%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_providers_inherit_from_abstract_base PASSED [ 25%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_abstract_base_class_has_embed_method PASSED [ 25%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_mock_provider_embedding_stability PASSED [ 25%]
+tests/unit/test_output_parser.py::TestOutputParser::test_json_wrapped_in_code_fence PASSED [ 25%]
+tests/unit/test_output_parser.py::TestOutputParser::test_raw_json_without_fence PASSED [ 25%]
+tests/unit/test_output_parser.py::TestOutputParser::test_plain_text_fallback PASSED [ 26%]
+tests/unit/test_output_parser.py::TestOutputParser::test_malformed_json_fallback PASSED [ 26%]
+tests/unit/test_output_parser.py::TestOutputParser::test_feedback_section_has_required_fields PASSED [ 26%]
+tests/unit/test_output_parser.py::TestOutputParser::test_json_with_multiple_sections PASSED [ 26%]
+tests/unit/test_output_parser.py::TestOutputParser::test_confidence_scores_in_sections PASSED [ 27%]
+tests/unit/test_output_parser.py::TestOutputParser::test_empty_json_object PASSED [ 27%]
+tests/unit/test_output_parser.py::TestOutputParser::test_json_array_fallback XFAIL [ 27%]
+tests/unit/test_output_parser.py::TestOutputParser::test_very_long_plain_text PASSED [ 27%]
+tests/unit/test_output_parser.py::TestOutputParser::test_html_in_feedback PASSED [ 28%]
+tests/unit/test_output_parser.py::TestOutputParser::test_code_in_feedback PASSED [ 28%]
+tests/unit/test_output_parser.py::TestOutputParser::test_section_suggestions_extraction PASSED [ 28%]
+tests/unit/test_output_parser.py::TestOutputParser::test_unicode_characters PASSED [ 28%]
+tests/unit/test_output_parser.py::TestOutputParser::test_nested_json_structure PASSED [ 28%]
+tests/unit/test_output_parser.py::TestOutputParser::test_mixed_content PASSED [ 29%]
+tests/unit/test_output_parser.py::TestOutputParser::test_plaintext_output_helper PASSED [ 29%]
+tests/unit/test_output_parser.py::TestOutputParser::test_multiple_code_fences PASSED [ 29%]
+tests/unit/test_output_parser.py::TestOutputParser::test_no_suggestions_key PASSED [ 29%]
+tests/unit/test_pii_scrubber.py::TestPIIScrubber::test_email_redaction PASSED [ 30%]
+tests/unit/test_pii_scrubber.py::TestPIIScrubber::test_multiple_emails_redacted PASSED [ 30%]
+tests/unit/test_pii_scrubber.py::TestPIIScrubber::test_us_phone_number_redaction XFAIL [ 30%]
+tests/unit/test_pii_scrubber.py::TestPIIScrubber::test_us_phone_formats XFAIL [ 30%]
+tests/unit/test_pii_scrubber.py::TestPIIScrubber::test_international_phone_redaction PASSED [ 31%]
+tests/unit/test_pii_scrubber.py::TestPIIScrubber::test_ssn_redaction PASSED [ 31%]
+tests/unit/test_pii_scrubber.py::TestPIIScrubber::test_ssn_variations PASSED [ 31%]
+tests/unit/test_pii_scrubber.py::TestPIIScrubber::test_street_address_redaction PASSED [ 31%]
+tests/unit/test_pii_scrubber.py::TestPIIScrubber::test_text_with_no_pii PASSED [ 32%]
+tests/unit/test_pii_scrubber.py::TestPIIScrubber::test_detect_returns_list_of_pii PASSED [ 32%]
+tests/unit/test_pii_scrubber.py::TestPIIScrubber::test_detect_email_pii PASSED [ 32%]
+tests/unit/test_pii_scrubber.py::TestPIIScrubber::test_detect_phone_pii XFAIL [ 32%]
+tests/unit/test_pii_scrubber.py::TestPIIScrubber::test_detect_ssn_pii PASSED [ 32%]
+tests/unit/test_pii_scrubber.py::TestPIIScrubber::test_detect_positions_accurate PASSED [ 33%]
+tests/unit/test_pii_scrubber.py::TestPIIScrubber::test_detect_multiple_pii_items PASSED [ 33%]
+tests/unit/test_pii_scrubber.py::TestPIIScrubber::test_case_insensitive_email_matching PASSED [ 33%]
+tests/unit/test_pii_scrubber.py::TestPIIScrubber::test_complex_email_addresses PASSED [ 33%]
+tests/unit/test_pii_scrubber.py::TestPIIScrubber::test_phone_at_start_of_text XFAIL [ 34%]
+tests/unit/test_pii_scrubber.py::TestPIIScrubber::test_phone_at_end_of_text PASSED [ 34%]
+tests/unit/test_pii_scrubber.py::TestPIIScrubber::test_address_variations PASSED [ 34%]
+tests/unit/test_pii_scrubber.py::TestPIIScrubber::test_empty_text PASSED [ 34%]
+tests/unit/test_pii_scrubber.py::TestPIIScrubber::test_whitespace_only PASSED [ 35%]
+tests/unit/test_pii_scrubber.py::TestPIIScrubber::test_mixed_pii_and_text XFAIL [ 35%]
+tests/unit/test_pii_scrubber.py::TestPIIScrubber::test_scrub_idempotent PASSED [ 35%]
+tests/unit/test_pii_scrubber.py::TestPIIScrubber::test_detect_no_false_positives PASSED [ 35%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_newline_injection_detected PASSED [ 35%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_system_role_switching_detected PASSED [ 36%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_human_role_switching_detected PASSED [ 36%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_assistant_role_switching_detected PASSED [ 36%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_template_injection_detected PASSED [ 36%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_jinja_injection_detected PASSED [ 37%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_ignore_instruction_detected PASSED [ 37%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_forget_instruction_detected PASSED [ 37%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_disregard_instruction_detected PASSED [ 37%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_override_instruction_detected PASSED [ 38%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_code_execution_attempt_detected PASSED [ 38%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_run_function_attempt_detected PASSED [ 38%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_eval_function_attempt_detected PASSED [ 38%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_clean_input_not_flagged PASSED [ 39%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_normal_text_not_flagged PASSED [ 39%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_sanitize_removes_template_delimiters PASSED [ 39%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_sanitize_removes_angle_brackets PASSED [ 39%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_sanitize_preserves_legitimate_content PASSED [ 39%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_sanitize_multiple_template_delimiters PASSED [ 40%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_separator_line_detected PASSED [ 40%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_long_separator_detected PASSED [ 40%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_case_insensitive_detection PASSED [ 40%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_whitespace_variations_detected XFAIL [ 41%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_multiple_injection_patterns PASSED [ 41%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_benign_mentions_not_flagged PASSED [ 41%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_empty_string PASSED [ 41%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_whitespace_only PASSED [ 42%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_sanitize_idempotent PASSED [ 42%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_complex_injection_attempt PASSED [ 42%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_legitimate_newlines_not_flagged PASSED [ 42%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_code_blocks_handled PASSED [ 42%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_sanitize_with_mixed_delimiters PASSED [ 43%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_all_5_templates_exist PASSED [ 43%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_skills_feedback_template_exists PASSED [ 43%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_projects_feedback_template_exists PASSED [ 43%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_presentation_feedback_template_exists PASSED [ 44%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_gaps_feedback_template_exists PASSED [ 44%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_first_impression_template_exists PASSED [ 44%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_each_template_contains_context_placeholder PASSED [ 44%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_each_template_contains_github_username_placeholder PASSED [ 45%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_each_template_contains_project_count_placeholder PASSED [ 45%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_get_template_returns_correct_template PASSED [ 45%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_get_template_projects_feedback PASSED [ 45%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_get_template_presentation_feedback PASSED [ 46%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_get_template_gaps_feedback PASSED [ 46%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_get_template_first_impression PASSED [ 46%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_get_template_unknown_name_raises_error PASSED [ 46%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_get_template_unknown_version_raises_error PASSED [ 46%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_all_templates_have_v1 PASSED [ 47%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_templates_are_strings PASSED [ 47%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_templates_have_reasonable_length PASSED [ 47%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_skills_feedback_mentions_technical_skills PASSED [ 47%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_projects_feedback_mentions_code_quality PASSED [ 48%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_gaps_feedback_mentions_missing_skills PASSED [ 48%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_presentation_feedback_mentions_readme PASSED [ 48%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_first_impression_is_concise PASSED [ 48%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_get_template_default_version PASSED [ 49%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_template_snapshot_content_hash PASSED [ 49%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_skills_feedback_requests_json_format PASSED [ 49%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_projects_feedback_requests_json_format PASSED [ 49%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_presentation_feedback_requests_json_format PASSED [ 50%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_gaps_feedback_requests_json_format PASSED [ 50%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_first_impression_plain_text PASSED [ 50%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_templates_have_portfolio_context PASSED [ 50%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_template_get_logs_retrieval PASSED [ 50%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_each_template_name_is_valid_identifier PASSED [ 51%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_template_versions_are_strings PASSED [ 51%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_no_hardcoded_usernames_in_templates PASSED [ 51%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_templates_use_consistent_placeholders PASSED [ 51%]
+tests/unit/test_rate_limiter.py::TestRateLimiter::test_first_request_allowed PASSED [ 52%]
+tests/unit/test_rate_limiter.py::TestRateLimiter::test_requests_up_to_limit_allowed PASSED [ 52%]
+tests/unit/test_rate_limiter.py::TestRateLimiter::test_request_at_limit_plus_one_denied PASSED [ 52%]
+tests/unit/test_rate_limiter.py::TestRateLimiter::test_remaining_count_correct PASSED [ 52%]
+tests/unit/test_rate_limiter.py::TestRateLimiter::test_rolling_window_removes_old_entries PASSED [ 53%]
+tests/unit/test_rate_limiter.py::TestRateLimiter::test_different_identifiers_independent PASSED [ 53%]
+tests/unit/test_rate_limiter.py::TestRateLimiter::test_key_format_correct PASSED [ 53%]
+tests/unit/test_rate_limiter.py::TestRateLimiter::test_entry_added_to_redis PASSED [ 53%]
+tests/unit/test_rate_limiter.py::TestRateLimiter::test_expiry_set_correctly PASSED [ 53%]
+tests/unit/test_rate_limiter.py::TestRateLimiter::test_custom_window_size PASSED [ 54%]
+tests/unit/test_rate_limiter.py::TestRateLimiter::test_redis_error_handling PASSED [ 54%]
+tests/unit/test_rate_limiter.py::TestRateLimiter::test_zero_limit PASSED [ 54%]
+tests/unit/test_rate_limiter.py::TestRateLimiter::test_negative_limit PASSED [ 54%]
+tests/unit/test_rate_limiter.py::TestRateLimiter::test_large_limit PASSED [ 55%]
+tests/unit/test_rate_limiter.py::TestRateLimiter::test_return_tuple_structure PASSED [ 55%]
+tests/unit/test_rate_limiter.py::TestRateLimiter::test_multiple_requests_same_user PASSED [ 55%]
+tests/unit/test_rate_limiter.py::TestRateLimiter::test_time_based_window_calculation PASSED [ 55%]
+tests/unit/test_rate_limiter.py::TestRateLimiter::test_ip_address_as_identifier PASSED [ 56%]
+tests/unit/test_rate_limiter.py::TestRateLimiter::test_api_key_as_identifier PASSED [ 56%]
+tests/unit/test_readme_parser.py::TestReadmeParser::test_parse_standard_readme XFAIL [ 56%]
+tests/unit/test_readme_parser.py::TestReadmeParser::test_parse_readme_longer_than_10000_chars PASSED [ 56%]
+tests/unit/test_readme_parser.py::TestReadmeParser::test_parse_readme_with_code_blocks PASSED [ 57%]
+tests/unit/test_readme_parser.py::TestReadmeParser::test_parse_readme_without_code_blocks PASSED [ 57%]
+tests/unit/test_readme_parser.py::TestReadmeParser::test_parse_empty_readme PASSED [ 57%]
+tests/unit/test_readme_parser.py::TestReadmeParser::test_parse_readme_with_only_whitespace PASSED [ 57%]
+tests/unit/test_readme_parser.py::TestReadmeParser::test_parse_readme_bytes_input PASSED [ 57%]
+tests/unit/test_readme_parser.py::TestReadmeParser::test_parse_readme_bytes_with_utf8 PASSED [ 58%]
+tests/unit/test_readme_parser.py::TestReadmeParser::test_parse_invalid_content_type PASSED [ 58%]
+tests/unit/test_readme_parser.py::TestReadmeParser::test_extract_heading_hierarchy XFAIL [ 58%]
+tests/unit/test_readme_parser.py::TestReadmeParser::test_extract_heading_hierarchy_no_headings PASSED [ 58%]
+tests/unit/test_readme_parser.py::TestReadmeParser::test_parse_readme_with_badges PASSED [ 59%]
+tests/unit/test_readme_parser.py::TestReadmeParser::test_parse_readme_without_badges PASSED [ 59%]
+tests/unit/test_readme_parser.py::TestReadmeParser::test_metadata_structure PASSED [ 59%]
+tests/unit/test_readme_parser.py::TestReadmeParser::test_word_count_accuracy PASSED [ 59%]
+tests/unit/test_readme_scorer.py::TestReadmeScorer::test_readme_with_all_quality_signals XFAIL [ 60%]
+tests/unit/test_readme_scorer.py::TestReadmeScorer::test_readme_with_no_content PASSED [ 60%]
+tests/unit/test_readme_scorer.py::TestReadmeScorer::test_readme_with_only_title PASSED [ 60%]
+tests/unit/test_readme_scorer.py::TestReadmeScorer::test_word_count_category_minimal PASSED [ 60%]
+tests/unit/test_readme_scorer.py::TestReadmeScorer::test_word_count_category_adequate PASSED [ 60%]
+tests/unit/test_readme_scorer.py::TestReadmeScorer::test_word_count_category_comprehensive PASSED [ 61%]
+tests/unit/test_readme_scorer.py::TestReadmeScorer::test_installation_section_detection PASSED [ 61%]
+tests/unit/test_readme_scorer.py::TestReadmeScorer::test_usage_section_detection PASSED [ 61%]
+tests/unit/test_readme_scorer.py::TestReadmeScorer::test_setup_keyword_counts_as_installation PASSED [ 61%]
+tests/unit/test_readme_scorer.py::TestReadmeScorer::test_quickstart_counts_as_usage PASSED [ 62%]
+tests/unit/test_readme_scorer.py::TestReadmeScorer::test_badge_detection PASSED [ 62%]
+tests/unit/test_readme_scorer.py::TestReadmeScorer::test_demo_link_detection PASSED [ 62%]
+tests/unit/test_readme_scorer.py::TestReadmeScorer::test_tech_stack_section_detection PASSED [ 62%]
+tests/unit/test_readme_scorer.py::TestReadmeScorer::test_technologies_keyword_counts PASSED [ 63%]
+tests/unit/test_readme_scorer.py::TestReadmeScorer::test_overall_score_calculation PASSED [ 63%]
+tests/unit/test_readme_scorer.py::TestReadmeScorer::test_missing_readme_content_key PASSED [ 63%]
+tests/unit/test_readme_scorer.py::TestReadmeScorer::test_result_has_all_required_fields PASSED [ 63%]
+tests/unit/test_readme_scorer.py::TestReadmeScorer::test_case_insensitive_section_detection PASSED [ 64%]
+tests/unit/test_readme_scorer.py::TestReadmeScorer::test_whitespace_only_readme PASSED [ 64%]
+tests/unit/test_readme_scorer.py::TestReadmeScorer::test_example_keyword_counts_as_usage PASSED [ 64%]
+tests/unit/test_readme_scorer.py::TestReadmeScorer::test_score_scales_with_word_count PASSED [ 64%]
+tests/unit/test_readme_scorer.py::TestReadmeScorer::test_try_it_as_demo_indicator PASSED [ 64%]
+tests/unit/test_readme_scorer.py::TestReadmeScorer::test_built_with_counts_as_tech_stack PASSED [ 65%]
+tests/unit/test_relevance_scorer.py::TestRelevanceScorer::test_query_with_perfect_keyword_match PASSED [ 65%]
+tests/unit/test_relevance_scorer.py::TestRelevanceScorer::test_query_with_zero_keyword_overlap PASSED [ 65%]
+tests/unit/test_relevance_scorer.py::TestRelevanceScorer::test_query_with_partial_overlap XFAIL [ 65%]
+tests/unit/test_relevance_scorer.py::TestRelevanceScorer::test_empty_chunks_list_returns_zero PASSED [ 66%]
+tests/unit/test_relevance_scorer.py::TestRelevanceScorer::test_empty_query_returns_zero PASSED [ 66%]
+tests/unit/test_relevance_scorer.py::TestRelevanceScorer::test_multiple_chunks_aggregated PASSED [ 66%]
+tests/unit/test_relevance_scorer.py::TestRelevanceScorer::test_case_insensitive_matching PASSED [ 66%]
+tests/unit/test_relevance_scorer.py::TestRelevanceScorer::test_tokenization PASSED [ 67%]
+tests/unit/test_relevance_scorer.py::TestRelevanceScorer::test_empty_text_in_chunk PASSED [ 67%]
+tests/unit/test_relevance_scorer.py::TestRelevanceScorer::test_very_long_query PASSED [ 67%]
+tests/unit/test_relevance_scorer.py::TestRelevanceScorer::test_very_long_chunk PASSED [ 67%]
+tests/unit/test_relevance_scorer.py::TestRelevanceScorer::test_special_characters_ignored PASSED [ 67%]
+tests/unit/test_relevance_scorer.py::TestRelevanceScorer::test_multiple_keyword_matches PASSED [ 68%]
+tests/unit/test_relevance_scorer.py::TestRelevanceScorer::test_single_word_chunks PASSED [ 68%]
+tests/unit/test_relevance_scorer.py::TestRelevanceScorer::test_score_ranges_from_zero_to_one PASSED [ 68%]
+tests/unit/test_relevance_scorer.py::TestRelevanceScorer::test_common_words_not_preventing_scoring PASSED [ 68%]
+tests/unit/test_relevance_scorer.py::TestRelevanceScorer::test_chunk_without_text_key PASSED [ 69%]
+tests/unit/test_relevance_scorer.py::TestRelevanceScorer::test_whitespace_only_in_chunks PASSED [ 69%]
+tests/unit/test_relevance_scorer.py::TestRelevanceScorer::test_average_relevance_calculation PASSED [ 69%]
+tests/unit/test_resume_parser.py::TestResumeParser::test_parse_single_column_resume_text XFAIL [ 69%]
+tests/unit/test_resume_parser.py::TestResumeParser::test_parse_resume_no_work_experience XFAIL [ 70%]
+tests/unit/test_resume_parser.py::TestResumeParser::test_parse_multipage_pdf PASSED [ 70%]
+tests/unit/test_resume_parser.py::TestResumeParser::test_parse_markdown_resume XFAIL [ 70%]
+tests/unit/test_resume_parser.py::TestResumeParser::test_parse_invalid_content_type PASSED [ 70%]
+tests/unit/test_resume_parser.py::TestResumeParser::test_parse_invalid_list_content PASSED [ 71%]
+tests/unit/test_resume_parser.py::TestResumeParser::test_detect_sections XFAIL [ 71%]
+tests/unit/test_resume_parser.py::TestResumeParser::test_strip_markdown_syntax XFAIL [ 71%]
+tests/unit/test_resume_parser.py::TestResumeParser::test_pdf_parsing_error_handling PASSED [ 71%]
+tests/unit/test_resume_parser.py::TestResumeParser::test_parse_preserves_text_content PASSED [ 71%]
+tests/unit/test_review_service.py::TestReviewService::test_create_review_returns_review_with_pending_status PASSED [ 72%]
+tests/unit/test_review_service.py::TestReviewService::test_get_review_returns_review_for_correct_owner XFAIL [ 72%]
+tests/unit/test_review_service.py::TestReviewService::test_get_review_returns_none_for_wrong_user XFAIL [ 72%]
+tests/unit/test_review_service.py::TestReviewService::test_list_reviews_returns_paginated_results XFAIL [ 72%]
+tests/unit/test_review_service.py::TestReviewService::test_list_reviews_page_2_returns_correct_offset XFAIL [ 73%]
+tests/unit/test_review_service.py::TestReviewService::test_list_reviews_returns_tuple XFAIL [ 73%]
+tests/unit/test_review_service.py::TestReviewService::test_create_review_calls_db_add PASSED [ 73%]
+tests/unit/test_review_service.py::TestReviewService::test_create_review_calls_db_commit PASSED [ 73%]
+tests/unit/test_review_service.py::TestReviewService::test_create_review_calls_db_refresh PASSED [ 74%]
+tests/unit/test_review_service.py::TestReviewService::test_get_review_uses_select_and_join XFAIL [ 74%]
+tests/unit/test_review_service.py::TestReviewService::test_list_reviews_default_pagination XFAIL [ 74%]
+tests/unit/test_review_service.py::TestReviewService::test_list_reviews_custom_page_size XFAIL [ 74%]
+tests/unit/test_review_service.py::TestReviewService::test_create_review_with_uuid_ids PASSED [ 75%]
+tests/unit/test_review_service.py::TestReviewService::test_get_review_verifies_ownership XFAIL [ 75%]
+tests/unit/test_review_service.py::TestReviewService::test_list_reviews_counts_total XFAIL [ 75%]
+tests/unit/test_review_service.py::TestReviewService::test_list_reviews_returns_reviews_list XFAIL [ 75%]
+tests/unit/test_review_service.py::TestReviewService::test_review_sections_and_score_initially_none PASSED [ 75%]
+tests/unit/test_review_service.py::TestReviewService::test_get_review_with_valid_uuid XFAIL [ 76%]
+tests/unit/test_review_service.py::TestReviewService::test_list_reviews_ordered_by_created_at XFAIL [ 76%]
+tests/unit/test_security.py::TestSecurity::test_hash_password_returns_bcrypt_hash PASSED [ 76%]
+tests/unit/test_security.py::TestSecurity::test_verify_password_correct PASSED [ 76%]
+tests/unit/test_security.py::TestSecurity::test_verify_password_incorrect PASSED [ 77%]
+tests/unit/test_security.py::TestSecurity::test_verify_password_case_sensitive PASSED [ 77%]
+tests/unit/test_security.py::TestSecurity::test_hash_same_password_different_hash PASSED [ 77%]
+tests/unit/test_security.py::TestSecurity::test_create_access_token_returns_string PASSED [ 77%]
+tests/unit/test_security.py::TestSecurity::test_create_access_token_is_jwt PASSED [ 78%]
+tests/unit/test_security.py::TestSecurity::test_decode_access_token_valid PASSED [ 78%]
+tests/unit/test_security.py::TestSecurity::test_decode_access_token_invalid_token PASSED [ 78%]
+tests/unit/test_security.py::TestSecurity::test_decode_access_token_malformed PASSED [ 78%]
+tests/unit/test_security.py::TestSecurity::test_decode_access_token_empty_string PASSED [ 78%]
+tests/unit/test_security.py::TestSecurity::test_roundtrip_token_with_data PASSED [ 79%]
+tests/unit/test_security.py::TestSecurity::test_create_access_token_with_custom_expiry PASSED [ 79%]
+tests/unit/test_security.py::TestSecurity::test_access_token_includes_expiration PASSED [ 79%]
+tests/unit/test_security.py::TestSecurity::test_password_hash_different_for_different_passwords PASSED [ 79%]
+tests/unit/test_security.py::TestSecurity::test_verify_password_with_empty_strings PASSED [ 80%]
+tests/unit/test_security.py::TestSecurity::test_verify_password_with_special_characters PASSED [ 80%]
+tests/unit/test_security.py::TestSecurity::test_token_with_empty_data PASSED [ 80%]
+tests/unit/test_security.py::TestSecurity::test_token_with_special_characters_in_data PASSED [ 80%]
+tests/unit/test_security.py::TestSecurity::test_token_with_unicode_data PASSED [ 81%]
+tests/unit/test_security.py::TestSecurity::test_hash_password_long_input PASSED [ 81%]
+tests/unit/test_security.py::TestSecurity::test_verify_with_wrong_hash_format XFAIL [ 81%]
+tests/unit/test_security.py::TestSecurity::test_token_tampering_detection PASSED [ 81%]
+tests/unit/test_security.py::TestSecurity::test_create_token_consistency PASSED [ 82%]
+tests/unit/test_security.py::TestSecurity::test_password_with_whitespace PASSED [ 82%]
+tests/unit/test_semantic_chunker.py::TestSemanticChunker::test_empty_input_returns_empty_list PASSED [ 82%]
+tests/unit/test_semantic_chunker.py::TestSemanticChunker::test_whitespace_only_input PASSED [ 82%]
+tests/unit/test_semantic_chunker.py::TestSemanticChunker::test_short_text_returns_single_chunk PASSED [ 82%]
+tests/unit/test_semantic_chunker.py::TestSemanticChunker::test_long_text_returns_multiple_chunks PASSED [ 83%]
+tests/unit/test_semantic_chunker.py::TestSemanticChunker::test_chunk_metadata_includes_chunk_index PASSED [ 83%]
+tests/unit/test_semantic_chunker.py::TestSemanticChunker::test_chunks_preserve_source_metadata PASSED [ 83%]
+tests/unit/test_semantic_chunker.py::TestSemanticChunker::test_chunk_has_character_positions PASSED [ 83%]
+tests/unit/test_semantic_chunker.py::TestSemanticChunker::test_bullet_points_not_split_mid_bullet PASSED [ 84%]
+tests/unit/test_semantic_chunker.py::TestSemanticChunker::test_sentence_splitting PASSED [ 84%]
+tests/unit/test_semantic_chunker.py::TestSemanticChunker::test_sentence_splitting_with_exclamation_marks PASSED [ 84%]
+tests/unit/test_semantic_chunker.py::TestSemanticChunker::test_sentence_splitting_preserves_punctuation PASSED [ 84%]
+tests/unit/test_semantic_chunker.py::TestSemanticChunker::test_overlap_between_chunks PASSED [ 85%]
+tests/unit/test_semantic_chunker.py::TestSemanticChunker::test_chunks_have_non_zero_text PASSED [ 85%]
+tests/unit/test_semantic_chunker.py::TestSemanticChunker::test_paragraph_boundaries_respected PASSED [ 85%]
+tests/unit/test_semantic_chunker.py::TestSemanticChunker::test_metadata_copied_not_mutated PASSED [ 85%]
+tests/unit/test_semantic_chunker.py::TestSemanticChunker::test_chunk_indexing_is_sequential PASSED [ 85%]
+tests/unit/test_skill_extractor.py::TestSkillExtractor::test_text_with_python_imports PASSED [ 86%]
+tests/unit/test_skill_extractor.py::TestSkillExtractor::test_text_with_python_type_annotations PASSED [ 86%]
+tests/unit/test_skill_extractor.py::TestSkillExtractor::test_text_with_typescript_files XFAIL [ 86%]
+tests/unit/test_skill_extractor.py::TestSkillExtractor::test_jupyter_ipynb_detection PASSED [ 86%]
+tests/unit/test_skill_extractor.py::TestSkillExtractor::test_mixed_language_text PASSED [ 87%]
+tests/unit/test_skill_extractor.py::TestSkillExtractor::test_frameworks_detected_with_high_confidence PASSED [ 87%]
+tests/unit/test_skill_extractor.py::TestSkillExtractor::test_react_detection PASSED [ 87%]
+tests/unit/test_skill_extractor.py::TestSkillExtractor::test_database_technology_detection XFAIL [ 87%]
+tests/unit/test_skill_extractor.py::TestSkillExtractor::test_devops_tool_detection XFAIL [ 88%]
+tests/unit/test_skill_extractor.py::TestSkillExtractor::test_skill_has_evidence_list PASSED [ 88%]
+tests/unit/test_skill_extractor.py::TestSkillExtractor::test_filename_based_detection PASSED [ 88%]
+tests/unit/test_skill_extractor.py::TestSkillExtractor::test_javascript_detection XFAIL [ 88%]
+tests/unit/test_skill_extractor.py::TestSkillExtractor::test_docker_compose_detection XFAIL [ 89%]
+tests/unit/test_skill_extractor.py::TestSkillExtractor::test_aws_gcp_azure_detection PASSED [ 89%]
+tests/unit/test_skill_extractor.py::TestSkillExtractor::test_empty_text PASSED [ 89%]
+tests/unit/test_skill_extractor.py::TestSkillExtractor::test_unrecognized_language PASSED [ 89%]
+tests/unit/test_skill_extractor.py::TestSkillExtractor::test_confidence_scores_are_floats PASSED [ 89%]
+tests/unit/test_skill_extractor.py::TestSkillExtractor::test_skill_detection_dataclass PASSED [ 90%]
+tests/unit/test_structural_chunker.py::TestStructuralChunker::test_empty_input_returns_empty_list PASSED [ 90%]
+tests/unit/test_structural_chunker.py::TestStructuralChunker::test_whitespace_only_input PASSED [ 90%]
+tests/unit/test_structural_chunker.py::TestStructuralChunker::test_document_with_no_headings XFAIL [ 90%]
+tests/unit/test_structural_chunker.py::TestStructuralChunker::test_document_with_nested_headings PASSED [ 91%]
+tests/unit/test_structural_chunker.py::TestStructuralChunker::test_heading_path_format PASSED [ 91%]
+tests/unit/test_structural_chunker.py::TestStructuralChunker::test_large_section_sub_chunked PASSED [ 91%]
+tests/unit/test_structural_chunker.py::TestStructuralChunker::test_chunk_metadata_includes_heading_level PASSED [ 91%]
+tests/unit/test_structural_chunker.py::TestStructuralChunker::test_chunk_metadata_structure PASSED [ 92%]
+tests/unit/test_structural_chunker.py::TestStructuralChunker::test_preserve_source_metadata PASSED [ 92%]
+tests/unit/test_structural_chunker.py::TestStructuralChunker::test_multiple_h1_headings PASSED [ 92%]
+tests/unit/test_structural_chunker.py::TestStructuralChunker::test_heading_path_breadcrumb PASSED [ 92%]
+tests/unit/test_structural_chunker.py::TestStructuralChunker::test_chunks_have_text_content PASSED [ 92%]
+tests/unit/test_structural_chunker.py::TestStructuralChunker::test_section_extraction_with_multiple_levels PASSED [ 93%]
+tests/unit/test_structural_chunker.py::TestStructuralChunker::test_heading_not_in_middle_of_content PASSED [ 93%]
+tests/unit/test_structural_chunker.py::TestStructuralChunker::test_empty_sections_handled PASSED [ 93%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_single_language_repo PASSED [ 93%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_mixed_language_repo_python_primary PASSED [ 94%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_ipynb_counted_as_python_not_json PASSED [ 94%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_node_modules_excluded XFAIL [ 94%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_vendor_files_excluded PASSED [ 94%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_build_directory_excluded XFAIL [ 95%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_config_file_detection PASSED [ 95%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_dockerfile_detection PASSED [ 95%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_github_actions_detection PASSED [ 95%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_makefile_detection PASSED [ 96%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_typescript_detection PASSED [ 96%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_go_detection PASSED [ 96%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_rust_detection PASSED [ 96%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_java_detection PASSED [ 96%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_multiple_python_files PASSED [ 97%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_empty_file_list PASSED [ 97%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_no_files_key PASSED [ 97%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_result_structure PASSED [ 97%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_framework_detection PASSED [ 98%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_unknown_extensions PASSED [ 98%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_case_insensitive_extension_matching PASSED [ 98%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_multiple_extensions_same_file PASSED [ 98%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_all_languages_sorted PASSED [ 99%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_frameworks_sorted PASSED [ 99%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_ruby_detection PASSED [ 99%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_csharp_detection PASSED [ 99%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_cpp_detection PASSED [100%]/Users/js/School/codepath/ai301/pathreview-ai301-fa26-s1/.venv/lib/python3.11/site-packages/_pytest/unraisableexception.py:33: RuntimeWarning: coroutine 'AsyncMockMixin._execute_mock_call' was never awaited
+  gc.collect()
+RuntimeWarning: Enable tracemalloc to get the object allocation traceback
+
+
+=============================== warnings summary ===============================
+core/config.py:7
+  /Users/js/School/codepath/ai301/pathreview-ai301-fa26-s1/core/config.py:7: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class Settings(BaseSettings):
+
+.venv/lib/python3.11/site-packages/passlib/utils/__init__.py:854
+  /Users/js/School/codepath/ai301/pathreview-ai301-fa26-s1/.venv/lib/python3.11/site-packages/passlib/utils/__init__.py:854: DeprecationWarning: 'crypt' is deprecated and slated for removal in Python 3.13
+    from crypt import crypt as _crypt
+
+tests/unit/test_review_service.py::TestReviewService::test_get_review_returns_none_for_wrong_user
+  /Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/enum.py:712: RuntimeWarning: coroutine 'AsyncMockMixin._execute_mock_call' was never awaited
+    return cls.__new__(cls, value)
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+
+tests/unit/test_review_service.py::TestReviewService::test_get_review_with_valid_uuid
+  /Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/inspect.py:2226: RuntimeWarning: coroutine 'AsyncMockMixin._execute_mock_call' was never awaited
+    class RewriteSymbolics(ast.NodeTransformer):
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+================= 375 passed, 53 xfailed, 4 warnings in 19.78s =================
+[exit status: 0]
+
+$ uname -srm
+Darwin 22.1.0 arm64
+
+$ .venv/bin/python --version
+Python 3.11.6
+
+$ .venv/bin/python -m pip show pytest pytest-asyncio structlog
+Name: pytest
+Version: 9.1.1
+Name: pytest-asyncio
+Version: 1.4.0
+Name: structlog
+Version: 26.1.0
+
+$ .venv/bin/pytest tests/unit/test_batch_processor.py::TestBatchEmbeddingProcessor::test_empty_chunks_list_returns_empty -q
+x                                                                        [100%]
+1 xfailed in 0.44s
+[exit status: 0]
+
+$ .venv/bin/pytest tests/unit/test_batch_processor.py -q
+x..........                                                              [100%]
+10 passed, 1 xfailed in 0.38s
+[exit status: 0]
+
+$ .venv/bin/pytest tests/unit/test_batch_processor.py::TestBatchEmbeddingProcessor::test_empty_chunks_list_returns_empty -q --runxfail
+.                                                                        [100%]
+=============================== warnings summary ===============================
+core/config.py:7
+  /Users/js/School/codepath/ai301/pathreview-ai301-fa26-s1/core/config.py:7: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class Settings(BaseSettings):
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+1 passed, 1 warning in 0.33s
+[exit status: 0]
+
+$ .venv/bin/pytest tests/unit/test_batch_processor.py -q
+...........                                                              [100%]
+=============================== warnings summary ===============================
+core/config.py:7
+  /Users/js/School/codepath/ai301/pathreview-ai301-fa26-s1/core/config.py:7: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class Settings(BaseSettings):
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+11 passed, 1 warning in 0.29s
+[exit status: 0]
+
+$ make test-unit
+.venv/bin/pytest tests/unit -v -m unit
+============================= test session starts ==============================
+platform darwin -- Python 3.11.6, pytest-9.1.1, pluggy-1.6.0 -- /Users/js/School/codepath/ai301/pathreview-ai301-fa26-s1/.venv/bin/python
+cachedir: .pytest_cache
+hypothesis profile 'default'
+benchmark: 5.3.0 (defaults: timer=time.perf_counter disable_gc=False min_rounds=5 min_time=0.000005 max_time=1.0 calibration_precision=10 warmup=False warmup_iterations=100000)
+rootdir: /Users/js/School/codepath/ai301/pathreview-ai301-fa26-s1
+configfile: pyproject.toml
+plugins: pytest_httpserver-1.2.0, hypothesis-6.168.5, cov-7.1.0, asyncio-1.4.0, platformdirs-4.12.3, benchmark-5.3.0, anyio-4.15.1
+asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
+collecting ... collected 428 items
+
+tests/unit/test_batch_processor.py::TestBatchEmbeddingProcessor::test_empty_chunks_list_returns_empty PASSED [  0%]
+tests/unit/test_batch_processor.py::TestBatchEmbeddingProcessor::test_normal_chunks_list_processes PASSED [  0%]
+tests/unit/test_batch_processor.py::TestBatchEmbeddingProcessor::test_batches_chunks_correctly PASSED [  0%]
+tests/unit/test_batch_processor.py::TestBatchEmbeddingProcessor::test_returns_chunk_and_embedding_id_tuples PASSED [  0%]
+tests/unit/test_batch_processor.py::TestBatchEmbeddingProcessor::test_embedding_provider_called_with_texts PASSED [  1%]
+tests/unit/test_batch_processor.py::TestBatchEmbeddingProcessor::test_chunk_metadata_preserved PASSED [  1%]
+tests/unit/test_batch_processor.py::TestBatchEmbeddingProcessor::test_batch_size_limit PASSED [  1%]
+tests/unit/test_batch_processor.py::TestBatchEmbeddingProcessor::test_many_chunks PASSED [  1%]
+tests/unit/test_batch_processor.py::TestBatchEmbeddingProcessor::test_embedding_provider_exception_propagates PASSED [  2%]
+tests/unit/test_batch_processor.py::TestBatchEmbeddingProcessor::test_store_embedding_called_for_each_chunk PASSED [  2%]
+tests/unit/test_batch_processor.py::TestBatchEmbeddingProcessor::test_chunk_text_extraction PASSED [  2%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_dismissive_bootcamp_language_detected XFAIL [  2%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_bootcamp_lacks_rigor_detected XFAIL [  3%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_bootcamp_inadequate_training_detected PASSED [  3%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_self_taught_comparison_detected PASSED [  3%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_positive_bootcamp_mention_not_flagged PASSED [  3%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_neutral_bootcamp_mention_not_flagged PASSED [  3%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_educational_background_positive_not_flagged PASSED [  4%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_demographic_assumption_age_detected XFAIL [  4%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_demographic_assumption_old_detected PASSED [  4%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_demographic_assumption_background_detected PASSED [  4%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_immigrant_developer_assumption_detected PASSED [  5%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_international_developer_assumption_detected PASSED [  5%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_clean_feedback_not_flagged PASSED [  5%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_technical_feedback_not_flagged PASSED [  5%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_development_suggestion_not_flagged PASSED [  6%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_case_insensitive_detection PASSED [  6%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_return_value_structure PASSED [  6%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_unbiased_returns_empty_reason PASSED [  6%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_biased_returns_reason PASSED [  7%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_empty_text PASSED [  7%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_whitespace_only PASSED [  7%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_coding_bootcamp_variant XFAIL [  7%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_online_course_bias_detected PASSED [  7%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_developer_vs_programmer_distinction XFAIL [  8%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_multiple_bias_indicators XFAIL [  8%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_negative_educational_claim XFAIL [  8%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_working_class_assumption PASSED [  8%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_rich_poor_assumption XFAIL [  9%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_foreign_developer_struggle_assumption PASSED [  9%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_skill_assessment_not_biased PASSED [  9%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_comparative_without_bias PASSED [  9%]
+tests/unit/test_bias_detector.py::TestBiasDetector::test_assumption_vs_observation XFAIL [ 10%]
+tests/unit/test_faithfulness_checker.py::TestFaithfulnessChecker::test_feedback_fully_supported_by_context PASSED [ 10%]
+tests/unit/test_faithfulness_checker.py::TestFaithfulnessChecker::test_feedback_with_no_support_in_context PASSED [ 10%]
+tests/unit/test_faithfulness_checker.py::TestFaithfulnessChecker::test_partial_support_returns_middle_score XFAIL [ 10%]
+tests/unit/test_faithfulness_checker.py::TestFaithfulnessChecker::test_empty_feedback_returns_zero PASSED [ 10%]
+tests/unit/test_faithfulness_checker.py::TestFaithfulnessChecker::test_empty_context_chunks_returns_zero PASSED [ 11%]
+tests/unit/test_faithfulness_checker.py::TestFaithfulnessChecker::test_both_empty_returns_zero PASSED [ 11%]
+tests/unit/test_faithfulness_checker.py::TestFaithfulnessChecker::test_multiple_context_chunks XFAIL [ 11%]
+tests/unit/test_faithfulness_checker.py::TestFaithfulnessChecker::test_extract_claims PASSED [ 11%]
+tests/unit/test_faithfulness_checker.py::TestFaithfulnessChecker::test_extract_claims_with_punctuation PASSED [ 12%]
+tests/unit/test_faithfulness_checker.py::TestFaithfulnessChecker::test_is_supported_with_keyword_overlap PASSED [ 12%]
+tests/unit/test_faithfulness_checker.py::TestFaithfulnessChecker::test_is_supported_without_keywords PASSED [ 12%]
+tests/unit/test_faithfulness_checker.py::TestFaithfulnessChecker::test_case_insensitive_support_check PASSED [ 12%]
+tests/unit/test_faithfulness_checker.py::TestFaithfulnessChecker::test_score_never_returns_hardcoded_value PASSED [ 13%]
+tests/unit/test_faithfulness_checker.py::TestFaithfulnessChecker::test_multiple_claims_varying_support XFAIL [ 13%]
+tests/unit/test_faithfulness_checker.py::TestFaithfulnessChecker::test_very_long_feedback PASSED [ 13%]
+tests/unit/test_faithfulness_checker.py::TestFaithfulnessChecker::test_very_long_context PASSED [ 13%]
+tests/unit/test_faithfulness_checker.py::TestFaithfulnessChecker::test_common_words_filtered_in_overlap PASSED [ 14%]
+tests/unit/test_faithfulness_checker.py::TestFaithfulnessChecker::test_minimum_overlap_required PASSED [ 14%]
+tests/unit/test_faithfulness_checker.py::TestFaithfulnessChecker::test_none_context_chunk_text XFAIL [ 14%]
+tests/unit/test_faithfulness_checker.py::TestFaithfulnessChecker::test_missing_text_key_in_chunk PASSED [ 14%]
+tests/unit/test_faithfulness_checker.py::TestFaithfulnessChecker::test_score_consistency PASSED [ 14%]
+tests/unit/test_faithfulness_checker.py::TestFaithfulnessChecker::test_specialized_technical_terms PASSED [ 15%]
+tests/unit/test_keyword_search.py::TestKeywordSearcher::test_results_sorted_by_score_descending PASSED [ 15%]
+tests/unit/test_keyword_search.py::TestKeywordSearcher::test_query_matching_no_documents PASSED [ 15%]
+tests/unit/test_keyword_search.py::TestKeywordSearcher::test_query_matching_multiple_documents PASSED [ 15%]
+tests/unit/test_keyword_search.py::TestKeywordSearcher::test_case_insensitive_matching PASSED [ 16%]
+tests/unit/test_keyword_search.py::TestKeywordSearcher::test_top_k_limit PASSED [ 16%]
+tests/unit/test_keyword_search.py::TestKeywordSearcher::test_top_k_larger_than_results PASSED [ 16%]
+tests/unit/test_keyword_search.py::TestKeywordSearcher::test_results_have_bm25_score PASSED [ 16%]
+tests/unit/test_keyword_search.py::TestKeywordSearcher::test_results_preserve_chunk_fields PASSED [ 17%]
+tests/unit/test_keyword_search.py::TestKeywordSearcher::test_empty_index XFAIL [ 17%]
+tests/unit/test_keyword_search.py::TestKeywordSearcher::test_index_not_called_returns_empty PASSED [ 17%]
+tests/unit/test_keyword_search.py::TestKeywordSearcher::test_multi_word_query PASSED [ 17%]
+tests/unit/test_keyword_search.py::TestKeywordSearcher::test_tokenization PASSED [ 17%]
+tests/unit/test_keyword_search.py::TestKeywordSearcher::test_tokenization_case_handling PASSED [ 18%]
+tests/unit/test_keyword_search.py::TestKeywordSearcher::test_large_corpus PASSED [ 18%]
+tests/unit/test_keyword_search.py::TestKeywordSearcher::test_special_characters_in_query PASSED [ 18%]
+tests/unit/test_keyword_search.py::TestKeywordSearcher::test_exact_phrase_matching PASSED [ 18%]
+tests/unit/test_keyword_search.py::TestKeywordSearcher::test_single_word_chunks PASSED [ 19%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_mock_provider_returns_list_of_floats PASSED [ 19%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_openai_provider_would_return_floats PASSED [ 19%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_mock_provider_deterministic PASSED [ 19%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_mock_provider_embedding_dimension PASSED [ 20%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_providers_same_dimension PASSED [ 20%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_mock_provider_multiple_texts PASSED [ 20%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_mock_provider_empty_list PASSED [ 20%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_mock_provider_single_text PASSED [ 21%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_mock_provider_empty_string PASSED [ 21%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_mock_provider_different_inputs_different_outputs PASSED [ 21%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_mock_provider_embeddings_normalized PASSED [ 21%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_provider_interface_implements_embed PASSED [ 21%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_mock_provider_returns_floats_not_integers PASSED [ 22%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_multiple_providers_same_interface PASSED [ 22%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_mock_provider_consistency_across_calls PASSED [ 22%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_provider_embed_signature PASSED [ 22%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_mock_provider_with_very_long_text PASSED [ 23%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_mock_provider_with_special_characters PASSED [ 23%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_mock_provider_with_unicode PASSED [ 23%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_mock_provider_with_newlines PASSED [ 23%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_mock_provider_with_tabs PASSED [ 24%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_different_text_lengths_same_output_dimension PASSED [ 24%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_mock_provider_batch_processing PASSED [ 24%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_embedding_vector_values_in_valid_range PASSED [ 24%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_providers_inherit_from_abstract_base PASSED [ 25%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_abstract_base_class_has_embed_method PASSED [ 25%]
+tests/unit/test_llm_provider_contract.py::TestLLMProviderContract::test_mock_provider_embedding_stability PASSED [ 25%]
+tests/unit/test_output_parser.py::TestOutputParser::test_json_wrapped_in_code_fence PASSED [ 25%]
+tests/unit/test_output_parser.py::TestOutputParser::test_raw_json_without_fence PASSED [ 25%]
+tests/unit/test_output_parser.py::TestOutputParser::test_plain_text_fallback PASSED [ 26%]
+tests/unit/test_output_parser.py::TestOutputParser::test_malformed_json_fallback PASSED [ 26%]
+tests/unit/test_output_parser.py::TestOutputParser::test_feedback_section_has_required_fields PASSED [ 26%]
+tests/unit/test_output_parser.py::TestOutputParser::test_json_with_multiple_sections PASSED [ 26%]
+tests/unit/test_output_parser.py::TestOutputParser::test_confidence_scores_in_sections PASSED [ 27%]
+tests/unit/test_output_parser.py::TestOutputParser::test_empty_json_object PASSED [ 27%]
+tests/unit/test_output_parser.py::TestOutputParser::test_json_array_fallback XFAIL [ 27%]
+tests/unit/test_output_parser.py::TestOutputParser::test_very_long_plain_text PASSED [ 27%]
+tests/unit/test_output_parser.py::TestOutputParser::test_html_in_feedback PASSED [ 28%]
+tests/unit/test_output_parser.py::TestOutputParser::test_code_in_feedback PASSED [ 28%]
+tests/unit/test_output_parser.py::TestOutputParser::test_section_suggestions_extraction PASSED [ 28%]
+tests/unit/test_output_parser.py::TestOutputParser::test_unicode_characters PASSED [ 28%]
+tests/unit/test_output_parser.py::TestOutputParser::test_nested_json_structure PASSED [ 28%]
+tests/unit/test_output_parser.py::TestOutputParser::test_mixed_content PASSED [ 29%]
+tests/unit/test_output_parser.py::TestOutputParser::test_plaintext_output_helper PASSED [ 29%]
+tests/unit/test_output_parser.py::TestOutputParser::test_multiple_code_fences PASSED [ 29%]
+tests/unit/test_output_parser.py::TestOutputParser::test_no_suggestions_key PASSED [ 29%]
+tests/unit/test_pii_scrubber.py::TestPIIScrubber::test_email_redaction PASSED [ 30%]
+tests/unit/test_pii_scrubber.py::TestPIIScrubber::test_multiple_emails_redacted PASSED [ 30%]
+tests/unit/test_pii_scrubber.py::TestPIIScrubber::test_us_phone_number_redaction XFAIL [ 30%]
+tests/unit/test_pii_scrubber.py::TestPIIScrubber::test_us_phone_formats XFAIL [ 30%]
+tests/unit/test_pii_scrubber.py::TestPIIScrubber::test_international_phone_redaction PASSED [ 31%]
+tests/unit/test_pii_scrubber.py::TestPIIScrubber::test_ssn_redaction PASSED [ 31%]
+tests/unit/test_pii_scrubber.py::TestPIIScrubber::test_ssn_variations PASSED [ 31%]
+tests/unit/test_pii_scrubber.py::TestPIIScrubber::test_street_address_redaction PASSED [ 31%]
+tests/unit/test_pii_scrubber.py::TestPIIScrubber::test_text_with_no_pii PASSED [ 32%]
+tests/unit/test_pii_scrubber.py::TestPIIScrubber::test_detect_returns_list_of_pii PASSED [ 32%]
+tests/unit/test_pii_scrubber.py::TestPIIScrubber::test_detect_email_pii PASSED [ 32%]
+tests/unit/test_pii_scrubber.py::TestPIIScrubber::test_detect_phone_pii XFAIL [ 32%]
+tests/unit/test_pii_scrubber.py::TestPIIScrubber::test_detect_ssn_pii PASSED [ 32%]
+tests/unit/test_pii_scrubber.py::TestPIIScrubber::test_detect_positions_accurate PASSED [ 33%]
+tests/unit/test_pii_scrubber.py::TestPIIScrubber::test_detect_multiple_pii_items PASSED [ 33%]
+tests/unit/test_pii_scrubber.py::TestPIIScrubber::test_case_insensitive_email_matching PASSED [ 33%]
+tests/unit/test_pii_scrubber.py::TestPIIScrubber::test_complex_email_addresses PASSED [ 33%]
+tests/unit/test_pii_scrubber.py::TestPIIScrubber::test_phone_at_start_of_text XFAIL [ 34%]
+tests/unit/test_pii_scrubber.py::TestPIIScrubber::test_phone_at_end_of_text PASSED [ 34%]
+tests/unit/test_pii_scrubber.py::TestPIIScrubber::test_address_variations PASSED [ 34%]
+tests/unit/test_pii_scrubber.py::TestPIIScrubber::test_empty_text PASSED [ 34%]
+tests/unit/test_pii_scrubber.py::TestPIIScrubber::test_whitespace_only PASSED [ 35%]
+tests/unit/test_pii_scrubber.py::TestPIIScrubber::test_mixed_pii_and_text XFAIL [ 35%]
+tests/unit/test_pii_scrubber.py::TestPIIScrubber::test_scrub_idempotent PASSED [ 35%]
+tests/unit/test_pii_scrubber.py::TestPIIScrubber::test_detect_no_false_positives PASSED [ 35%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_newline_injection_detected PASSED [ 35%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_system_role_switching_detected PASSED [ 36%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_human_role_switching_detected PASSED [ 36%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_assistant_role_switching_detected PASSED [ 36%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_template_injection_detected PASSED [ 36%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_jinja_injection_detected PASSED [ 37%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_ignore_instruction_detected PASSED [ 37%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_forget_instruction_detected PASSED [ 37%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_disregard_instruction_detected PASSED [ 37%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_override_instruction_detected PASSED [ 38%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_code_execution_attempt_detected PASSED [ 38%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_run_function_attempt_detected PASSED [ 38%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_eval_function_attempt_detected PASSED [ 38%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_clean_input_not_flagged PASSED [ 39%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_normal_text_not_flagged PASSED [ 39%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_sanitize_removes_template_delimiters PASSED [ 39%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_sanitize_removes_angle_brackets PASSED [ 39%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_sanitize_preserves_legitimate_content PASSED [ 39%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_sanitize_multiple_template_delimiters PASSED [ 40%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_separator_line_detected PASSED [ 40%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_long_separator_detected PASSED [ 40%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_case_insensitive_detection PASSED [ 40%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_whitespace_variations_detected XFAIL [ 41%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_multiple_injection_patterns PASSED [ 41%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_benign_mentions_not_flagged PASSED [ 41%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_empty_string PASSED [ 41%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_whitespace_only PASSED [ 42%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_sanitize_idempotent PASSED [ 42%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_complex_injection_attempt PASSED [ 42%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_legitimate_newlines_not_flagged PASSED [ 42%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_code_blocks_handled PASSED [ 42%]
+tests/unit/test_prompt_defense.py::TestPromptDefense::test_sanitize_with_mixed_delimiters PASSED [ 43%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_all_5_templates_exist PASSED [ 43%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_skills_feedback_template_exists PASSED [ 43%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_projects_feedback_template_exists PASSED [ 43%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_presentation_feedback_template_exists PASSED [ 44%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_gaps_feedback_template_exists PASSED [ 44%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_first_impression_template_exists PASSED [ 44%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_each_template_contains_context_placeholder PASSED [ 44%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_each_template_contains_github_username_placeholder PASSED [ 45%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_each_template_contains_project_count_placeholder PASSED [ 45%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_get_template_returns_correct_template PASSED [ 45%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_get_template_projects_feedback PASSED [ 45%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_get_template_presentation_feedback PASSED [ 46%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_get_template_gaps_feedback PASSED [ 46%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_get_template_first_impression PASSED [ 46%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_get_template_unknown_name_raises_error PASSED [ 46%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_get_template_unknown_version_raises_error PASSED [ 46%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_all_templates_have_v1 PASSED [ 47%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_templates_are_strings PASSED [ 47%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_templates_have_reasonable_length PASSED [ 47%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_skills_feedback_mentions_technical_skills PASSED [ 47%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_projects_feedback_mentions_code_quality PASSED [ 48%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_gaps_feedback_mentions_missing_skills PASSED [ 48%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_presentation_feedback_mentions_readme PASSED [ 48%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_first_impression_is_concise PASSED [ 48%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_get_template_default_version PASSED [ 49%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_template_snapshot_content_hash PASSED [ 49%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_skills_feedback_requests_json_format PASSED [ 49%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_projects_feedback_requests_json_format PASSED [ 49%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_presentation_feedback_requests_json_format PASSED [ 50%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_gaps_feedback_requests_json_format PASSED [ 50%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_first_impression_plain_text PASSED [ 50%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_templates_have_portfolio_context PASSED [ 50%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_template_get_logs_retrieval PASSED [ 50%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_each_template_name_is_valid_identifier PASSED [ 51%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_template_versions_are_strings PASSED [ 51%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_no_hardcoded_usernames_in_templates PASSED [ 51%]
+tests/unit/test_prompt_templates.py::TestPromptTemplates::test_templates_use_consistent_placeholders PASSED [ 51%]
+tests/unit/test_rate_limiter.py::TestRateLimiter::test_first_request_allowed PASSED [ 52%]
+tests/unit/test_rate_limiter.py::TestRateLimiter::test_requests_up_to_limit_allowed PASSED [ 52%]
+tests/unit/test_rate_limiter.py::TestRateLimiter::test_request_at_limit_plus_one_denied PASSED [ 52%]
+tests/unit/test_rate_limiter.py::TestRateLimiter::test_remaining_count_correct PASSED [ 52%]
+tests/unit/test_rate_limiter.py::TestRateLimiter::test_rolling_window_removes_old_entries PASSED [ 53%]
+tests/unit/test_rate_limiter.py::TestRateLimiter::test_different_identifiers_independent PASSED [ 53%]
+tests/unit/test_rate_limiter.py::TestRateLimiter::test_key_format_correct PASSED [ 53%]
+tests/unit/test_rate_limiter.py::TestRateLimiter::test_entry_added_to_redis PASSED [ 53%]
+tests/unit/test_rate_limiter.py::TestRateLimiter::test_expiry_set_correctly PASSED [ 53%]
+tests/unit/test_rate_limiter.py::TestRateLimiter::test_custom_window_size PASSED [ 54%]
+tests/unit/test_rate_limiter.py::TestRateLimiter::test_redis_error_handling PASSED [ 54%]
+tests/unit/test_rate_limiter.py::TestRateLimiter::test_zero_limit PASSED [ 54%]
+tests/unit/test_rate_limiter.py::TestRateLimiter::test_negative_limit PASSED [ 54%]
+tests/unit/test_rate_limiter.py::TestRateLimiter::test_large_limit PASSED [ 55%]
+tests/unit/test_rate_limiter.py::TestRateLimiter::test_return_tuple_structure PASSED [ 55%]
+tests/unit/test_rate_limiter.py::TestRateLimiter::test_multiple_requests_same_user PASSED [ 55%]
+tests/unit/test_rate_limiter.py::TestRateLimiter::test_time_based_window_calculation PASSED [ 55%]
+tests/unit/test_rate_limiter.py::TestRateLimiter::test_ip_address_as_identifier PASSED [ 56%]
+tests/unit/test_rate_limiter.py::TestRateLimiter::test_api_key_as_identifier PASSED [ 56%]
+tests/unit/test_readme_parser.py::TestReadmeParser::test_parse_standard_readme XFAIL [ 56%]
+tests/unit/test_readme_parser.py::TestReadmeParser::test_parse_readme_longer_than_10000_chars PASSED [ 56%]
+tests/unit/test_readme_parser.py::TestReadmeParser::test_parse_readme_with_code_blocks PASSED [ 57%]
+tests/unit/test_readme_parser.py::TestReadmeParser::test_parse_readme_without_code_blocks PASSED [ 57%]
+tests/unit/test_readme_parser.py::TestReadmeParser::test_parse_empty_readme PASSED [ 57%]
+tests/unit/test_readme_parser.py::TestReadmeParser::test_parse_readme_with_only_whitespace PASSED [ 57%]
+tests/unit/test_readme_parser.py::TestReadmeParser::test_parse_readme_bytes_input PASSED [ 57%]
+tests/unit/test_readme_parser.py::TestReadmeParser::test_parse_readme_bytes_with_utf8 PASSED [ 58%]
+tests/unit/test_readme_parser.py::TestReadmeParser::test_parse_invalid_content_type PASSED [ 58%]
+tests/unit/test_readme_parser.py::TestReadmeParser::test_extract_heading_hierarchy XFAIL [ 58%]
+tests/unit/test_readme_parser.py::TestReadmeParser::test_extract_heading_hierarchy_no_headings PASSED [ 58%]
+tests/unit/test_readme_parser.py::TestReadmeParser::test_parse_readme_with_badges PASSED [ 59%]
+tests/unit/test_readme_parser.py::TestReadmeParser::test_parse_readme_without_badges PASSED [ 59%]
+tests/unit/test_readme_parser.py::TestReadmeParser::test_metadata_structure PASSED [ 59%]
+tests/unit/test_readme_parser.py::TestReadmeParser::test_word_count_accuracy PASSED [ 59%]
+tests/unit/test_readme_scorer.py::TestReadmeScorer::test_readme_with_all_quality_signals XFAIL [ 60%]
+tests/unit/test_readme_scorer.py::TestReadmeScorer::test_readme_with_no_content PASSED [ 60%]
+tests/unit/test_readme_scorer.py::TestReadmeScorer::test_readme_with_only_title PASSED [ 60%]
+tests/unit/test_readme_scorer.py::TestReadmeScorer::test_word_count_category_minimal PASSED [ 60%]
+tests/unit/test_readme_scorer.py::TestReadmeScorer::test_word_count_category_adequate PASSED [ 60%]
+tests/unit/test_readme_scorer.py::TestReadmeScorer::test_word_count_category_comprehensive PASSED [ 61%]
+tests/unit/test_readme_scorer.py::TestReadmeScorer::test_installation_section_detection PASSED [ 61%]
+tests/unit/test_readme_scorer.py::TestReadmeScorer::test_usage_section_detection PASSED [ 61%]
+tests/unit/test_readme_scorer.py::TestReadmeScorer::test_setup_keyword_counts_as_installation PASSED [ 61%]
+tests/unit/test_readme_scorer.py::TestReadmeScorer::test_quickstart_counts_as_usage PASSED [ 62%]
+tests/unit/test_readme_scorer.py::TestReadmeScorer::test_badge_detection PASSED [ 62%]
+tests/unit/test_readme_scorer.py::TestReadmeScorer::test_demo_link_detection PASSED [ 62%]
+tests/unit/test_readme_scorer.py::TestReadmeScorer::test_tech_stack_section_detection PASSED [ 62%]
+tests/unit/test_readme_scorer.py::TestReadmeScorer::test_technologies_keyword_counts PASSED [ 63%]
+tests/unit/test_readme_scorer.py::TestReadmeScorer::test_overall_score_calculation PASSED [ 63%]
+tests/unit/test_readme_scorer.py::TestReadmeScorer::test_missing_readme_content_key PASSED [ 63%]
+tests/unit/test_readme_scorer.py::TestReadmeScorer::test_result_has_all_required_fields PASSED [ 63%]
+tests/unit/test_readme_scorer.py::TestReadmeScorer::test_case_insensitive_section_detection PASSED [ 64%]
+tests/unit/test_readme_scorer.py::TestReadmeScorer::test_whitespace_only_readme PASSED [ 64%]
+tests/unit/test_readme_scorer.py::TestReadmeScorer::test_example_keyword_counts_as_usage PASSED [ 64%]
+tests/unit/test_readme_scorer.py::TestReadmeScorer::test_score_scales_with_word_count PASSED [ 64%]
+tests/unit/test_readme_scorer.py::TestReadmeScorer::test_try_it_as_demo_indicator PASSED [ 64%]
+tests/unit/test_readme_scorer.py::TestReadmeScorer::test_built_with_counts_as_tech_stack PASSED [ 65%]
+tests/unit/test_relevance_scorer.py::TestRelevanceScorer::test_query_with_perfect_keyword_match PASSED [ 65%]
+tests/unit/test_relevance_scorer.py::TestRelevanceScorer::test_query_with_zero_keyword_overlap PASSED [ 65%]
+tests/unit/test_relevance_scorer.py::TestRelevanceScorer::test_query_with_partial_overlap XFAIL [ 65%]
+tests/unit/test_relevance_scorer.py::TestRelevanceScorer::test_empty_chunks_list_returns_zero PASSED [ 66%]
+tests/unit/test_relevance_scorer.py::TestRelevanceScorer::test_empty_query_returns_zero PASSED [ 66%]
+tests/unit/test_relevance_scorer.py::TestRelevanceScorer::test_multiple_chunks_aggregated PASSED [ 66%]
+tests/unit/test_relevance_scorer.py::TestRelevanceScorer::test_case_insensitive_matching PASSED [ 66%]
+tests/unit/test_relevance_scorer.py::TestRelevanceScorer::test_tokenization PASSED [ 67%]
+tests/unit/test_relevance_scorer.py::TestRelevanceScorer::test_empty_text_in_chunk PASSED [ 67%]
+tests/unit/test_relevance_scorer.py::TestRelevanceScorer::test_very_long_query PASSED [ 67%]
+tests/unit/test_relevance_scorer.py::TestRelevanceScorer::test_very_long_chunk PASSED [ 67%]
+tests/unit/test_relevance_scorer.py::TestRelevanceScorer::test_special_characters_ignored PASSED [ 67%]
+tests/unit/test_relevance_scorer.py::TestRelevanceScorer::test_multiple_keyword_matches PASSED [ 68%]
+tests/unit/test_relevance_scorer.py::TestRelevanceScorer::test_single_word_chunks PASSED [ 68%]
+tests/unit/test_relevance_scorer.py::TestRelevanceScorer::test_score_ranges_from_zero_to_one PASSED [ 68%]
+tests/unit/test_relevance_scorer.py::TestRelevanceScorer::test_common_words_not_preventing_scoring PASSED [ 68%]
+tests/unit/test_relevance_scorer.py::TestRelevanceScorer::test_chunk_without_text_key PASSED [ 69%]
+tests/unit/test_relevance_scorer.py::TestRelevanceScorer::test_whitespace_only_in_chunks PASSED [ 69%]
+tests/unit/test_relevance_scorer.py::TestRelevanceScorer::test_average_relevance_calculation PASSED [ 69%]
+tests/unit/test_resume_parser.py::TestResumeParser::test_parse_single_column_resume_text XFAIL [ 69%]
+tests/unit/test_resume_parser.py::TestResumeParser::test_parse_resume_no_work_experience XFAIL [ 70%]
+tests/unit/test_resume_parser.py::TestResumeParser::test_parse_multipage_pdf PASSED [ 70%]
+tests/unit/test_resume_parser.py::TestResumeParser::test_parse_markdown_resume XFAIL [ 70%]
+tests/unit/test_resume_parser.py::TestResumeParser::test_parse_invalid_content_type PASSED [ 70%]
+tests/unit/test_resume_parser.py::TestResumeParser::test_parse_invalid_list_content PASSED [ 71%]
+tests/unit/test_resume_parser.py::TestResumeParser::test_detect_sections XFAIL [ 71%]
+tests/unit/test_resume_parser.py::TestResumeParser::test_strip_markdown_syntax XFAIL [ 71%]
+tests/unit/test_resume_parser.py::TestResumeParser::test_pdf_parsing_error_handling PASSED [ 71%]
+tests/unit/test_resume_parser.py::TestResumeParser::test_parse_preserves_text_content PASSED [ 71%]
+tests/unit/test_review_service.py::TestReviewService::test_create_review_returns_review_with_pending_status PASSED [ 72%]
+tests/unit/test_review_service.py::TestReviewService::test_get_review_returns_review_for_correct_owner XFAIL [ 72%]
+tests/unit/test_review_service.py::TestReviewService::test_get_review_returns_none_for_wrong_user XFAIL [ 72%]
+tests/unit/test_review_service.py::TestReviewService::test_list_reviews_returns_paginated_results XFAIL [ 72%]
+tests/unit/test_review_service.py::TestReviewService::test_list_reviews_page_2_returns_correct_offset XFAIL [ 73%]
+tests/unit/test_review_service.py::TestReviewService::test_list_reviews_returns_tuple XFAIL [ 73%]
+tests/unit/test_review_service.py::TestReviewService::test_create_review_calls_db_add PASSED [ 73%]
+tests/unit/test_review_service.py::TestReviewService::test_create_review_calls_db_commit PASSED [ 73%]
+tests/unit/test_review_service.py::TestReviewService::test_create_review_calls_db_refresh PASSED [ 74%]
+tests/unit/test_review_service.py::TestReviewService::test_get_review_uses_select_and_join XFAIL [ 74%]
+tests/unit/test_review_service.py::TestReviewService::test_list_reviews_default_pagination XFAIL [ 74%]
+tests/unit/test_review_service.py::TestReviewService::test_list_reviews_custom_page_size XFAIL [ 74%]
+tests/unit/test_review_service.py::TestReviewService::test_create_review_with_uuid_ids PASSED [ 75%]
+tests/unit/test_review_service.py::TestReviewService::test_get_review_verifies_ownership XFAIL [ 75%]
+tests/unit/test_review_service.py::TestReviewService::test_list_reviews_counts_total XFAIL [ 75%]
+tests/unit/test_review_service.py::TestReviewService::test_list_reviews_returns_reviews_list XFAIL [ 75%]
+tests/unit/test_review_service.py::TestReviewService::test_review_sections_and_score_initially_none PASSED [ 75%]
+tests/unit/test_review_service.py::TestReviewService::test_get_review_with_valid_uuid XFAIL [ 76%]
+tests/unit/test_review_service.py::TestReviewService::test_list_reviews_ordered_by_created_at XFAIL [ 76%]
+tests/unit/test_security.py::TestSecurity::test_hash_password_returns_bcrypt_hash PASSED [ 76%]
+tests/unit/test_security.py::TestSecurity::test_verify_password_correct PASSED [ 76%]
+tests/unit/test_security.py::TestSecurity::test_verify_password_incorrect PASSED [ 77%]
+tests/unit/test_security.py::TestSecurity::test_verify_password_case_sensitive PASSED [ 77%]
+tests/unit/test_security.py::TestSecurity::test_hash_same_password_different_hash PASSED [ 77%]
+tests/unit/test_security.py::TestSecurity::test_create_access_token_returns_string PASSED [ 77%]
+tests/unit/test_security.py::TestSecurity::test_create_access_token_is_jwt PASSED [ 78%]
+tests/unit/test_security.py::TestSecurity::test_decode_access_token_valid PASSED [ 78%]
+tests/unit/test_security.py::TestSecurity::test_decode_access_token_invalid_token PASSED [ 78%]
+tests/unit/test_security.py::TestSecurity::test_decode_access_token_malformed PASSED [ 78%]
+tests/unit/test_security.py::TestSecurity::test_decode_access_token_empty_string PASSED [ 78%]
+tests/unit/test_security.py::TestSecurity::test_roundtrip_token_with_data PASSED [ 79%]
+tests/unit/test_security.py::TestSecurity::test_create_access_token_with_custom_expiry PASSED [ 79%]
+tests/unit/test_security.py::TestSecurity::test_access_token_includes_expiration PASSED [ 79%]
+tests/unit/test_security.py::TestSecurity::test_password_hash_different_for_different_passwords PASSED [ 79%]
+tests/unit/test_security.py::TestSecurity::test_verify_password_with_empty_strings PASSED [ 80%]
+tests/unit/test_security.py::TestSecurity::test_verify_password_with_special_characters PASSED [ 80%]
+tests/unit/test_security.py::TestSecurity::test_token_with_empty_data PASSED [ 80%]
+tests/unit/test_security.py::TestSecurity::test_token_with_special_characters_in_data PASSED [ 80%]
+tests/unit/test_security.py::TestSecurity::test_token_with_unicode_data PASSED [ 81%]
+tests/unit/test_security.py::TestSecurity::test_hash_password_long_input PASSED [ 81%]
+tests/unit/test_security.py::TestSecurity::test_verify_with_wrong_hash_format XFAIL [ 81%]
+tests/unit/test_security.py::TestSecurity::test_token_tampering_detection PASSED [ 81%]
+tests/unit/test_security.py::TestSecurity::test_create_token_consistency PASSED [ 82%]
+tests/unit/test_security.py::TestSecurity::test_password_with_whitespace PASSED [ 82%]
+tests/unit/test_semantic_chunker.py::TestSemanticChunker::test_empty_input_returns_empty_list PASSED [ 82%]
+tests/unit/test_semantic_chunker.py::TestSemanticChunker::test_whitespace_only_input PASSED [ 82%]
+tests/unit/test_semantic_chunker.py::TestSemanticChunker::test_short_text_returns_single_chunk PASSED [ 82%]
+tests/unit/test_semantic_chunker.py::TestSemanticChunker::test_long_text_returns_multiple_chunks PASSED [ 83%]
+tests/unit/test_semantic_chunker.py::TestSemanticChunker::test_chunk_metadata_includes_chunk_index PASSED [ 83%]
+tests/unit/test_semantic_chunker.py::TestSemanticChunker::test_chunks_preserve_source_metadata PASSED [ 83%]
+tests/unit/test_semantic_chunker.py::TestSemanticChunker::test_chunk_has_character_positions PASSED [ 83%]
+tests/unit/test_semantic_chunker.py::TestSemanticChunker::test_bullet_points_not_split_mid_bullet PASSED [ 84%]
+tests/unit/test_semantic_chunker.py::TestSemanticChunker::test_sentence_splitting PASSED [ 84%]
+tests/unit/test_semantic_chunker.py::TestSemanticChunker::test_sentence_splitting_with_exclamation_marks PASSED [ 84%]
+tests/unit/test_semantic_chunker.py::TestSemanticChunker::test_sentence_splitting_preserves_punctuation PASSED [ 84%]
+tests/unit/test_semantic_chunker.py::TestSemanticChunker::test_overlap_between_chunks PASSED [ 85%]
+tests/unit/test_semantic_chunker.py::TestSemanticChunker::test_chunks_have_non_zero_text PASSED [ 85%]
+tests/unit/test_semantic_chunker.py::TestSemanticChunker::test_paragraph_boundaries_respected PASSED [ 85%]
+tests/unit/test_semantic_chunker.py::TestSemanticChunker::test_metadata_copied_not_mutated PASSED [ 85%]
+tests/unit/test_semantic_chunker.py::TestSemanticChunker::test_chunk_indexing_is_sequential PASSED [ 85%]
+tests/unit/test_skill_extractor.py::TestSkillExtractor::test_text_with_python_imports PASSED [ 86%]
+tests/unit/test_skill_extractor.py::TestSkillExtractor::test_text_with_python_type_annotations PASSED [ 86%]
+tests/unit/test_skill_extractor.py::TestSkillExtractor::test_text_with_typescript_files XFAIL [ 86%]
+tests/unit/test_skill_extractor.py::TestSkillExtractor::test_jupyter_ipynb_detection PASSED [ 86%]
+tests/unit/test_skill_extractor.py::TestSkillExtractor::test_mixed_language_text PASSED [ 87%]
+tests/unit/test_skill_extractor.py::TestSkillExtractor::test_frameworks_detected_with_high_confidence PASSED [ 87%]
+tests/unit/test_skill_extractor.py::TestSkillExtractor::test_react_detection PASSED [ 87%]
+tests/unit/test_skill_extractor.py::TestSkillExtractor::test_database_technology_detection XFAIL [ 87%]
+tests/unit/test_skill_extractor.py::TestSkillExtractor::test_devops_tool_detection XFAIL [ 88%]
+tests/unit/test_skill_extractor.py::TestSkillExtractor::test_skill_has_evidence_list PASSED [ 88%]
+tests/unit/test_skill_extractor.py::TestSkillExtractor::test_filename_based_detection PASSED [ 88%]
+tests/unit/test_skill_extractor.py::TestSkillExtractor::test_javascript_detection XFAIL [ 88%]
+tests/unit/test_skill_extractor.py::TestSkillExtractor::test_docker_compose_detection XFAIL [ 89%]
+tests/unit/test_skill_extractor.py::TestSkillExtractor::test_aws_gcp_azure_detection PASSED [ 89%]
+tests/unit/test_skill_extractor.py::TestSkillExtractor::test_empty_text PASSED [ 89%]
+tests/unit/test_skill_extractor.py::TestSkillExtractor::test_unrecognized_language PASSED [ 89%]
+tests/unit/test_skill_extractor.py::TestSkillExtractor::test_confidence_scores_are_floats PASSED [ 89%]
+tests/unit/test_skill_extractor.py::TestSkillExtractor::test_skill_detection_dataclass PASSED [ 90%]
+tests/unit/test_structural_chunker.py::TestStructuralChunker::test_empty_input_returns_empty_list PASSED [ 90%]
+tests/unit/test_structural_chunker.py::TestStructuralChunker::test_whitespace_only_input PASSED [ 90%]
+tests/unit/test_structural_chunker.py::TestStructuralChunker::test_document_with_no_headings XFAIL [ 90%]
+tests/unit/test_structural_chunker.py::TestStructuralChunker::test_document_with_nested_headings PASSED [ 91%]
+tests/unit/test_structural_chunker.py::TestStructuralChunker::test_heading_path_format PASSED [ 91%]
+tests/unit/test_structural_chunker.py::TestStructuralChunker::test_large_section_sub_chunked PASSED [ 91%]
+tests/unit/test_structural_chunker.py::TestStructuralChunker::test_chunk_metadata_includes_heading_level PASSED [ 91%]
+tests/unit/test_structural_chunker.py::TestStructuralChunker::test_chunk_metadata_structure PASSED [ 92%]
+tests/unit/test_structural_chunker.py::TestStructuralChunker::test_preserve_source_metadata PASSED [ 92%]
+tests/unit/test_structural_chunker.py::TestStructuralChunker::test_multiple_h1_headings PASSED [ 92%]
+tests/unit/test_structural_chunker.py::TestStructuralChunker::test_heading_path_breadcrumb PASSED [ 92%]
+tests/unit/test_structural_chunker.py::TestStructuralChunker::test_chunks_have_text_content PASSED [ 92%]
+tests/unit/test_structural_chunker.py::TestStructuralChunker::test_section_extraction_with_multiple_levels PASSED [ 93%]
+tests/unit/test_structural_chunker.py::TestStructuralChunker::test_heading_not_in_middle_of_content PASSED [ 93%]
+tests/unit/test_structural_chunker.py::TestStructuralChunker::test_empty_sections_handled PASSED [ 93%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_single_language_repo PASSED [ 93%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_mixed_language_repo_python_primary PASSED [ 94%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_ipynb_counted_as_python_not_json PASSED [ 94%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_node_modules_excluded XFAIL [ 94%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_vendor_files_excluded PASSED [ 94%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_build_directory_excluded XFAIL [ 95%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_config_file_detection PASSED [ 95%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_dockerfile_detection PASSED [ 95%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_github_actions_detection PASSED [ 95%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_makefile_detection PASSED [ 96%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_typescript_detection PASSED [ 96%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_go_detection PASSED [ 96%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_rust_detection PASSED [ 96%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_java_detection PASSED [ 96%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_multiple_python_files PASSED [ 97%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_empty_file_list PASSED [ 97%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_no_files_key PASSED [ 97%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_result_structure PASSED [ 97%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_framework_detection PASSED [ 98%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_unknown_extensions PASSED [ 98%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_case_insensitive_extension_matching PASSED [ 98%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_multiple_extensions_same_file PASSED [ 98%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_all_languages_sorted PASSED [ 99%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_frameworks_sorted PASSED [ 99%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_ruby_detection PASSED [ 99%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_csharp_detection PASSED [ 99%]
+tests/unit/test_tech_detector.py::TestTechDetector::test_cpp_detection PASSED [100%]/Users/js/School/codepath/ai301/pathreview-ai301-fa26-s1/.venv/lib/python3.11/site-packages/_pytest/unraisableexception.py:33: RuntimeWarning: coroutine 'AsyncMockMixin._execute_mock_call' was never awaited
+  gc.collect()
+RuntimeWarning: Enable tracemalloc to get the object allocation traceback
+
+
+=============================== warnings summary ===============================
+core/config.py:7
+  /Users/js/School/codepath/ai301/pathreview-ai301-fa26-s1/core/config.py:7: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.13/migration/
+    class Settings(BaseSettings):
+
+.venv/lib/python3.11/site-packages/passlib/utils/__init__.py:854
+  /Users/js/School/codepath/ai301/pathreview-ai301-fa26-s1/.venv/lib/python3.11/site-packages/passlib/utils/__init__.py:854: DeprecationWarning: 'crypt' is deprecated and slated for removal in Python 3.13
+    from crypt import crypt as _crypt
+
+tests/unit/test_review_service.py::TestReviewService::test_get_review_returns_none_for_wrong_user
+  /Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/enum.py:712: RuntimeWarning: coroutine 'AsyncMockMixin._execute_mock_call' was never awaited
+    return cls.__new__(cls, value)
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+
+tests/unit/test_review_service.py::TestReviewService::test_create_review_calls_db_add
+  /Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/unittest/mock.py:2130: RuntimeWarning: coroutine 'AsyncMockMixin._execute_mock_call' was never awaited
+    setattr(_type, entry, MagicProxy(entry, self))
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+
+tests/unit/test_review_service.py::TestReviewService::test_review_sections_and_score_initially_none
+  /Library/Frameworks/Python.framework/Versions/3.11/lib/python3.11/unittest/mock.py:1111: RuntimeWarning: coroutine 'AsyncMockMixin._execute_mock_call' was never awaited
+    self.side_effect = side_effect
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+================= 376 passed, 52 xfailed, 5 warnings in 11.41s =================
+[exit status: 0]

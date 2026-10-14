@@ -90,6 +90,14 @@ class SkillExtractor:
         "oracle": 0.85,
     }
 
+    DATABASE_DRIVERS = {
+        "psycopg2": "postgresql",
+        "psycopg": "postgresql",
+        "asyncpg": "postgresql",
+        "pymysql": "mysql",
+        "pymongo": "mongodb",
+    }
+
     TOOLS = {
         "docker": 0.95,
         "kubernetes": 0.95,
@@ -176,14 +184,18 @@ class SkillExtractor:
             js_evidence.append("JavaScript file extension (.js)")
         if ".ts" in str(filename or "").lower():
             js_evidence.append("TypeScript file extension (.ts)")
-        if re.search(r"\b(import|require)\s+", text):
+        if re.search(r"\b(?:import\s+|require\s*\()", text):
             js_evidence.append("CommonJS or ES6 imports")
         if "package.json" in text_lower:
             js_evidence.append("package.json found")
+        has_ts_syntax = bool(re.search(r"\b(?:export\s+)?interface\s+\w+\s*\{", text))
+        if has_ts_syntax:
+            js_evidence.append("TypeScript interface declaration")
 
         if js_evidence:
             confidence = min(0.95, 0.6 + len(js_evidence) * 0.1)
-            lang = "TypeScript" if ".ts" in str(filename or "").lower() else "JavaScript"
+            is_ts = ".ts" in str(filename or "").lower() or has_ts_syntax
+            lang = "TypeScript" if is_ts else "JavaScript"
             skills_dict[lang] = SkillDetection(
                 name=lang,
                 category="Language",
@@ -260,6 +272,17 @@ class SkillExtractor:
                         evidence=[f"Found '{db}' reference in content"],
                     )
 
+        for driver, db in self.DATABASE_DRIVERS.items():
+            if re.search(rf"\b{driver}\b", text_lower):
+                display_name = db.title()
+                if display_name not in skills_dict:
+                    skills_dict[display_name] = SkillDetection(
+                        name=display_name,
+                        category="Database",
+                        confidence=self.DATABASES[db],
+                        evidence=[f"Found '{driver}' driver in content"],
+                    )
+
     def _detect_tools(self, text: str, skills_dict: dict) -> None:
         """Detect tools and DevOps technologies."""
         text_lower = text.lower()
@@ -274,3 +297,28 @@ class SkillExtractor:
                         confidence=confidence,
                         evidence=[f"Found '{tool}' reference in content"],
                     )
+
+        docker_evidence = self._docker_structure_evidence(text)
+        if docker_evidence and "Docker" not in skills_dict:
+            skills_dict["Docker"] = SkillDetection(
+                name="Docker",
+                category="Tool",
+                confidence=self.TOOLS["docker"],
+                evidence=docker_evidence,
+            )
+
+    @staticmethod
+    def _docker_structure_evidence(text: str) -> list[str]:
+        """Return Dockerfile/Compose evidence; each form needs two signals (SQL has FROM)."""
+        evidence = []
+        has_from = re.search(r"^\s*FROM\s+\S+", text, re.MULTILINE)
+        has_directive = re.search(
+            r"^\s*(?:RUN|CMD|EXPOSE|COPY|ADD|ENTRYPOINT|WORKDIR)\b", text, re.MULTILINE
+        )
+        if has_from and has_directive:
+            evidence.append("Dockerfile directives (FROM plus another instruction)")
+        has_services = re.search(r"^\s*services:\s*$", text, re.MULTILINE)
+        has_build_or_image = re.search(r"^\s+(?:build|image):", text, re.MULTILINE)
+        if has_services and has_build_or_image:
+            evidence.append("Docker Compose services with build/image")
+        return evidence

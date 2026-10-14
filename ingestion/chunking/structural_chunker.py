@@ -116,12 +116,12 @@ class StructuralChunker(BaseChunker):
                 current_level = heading_level  # noqa: F841
 
             else:
-                # Regular content line
-                if heading_stack or current_section_lines:  # Only collect if we have a heading
-                    current_section_lines.append(line)
+                # Regular content line (collected even before any heading, so a
+                # document with no headings still produces a section)
+                current_section_lines.append(line)
 
-        # Save final section
-        if current_section_lines and heading_stack:
+        # Save final section (path is [] and level 0 when the document has no headings)
+        if current_section_lines:
             sections.append(
                 {
                     "content": "\n".join(current_section_lines).strip(),

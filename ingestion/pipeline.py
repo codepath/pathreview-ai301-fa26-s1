@@ -3,6 +3,8 @@ from dataclasses import dataclass
 
 import structlog
 
+from core.models.ingested_source import IngestedSource
+
 from .chunking.strategy_selector import StrategySelector
 from .embeddings.batch_processor import BatchEmbeddingProcessor
 from .embeddings.provider import EmbeddingProvider
@@ -293,10 +295,10 @@ class IngestionPipeline:
         """
         try:
             # Query database for existing source
-            # This assumes a table/model named IngestedSource
+            # source_id is persisted in the IngestedSource.source_url column
             existing = (
-                self.db_session.query("IngestedSource")  # Placeholder - actual query depends on ORM
-                .filter_by(source_id=source_id)
+                self.db_session.query(IngestedSource)
+                .filter(IngestedSource.source_url == source_id)
                 .first()
             )
 
@@ -334,16 +336,23 @@ class IngestionPipeline:
             chunk_count: Number of chunks created
         """
         try:
-            # This is a placeholder for actual database recording
-            # In a real implementation, would create IngestedSource record
+            record = IngestedSource(
+                profile_id=profile_id,
+                source_type=source_type,
+                source_url=source_id,
+                chunk_count=chunk_count,
+            )
+            self.db_session.add(record)
+            self.db_session.commit()
             logger.info(
-                "Recording ingested source",
+                "Recorded ingested source",
                 source_id=source_id,
                 source_type=source_type,
                 profile_id=profile_id,
                 chunk_count=chunk_count,
             )
         except Exception as e:
+            self.db_session.rollback()
             logger.error(
                 "Failed to record ingested source",
                 source_id=source_id,

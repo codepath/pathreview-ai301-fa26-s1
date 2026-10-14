@@ -20,7 +20,29 @@ async def create_review(
 ) -> Review:
     """
     Create a new review with status="pending".
+    Verifies that the profile belongs to the authenticated user.
     """
+    # Verify profile ownership
+    stmt = select(Profile).where(Profile.id == profile_id)
+    result = await db.execute(stmt)
+    profile = result.scalars().first()
+
+    if not profile:
+        from fastapi import HTTPException, status
+
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Profile not found",
+        )
+
+    if profile.user_id != user_id:
+        from fastapi import HTTPException, status
+
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Not authorized to create a review for this profile",
+        )
+
     review = Review(
         profile_id=profile_id,
         status="pending",

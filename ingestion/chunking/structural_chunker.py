@@ -130,4 +130,8 @@ class StructuralChunker(BaseChunker):
                 }
             )
 
+        # No headings at all: keep the whole document as one section
+        if not heading_stack and text.strip():
+            sections.append({"content": text.strip(), "path": [], "level": 0})
+
         return sections

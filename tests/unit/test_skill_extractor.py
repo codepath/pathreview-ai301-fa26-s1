@@ -43,9 +43,6 @@ class TestSkillExtractor:
         # Should still detect Python despite no imports
         assert any("python" in s.lower() for s in skill_names)
 
-    @pytest.mark.xfail(
-        strict=True, reason="issue #55: skill extractor does not detect JavaScript/TypeScript"
-    )
     def test_text_with_typescript_files(self, extractor):
         """Test TypeScript detection."""
         text = """
@@ -179,9 +176,6 @@ class TestSkillExtractor:
         # Filename should provide Python hint
         assert any("python" in s.lower() for s in skill_names)
 
-    @pytest.mark.xfail(
-        strict=True, reason="issue #55: skill extractor does not detect JavaScript/TypeScript"
-    )
     def test_javascript_detection(self, extractor):
         """Test JavaScript detection."""
         text = """
@@ -254,3 +248,51 @@ class TestSkillExtractor:
         assert skill.category == "Language"
         assert skill.confidence == 0.95
         assert len(skill.evidence) == 1
+
+
+class TestJsTsDetection:
+    """Issue #55: JavaScript/TypeScript detection beyond filename and `import `."""
+
+    @pytest.fixture
+    def extractor(self):
+        return SkillExtractor()
+
+    @staticmethod
+    def _names(skills):
+        return [s.name for s in skills]
+
+    @pytest.mark.parametrize("snippet", ['require("fs")', "require('fs')", 'import("./mod")'])
+    def test_call_syntax_without_space(self, extractor, snippet):
+        result = extractor.extract_skills(snippet)
+        js = next(s for s in result if s.name == "JavaScript")
+        assert js.evidence
+
+    @pytest.mark.parametrize("filename", ["app.jsx", "util.mjs", "config.cjs"])
+    def test_js_extensions(self, extractor, filename):
+        assert "JavaScript" in self._names(extractor.extract_skills("x", filename))
+
+    @pytest.mark.parametrize("filename", ["App.tsx", "types.ts"])
+    def test_ts_extensions(self, extractor, filename):
+        assert "TypeScript" in self._names(extractor.extract_skills("x", filename))
+
+    def test_ts_file_with_only_exports(self, extractor):
+        text = "export interface User { id: string }\nexport class Svc {}"
+        names = self._names(extractor.extract_skills(text, "user.ts"))
+        assert "TypeScript" in names
+
+    def test_export_without_filename_is_javascript(self, extractor):
+        names = self._names(extractor.extract_skills("export default function App() {}"))
+        assert "JavaScript" in names
+        assert "TypeScript" not in names
+
+    def test_python_class_and_async_not_javascript(self, extractor):
+        text = "class Foo:\n    async def run(self):\n        await self.go()\n"
+        names = self._names(extractor.extract_skills(text))
+        assert "JavaScript" not in names
+        assert "TypeScript" not in names
+
+    def test_plain_prose_not_javascript(self, extractor):
+        text = "Let me know if the function of this class is unclear."
+        names = self._names(extractor.extract_skills(text))
+        assert "JavaScript" not in names
+        assert "TypeScript" not in names

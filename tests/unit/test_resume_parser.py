@@ -17,11 +17,11 @@ class TestResumeParser:
         """Create a ResumeParser instance."""
         return ResumeParser()
 
-    @pytest.mark.xfail(
-        strict=True, reason="issue #54: resume section detection fails on leading whitespace"
-    )
     def test_parse_single_column_resume_text(self, parser, sample_resume_text):
-        """Test parsing a standard single-column resume text."""
+        """Test parsing a standard single-column resume text.
+
+        Regression guard for issue #54: leading-whitespace section detection.
+        """
         result = parser.parse(sample_resume_text)
 
         assert isinstance(result, ParseResult)
@@ -36,9 +36,6 @@ class TestResumeParser:
             "skills" in s for s in detected_lower
         )
 
-    @pytest.mark.xfail(
-        strict=True, reason="issue #54: resume section detection fails on leading whitespace"
-    )
     def test_parse_resume_no_work_experience(self, parser):
         """Test parsing a resume with no work experience section - handles gracefully."""
         resume_no_work = """
@@ -87,9 +84,6 @@ class TestResumeParser:
             assert "Page 2 Content" in result.text
             assert "Page 3 Content" in result.text
 
-    @pytest.mark.xfail(
-        strict=True, reason="issue #54: resume section detection fails on leading whitespace"
-    )
     def test_parse_markdown_resume(self, parser):
         """Test parsing a Markdown resume."""
         markdown_resume = """
@@ -114,6 +108,17 @@ class TestResumeParser:
         assert "#" not in result.text or result.text.count("#") < markdown_resume.count("#")
         assert "Jane Doe" in result.text
 
+    def test_parse_indented_header_text(self, parser):
+        """Exact repro from issue #54: leading-whitespace text must still detect sections."""
+        res = parser.parse(
+            "\n    John Smith\n    john@example.com\n"
+            "\n    Education:\n    - B.S. Computer Science\n"
+            "\n    Skills: Python\n"
+        )
+        detected = [s.lower() for s in res.metadata["detected_sections"]]
+        assert any("education" in s for s in detected)
+        assert any("skills" in s for s in detected)
+
     def test_parse_invalid_content_type(self, parser):
         """Test that invalid content type raises ValueError with clear message."""
         with pytest.raises(ValueError) as exc_info:
@@ -132,9 +137,6 @@ class TestResumeParser:
             exc_info.value
         )
 
-    @pytest.mark.xfail(
-        strict=True, reason="issue #54: resume section detection fails on leading whitespace"
-    )
     def test_detect_sections(self, parser):
         """Test section detection in resume text."""
         text = """
@@ -155,9 +157,6 @@ class TestResumeParser:
         assert any("education" in s for s in sections_lower)
         assert any("skills" in s for s in sections_lower)
 
-    @pytest.mark.xfail(
-        strict=True, reason="issue #54: resume section detection fails on leading whitespace"
-    )
     def test_strip_markdown_syntax(self, parser):
         """Test markdown syntax stripping."""
         markdown_text = """

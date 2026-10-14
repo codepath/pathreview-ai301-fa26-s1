@@ -97,8 +97,10 @@ class ResumeParser(BaseParser):
 
     def _strip_markdown(self, content: str) -> str:
         """Remove markdown syntax from content."""
-        # Remove markdown headers
-        text = re.sub(r"^#+\s+", "", content, flags=re.MULTILINE)
+        # Remove markdown headers (allow leading whitespace so indented
+        # headers, common in PDF-extracted text, are stripped like
+        # line-start ones).
+        text = re.sub(r"^[ \t]*#+[ \t]+", "", content, flags=re.MULTILINE)
 
         # Remove markdown links [text](url)
         text = re.sub(r"\[([^\]]+)\]\(([^\)]+)\)", r"\1", text)
@@ -129,12 +131,13 @@ class ResumeParser(BaseParser):
         text_lower = text.lower()
 
         for section in SECTION_HEADERS:
-            # Look for section header patterns
+            # Look for section header patterns.
+            # Allow leading whitespace ([ \t]*): PDF extraction commonly
+            # preserves indentation, and headers must still be detected then
+            # (issue #54).
             patterns = [
-                rf"^{re.escape(section)}\s*$",
-                rf"^{re.escape(section)}\s*[:|-]",
-                rf"\n{re.escape(section)}\s*$",
-                rf"\n{re.escape(section)}\s*[:|-]",
+                rf"^[ \t]*{re.escape(section)}[ \t]*$",
+                rf"^[ \t]*{re.escape(section)}[ \t]*[:|-]",
             ]
 
             for pattern in patterns:

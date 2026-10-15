@@ -32,9 +32,17 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
         hashed_password: Previously hashed password to compare against
 
     Returns:
-        True if password matches, False otherwise
+        True if password matches, False otherwise. A stored hash that cannot
+        be identified or parsed also returns False, so verification fails
+        closed rather than raising.
     """
-    return bool(pwd_context.verify(plain_password, hashed_password))
+    try:
+        return bool(pwd_context.verify(plain_password, hashed_password))
+    except ValueError:
+        # passlib raises UnknownHashError (a ValueError subclass) for a hash it
+        # cannot identify, and a bare ValueError for a malformed bcrypt-prefixed
+        # hash. Either way the stored hash is unusable.
+        return False
 
 
 def create_access_token(data: dict[str, Any], expires_delta: timedelta | None = None) -> str:

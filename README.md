@@ -21,7 +21,8 @@ PathReview analyzes GitHub profiles, resumes, and project repositories to genera
 git clone https://github.com/codepath/pathreview.git
 cd pathreview
 
-# Configure environment (add your OPENROUTER_API_KEY to .env)
+# Configure environment (mock is the default and needs no API key;
+# OPENROUTER_API_KEY is optional)
 cp .env.example .env
 
 # Start backing services — must be running before make setup

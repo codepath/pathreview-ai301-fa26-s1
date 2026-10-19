@@ -28,6 +28,7 @@ async def create_review_endpoint(
 ):
     """
     Create a new review for a profile.
+    Returns 404 if the profile is not found or not owned by current user.
     Triggers ingestion pipeline and agent orchestration asynchronously.
     Returns review with status="pending" immediately.
     """
@@ -38,6 +39,12 @@ async def create_review_endpoint(
             profile_id=data.profile_id,
             user_id=current_user.id,
         )
+
+        if not review:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="Profile not found",
+            )
 
         # Add background task for processing
         background_tasks.add_task(process_review, db, review.id, data.profile_id)

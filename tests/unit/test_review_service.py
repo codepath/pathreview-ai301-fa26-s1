@@ -44,9 +44,16 @@ class TestReviewService:
         profile.user_id = uuid4()
         return profile
 
+    @pytest.fixture(autouse=True)
+    def mock_get_profile(self, mock_profile):
+        """Return an owned profile for create_review tests by default."""
+        with patch("core.services.review_service.get_profile", new_callable=AsyncMock) as mock:
+            mock.return_value = mock_profile
+            yield mock
+
     @pytest.mark.asyncio
     async def test_create_review_returns_review_with_pending_status(
-        self, mock_db_session, mock_review
+        self, mock_db_session, mock_review, mock_get_profile
     ):
         """Test create_review returns Review with status='pending'."""
         profile_id = uuid4()
@@ -65,10 +72,30 @@ class TestReviewService:
 
             result = await create_review(mock_db_session, profile_id, user_id)
 
+            mock_get_profile.assert_awaited_once_with(mock_db_session, profile_id, user_id)
             # Check that Review was instantiated
-            MockReview.assert_called()
+            MockReview.assert_called_once()
             call_kwargs = MockReview.call_args[1]
             assert call_kwargs["status"] == "pending"
+            assert result is mock_instance
+
+    @pytest.mark.asyncio
+    async def test_create_review_returns_none_for_profile_not_owned_by_user(
+        self, mock_db_session, mock_get_profile
+    ):
+        """Test create_review rejects a profile not owned by the user."""
+        profile_id = uuid4()
+        user_id = uuid4()
+        mock_get_profile.return_value = None
+
+        with patch("core.services.review_service.Review") as MockReview:
+            result = await create_review(mock_db_session, profile_id, user_id)
+
+        mock_get_profile.assert_awaited_once_with(mock_db_session, profile_id, user_id)
+        assert result is None
+        MockReview.assert_not_called()
+        mock_db_session.add.assert_not_called()
+        mock_db_session.commit.assert_not_awaited()
 
     @pytest.mark.asyncio
     @pytest.mark.xfail(

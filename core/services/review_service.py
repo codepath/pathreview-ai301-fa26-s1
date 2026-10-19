@@ -9,6 +9,7 @@ from api.schemas.review import FeedbackSection
 from core.models.ingested_source import IngestedSource
 from core.models.profile import Profile
 from core.models.review import Review
+from core.services.profile_service import get_profile
 
 log = structlog.get_logger()
 
@@ -17,10 +18,15 @@ async def create_review(
     db,
     profile_id: UUID,
     user_id: UUID,
-) -> Review:
+) -> Review | None:
     """
-    Create a new review with status="pending".
+    Create a new review with status="pending" for a profile owned by the user.
+    Returns None if the profile is not found or is not owned by the user.
     """
+    profile = await get_profile(db, profile_id, user_id)
+    if not profile:
+        return None
+
     review = Review(
         profile_id=profile_id,
         status="pending",

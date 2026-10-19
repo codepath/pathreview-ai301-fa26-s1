@@ -78,12 +78,14 @@ class StructuralChunker(BaseChunker):
         Extract sections from markdown with heading hierarchy.
 
         Returns list of dicts with: content, path (breadcrumb), level
+
+        A document with no headings is returned as one section with an
+        empty path and level 0.
         """
         lines = text.split("\n")
         sections = []
         heading_stack = []  # Stack of (level, heading_text)
         current_section_lines = []
-        current_level = 0
 
         for line in lines:
             heading_match = re.match(r"^(#{1,6})\s+(.+)$", line)
@@ -110,18 +112,13 @@ class StructuralChunker(BaseChunker):
                     heading_stack.pop()
 
                 heading_stack.append((heading_level, heading_text))
-                # Seeded defect (issue #56): the tracked heading level is never read back,
-                # so heading-less documents get dropped. Leave as-is -- removing the
-                # assignment would hide the bug from students.
-                current_level = heading_level  # noqa: F841
 
             else:
                 # Regular content line
-                if heading_stack or current_section_lines:  # Only collect if we have a heading
-                    current_section_lines.append(line)
+                current_section_lines.append(line)
 
         # Save final section
-        if current_section_lines and heading_stack:
+        if current_section_lines:
             sections.append(
                 {
                     "content": "\n".join(current_section_lines).strip(),

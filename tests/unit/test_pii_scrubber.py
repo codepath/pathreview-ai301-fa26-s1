@@ -218,10 +218,6 @@ class TestPIIScrubber:
         scrubbed = scrubber.scrub(text)
         assert scrubbed == text
 
-    @pytest.mark.xfail(
-        strict=True,
-        reason="issue #53: PII scrubber does not redact parenthesized US phone numbers",
-    )
     def test_mixed_pii_and_text(self, scrubber):
         """Test text with mix of PII and regular content."""
         text = """

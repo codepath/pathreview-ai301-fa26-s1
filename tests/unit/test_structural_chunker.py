@@ -25,9 +25,6 @@ class TestStructuralChunker:
         result = chunker.chunk("   \n\n  ", {})
         assert result == []
 
-    @pytest.mark.xfail(
-        strict=True, reason="issue #56: structural chunker drops documents with no headings"
-    )
     def test_document_with_no_headings(self, chunker):
         """Test document with no headings returns single chunk."""
         text = "This is plain text without any markdown headings. " * 20
@@ -36,6 +33,14 @@ class TestStructuralChunker:
         assert len(result) >= 1
         assert isinstance(result[0], Chunk)
         assert all(isinstance(c, Chunk) for c in result)
+
+    def test_long_document_with_no_headings_is_not_dropped(self, chunker):
+        """A headingless document over the section token limit is still chunked."""
+        text = "This is plain text without any markdown headings. " * 200
+        result = chunker.chunk(text, {"source": "test"})
+
+        assert len(result) >= 1
+        assert all(c.text.strip() for c in result)
 
     def test_document_with_nested_headings(self, chunker):
         """Test document with nested headings preserves heading_path."""

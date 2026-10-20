@@ -222,10 +222,6 @@ class TestFaithfulnessChecker:
         assert isinstance(supported, bool)
         # Need at least 2 meaningful tokens for support
 
-    @pytest.mark.xfail(
-        strict=True,
-        reason="issue #60: faithfulness checker crashes when a context chunk has text: None",
-    )
     def test_none_context_chunk_text(self, checker):
         """Test handling of None in context chunk text."""
         feedback = "Has Python skills"
@@ -236,6 +232,16 @@ class TestFaithfulnessChecker:
         # Should handle gracefully
         assert isinstance(score, float)
         assert 0.0 <= score <= 1.0
+
+    def test_none_chunk_next_to_real_chunk(self, checker):
+        """Test that a None chunk does not change the score of a real chunk."""
+        feedback = "Has Python skills"
+        real_chunk = {"text": "Has Python skills"}
+
+        mixed = checker.check(feedback, [{"text": None}, real_chunk])
+        alone = checker.check(feedback, [real_chunk])
+
+        assert mixed == alone
 
     def test_missing_text_key_in_chunk(self, checker):
         """Test handling of missing 'text' key in context chunk."""

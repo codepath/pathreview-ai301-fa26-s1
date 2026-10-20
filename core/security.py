@@ -8,6 +8,9 @@ from passlib.context import CryptContext
 
 from core.config import settings
 
+from passlib.context import CryptContext
+from passlib.exc import UnknownHashError
+
 # Password hashing context
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -34,7 +37,11 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
     Returns:
         True if password matches, False otherwise
     """
-    return bool(pwd_context.verify(plain_password, hashed_password))
+    # return bool(pwd_context.verify(plain_password, hashed_password))
+    try:
+        return bool(pwd_context.verify(plain_password, hashed_password))
+    except UnknownHashError:
+        return False
 
 
 def create_access_token(data: dict[str, Any], expires_delta: timedelta | None = None) -> str:

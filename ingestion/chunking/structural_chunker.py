@@ -130,4 +130,9 @@ class StructuralChunker(BaseChunker):
                 }
             )
 
+        # A document with no headings never starts a section above, so keep it whole
+        # rather than dropping it.
+        if not sections and text.strip():
+            sections.append({"content": text.strip(), "path": [], "level": 0})
+
         return sections

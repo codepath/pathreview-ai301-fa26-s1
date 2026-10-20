@@ -2,12 +2,14 @@
 
 import json
 from types import SimpleNamespace
-from typing import cast
+from typing import TYPE_CHECKING, cast
 
 import pytest
 
-from agent.memory.session_store import SessionStore
 from agent.orchestrator import Orchestrator
+
+if TYPE_CHECKING:
+    from agent.memory.session_store import SessionStore
 
 
 class FakeSessionStore:
@@ -48,7 +50,7 @@ PROFILE = {
 
 def make_orchestrator(tools, store):
     """Build an Orchestrator around the in-memory store."""
-    return Orchestrator(tools, cast(SessionStore, store))
+    return Orchestrator(tools, cast("SessionStore", store))
 
 
 def make_tools(calls, die_in=None):

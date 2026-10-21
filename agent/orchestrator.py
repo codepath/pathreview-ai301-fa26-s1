@@ -51,21 +51,36 @@ class Orchestrator:
 
         # Execute plan
         results = {}
+        stored_inputs = session_state.setdefault("_inputs", {})
         for tool_name, tool_input in plan:
+            input_hash = ContextManager.hash_input(tool_input)
+
+            # Resume: reuse a stored success for the same input instead of re-running
+            stored = session_state.get(tool_name)
+            if (
+                stored is not None
+                and not (isinstance(stored, dict) and stored.get("success") is False)
+                and stored_inputs.get(tool_name) == input_hash
+            ):
+                results[tool_name] = stored
+                logger.info("tool_resumed", tool=tool_name)
+                continue
+
             try:
                 result = self._execute_tool(tool_name, tool_input)
                 results[tool_name] = result.data if hasattr(result, "data") else result
 
                 logger.info("tool_executed", tool=tool_name, success=True)
 
+                # Persist right away so a killed process keeps finished tools
+                if self.session_store:
+                    session_state[tool_name] = results[tool_name]
+                    stored_inputs[tool_name] = input_hash
+                    self.session_store.set(profile_id, session_state)
+
             except Exception as e:
                 logger.error("tool_execution_failed", tool=tool_name, error=str(e))
                 results[tool_name] = {"error": str(e), "success": False}
-
-        # Persist state
-        if self.session_store:
-            session_state.update(results)
-            self.session_store.set(profile_id, session_state)
 
         logger.info("orchestrator_complete", profile_id=profile_id, tools_executed=len(results))
 

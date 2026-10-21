@@ -149,14 +149,14 @@ class TechDetector(BaseTool):
             True if file should be skipped
         """
         skip_patterns = [
-            "/node_modules/",
-            "/vendor/",
-            "/dist/",
-            "/build/",
-            "/.git/",
-            "/__pycache__/",
-            "/.venv/",
-            "/venv/",
+            "node_modules/",
+            "vendor/",
+            "dist/",
+            "build/",
+            ".git/",
+            "__pycache__/",
+            ".venv/",
+            "venv/",
         ]
 
         return any(pattern in filepath for pattern in skip_patterns)

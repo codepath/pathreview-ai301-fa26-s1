@@ -138,18 +138,46 @@ class TestOutputParser:
         # Should return empty list or handle gracefully
         assert isinstance(result, list)
 
-    @pytest.mark.xfail(
-        strict=True,
-        reason="issue #69 (manifest H-02): output parser calls .items() on a JSON array fallback",
-    )
     def test_json_array_fallback(self):
         """Test handling of JSON array (not dict)."""
         raw_output = json.dumps(["First feedback item", "Second feedback item"])
 
         result = parse_review_output(raw_output)
 
-        # May fall back to plaintext or handle specially
-        assert isinstance(result, list)
+        assert result == [FeedbackSection("general_feedback", raw_output, 0.7, [])]
+
+    def test_json_array_in_fence_fallback(self):
+        """Keep the complete fenced array as plaintext feedback."""
+        raw_output = '```json\n["First feedback item", "Second feedback item"]\n```'
+
+        result = parse_review_output(raw_output)
+
+        assert result == [FeedbackSection("general_feedback", raw_output, 0.7, [])]
+
+    @pytest.mark.parametrize("value", [[], "just text", 42, None, True])
+    @pytest.mark.parametrize("fenced", [False, True])
+    def test_non_object_json_preserves_raw_feedback(self, value, fenced):
+        """Valid JSON without section names uses the exact original text."""
+        raw_output = json.dumps(value)
+        if fenced:
+            raw_output = f"```json\n{raw_output}\n```"
+
+        result = parse_review_output(raw_output)
+
+        assert result == [FeedbackSection("general_feedback", raw_output, 0.7, [])]
+
+    @pytest.mark.parametrize("value", [{"summary": "Works"}, {}])
+    @pytest.mark.parametrize("fenced", [False, True])
+    def test_json_objects_keep_structured_behavior(self, value, fenced):
+        """The fallback guard leaves populated and empty objects unchanged."""
+        raw_output = json.dumps(value)
+        if fenced:
+            raw_output = f"```json\n{raw_output}\n```"
+
+        result = parse_review_output(raw_output)
+
+        expected = [FeedbackSection("summary", "Works", 0.85, [])] if value else []
+        assert result == expected
 
     def test_very_long_plain_text(self):
         """Test parsing very long plain text."""

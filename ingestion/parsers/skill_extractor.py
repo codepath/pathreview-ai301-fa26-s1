@@ -90,6 +90,11 @@ class SkillExtractor:
         "oracle": 0.85,
     }
 
+    # Client libraries whose name implies a database (#55).
+    DATABASE_ALIASES = {
+        "psycopg": "postgresql",
+    }
+
     TOOLS = {
         "docker": 0.95,
         "kubernetes": 0.95,
@@ -178,12 +183,21 @@ class SkillExtractor:
             js_evidence.append("TypeScript file extension (.ts)")
         if re.search(r"\b(import|require)\s+", text):
             js_evidence.append("CommonJS or ES6 imports")
+        if re.search(r"\brequire\s*\(", text):
+            js_evidence.append("CommonJS require() call")
         if "package.json" in text_lower:
             js_evidence.append("package.json found")
+        has_ts_syntax = bool(
+            re.search(r"\binterface\s+\w+\s*\{", text)
+            or re.search(r"\w\s*:\s*(string|number|boolean)\b", text)
+        )
+        if has_ts_syntax:
+            js_evidence.append("TypeScript interface or type annotation")
 
         if js_evidence:
             confidence = min(0.95, 0.6 + len(js_evidence) * 0.1)
-            lang = "TypeScript" if ".ts" in str(filename or "").lower() else "JavaScript"
+            is_ts = ".ts" in str(filename or "").lower() or has_ts_syntax
+            lang = "TypeScript" if is_ts else "JavaScript"
             skills_dict[lang] = SkillDetection(
                 name=lang,
                 category="Language",
@@ -249,6 +263,10 @@ class SkillExtractor:
         """Detect databases."""
         text_lower = text.lower()
 
+        for alias, db in self.DATABASE_ALIASES.items():
+            if alias in text_lower and db not in text_lower:
+                text_lower += f" {db}"
+
         for db, confidence in self.DATABASES.items():
             if db in text_lower:
                 display_name = db.upper() if db in ["sql", "nosql"] else db.title()
@@ -263,6 +281,20 @@ class SkillExtractor:
     def _detect_tools(self, text: str, skills_dict: dict) -> None:
         """Detect tools and DevOps technologies."""
         text_lower = text.lower()
+
+        # Dockerfile or Compose structure implies Docker even when the word
+        # "docker" never appears (#55). Two Dockerfile lines are required so a
+        # SQL FROM clause alone does not count.
+        is_dockerfile = bool(
+            re.search(r"^\s*FROM\s+\S+", text, re.MULTILINE)
+            and re.search(r"^\s*(RUN|EXPOSE|CMD|COPY|WORKDIR|ENTRYPOINT)\b", text, re.MULTILINE)
+        )
+        is_compose = bool(
+            re.search(r"^\s*services:\s*$", text, re.MULTILINE)
+            and re.search(r"^\s+(build|image):", text, re.MULTILINE)
+        )
+        if (is_dockerfile or is_compose) and "docker" not in text_lower:
+            text_lower += " docker"
 
         for tool, confidence in self.TOOLS.items():
             if tool in text_lower:

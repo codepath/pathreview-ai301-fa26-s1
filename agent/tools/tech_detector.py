@@ -148,15 +148,17 @@ class TechDetector(BaseTool):
         Returns:
             True if file should be skipped
         """
-        skip_patterns = [
-            "/node_modules/",
-            "/vendor/",
-            "/dist/",
-            "/build/",
-            "/.git/",
-            "/__pycache__/",
-            "/.venv/",
-            "/venv/",
-        ]
+        skip_dirs = {
+            "node_modules",
+            "vendor",
+            "dist",
+            "build",
+            ".git",
+            "__pycache__",
+            ".venv",
+            "venv",
+        }
 
-        return any(pattern in filepath for pattern in skip_patterns)
+        # Match whole directory names (the last part is the file name), so
+        # root-relative paths are skipped without matching "src/rebuild/".
+        return any(part in skip_dirs for part in filepath.split("/")[:-1])

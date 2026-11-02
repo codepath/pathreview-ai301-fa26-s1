@@ -4,10 +4,19 @@ import structlog
 from fastapi import APIRouter, Depends, HTTPException, status
 
 from core.database import get_db
+from safety.monitoring import SafetyMonitor
 
 log = structlog.get_logger()
 
 router = APIRouter(prefix="/health", tags=["health"])
+
+
+def _count_safety_events(redis_client) -> int:
+    """Sum the safety event counters across all event types."""
+    monitor = SafetyMonitor(redis_client)
+    return sum(
+        monitor.get_event_count(event_type) for event_type in SafetyMonitor.VALID_EVENT_TYPES
+    )
 
 
 @router.get("")
@@ -74,10 +83,14 @@ async def health_check(db=Depends(get_db)):
         health_status["dependencies"]["vector_db"] = "unhealthy"
         health_status["status"] = "unhealthy"
 
-    # Count safety events in last hour (placeholder)
+    # Count safety events recorded by SafetyMonitor
     try:
-        # This would be populated by actual safety event logging
-        health_status["safety_events_last_hour"] = 0
+        import redis
+
+        from core.config import settings
+
+        safety_redis = redis.Redis.from_url(settings.redis_url, decode_responses=True)
+        health_status["safety_events_last_hour"] = _count_safety_events(safety_redis)
     except Exception as exc:
         log.error("safety_events_check_failed", error=str(exc))
 

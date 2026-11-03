@@ -33,9 +33,8 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
         hashed_password: Previously hashed password to compare against
 
     Returns:
-        True if password matches, False otherwise
+        True if password matches, False if it doesn't match or stored hash format is unrecognized.
     """
-    # return bool(pwd_context.verify(plain_password, hashed_password))
     try:
         return bool(pwd_context.verify(plain_password, hashed_password))
     except UnknownHashError:
